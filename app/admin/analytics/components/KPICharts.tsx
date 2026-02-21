@@ -13,13 +13,12 @@ interface KPIChartsProps {
 }
 
 const KPICharts: React.FC<KPIChartsProps> = ({ userKpiData, userKraData, yearlyProgressData, COLORS }) => {
-  // Render recharts or other chart components here using the provided data
   return (
     <div className="space-y-8">
       {/* KPI Pie Chart */}
       {userKpiData && userKpiData.length > 0 && (
-        <div>
-          <div className="font-semibold mb-2">KPI Progress by Subject</div>
+        <div className="skeu-inset p-4 rounded-xl">
+          <div className="font-semibold mb-3 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>KPI Progress by Subject</div>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie
@@ -43,13 +42,13 @@ const KPICharts: React.FC<KPIChartsProps> = ({ userKpiData, userKraData, yearlyP
       )}
       {/* KRA Bar Chart */}
       {userKraData && userKraData.length > 0 && (
-        <div>
-          <div className="font-semibold mb-2">KRA Average Progress by Semester</div>
+        <div className="skeu-inset p-4 rounded-xl">
+          <div className="font-semibold mb-3 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>KRA Average Progress by Semester</div>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={userKraData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border-secondary)" />
+              <XAxis dataKey="name" stroke="var(--text-secondary)" />
+              <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} stroke="var(--text-secondary)" />
               <Tooltip formatter={(value) => `${value}%`} />
               <Legend />
               <Bar dataKey="avgProgress" fill="#8884d8" name="Avg Progress (%)" />
@@ -59,13 +58,13 @@ const KPICharts: React.FC<KPIChartsProps> = ({ userKpiData, userKraData, yearlyP
       )}
       {/* Yearly Progress Bar Chart */}
       {yearlyProgressData && yearlyProgressData.length > 0 && (
-        <div>
-          <div className="font-semibold mb-2">Yearly Progress</div>
+        <div className="skeu-inset p-4 rounded-xl">
+          <div className="font-semibold mb-3 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>Yearly Progress</div>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={yearlyProgressData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border-secondary)" />
+              <XAxis dataKey="name" stroke="var(--text-secondary)" />
+              <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} stroke="var(--text-secondary)" />
               <Tooltip formatter={(value) => `${value}%`} />
               <Legend />
               <Bar dataKey="progress" fill="#00C49F" name="Progress (%)" />

@@ -15,51 +15,55 @@ export default function UserMobileCard({ user, expandedUser, toggleUserExpand, f
   return (
     <div
       key={user.id}
-      className="bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600 p-4"
+      className="skeu-card-static rounded-xl border border-skeu p-4"
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-3">
           {user.photoURL ? (
-            <Image
-              src={user.photoURL}
-              alt={user.name}
-              width={48}
-              height={48}
-              className="rounded-full ring-2 ring-gray-200 dark:ring-gray-600"
-            />
+            <div className="skeu-inset p-0.5 rounded-full">
+              <Image
+                src={user.photoURL}
+                alt={user.name}
+                width={44}
+                height={44}
+                className="rounded-full"
+              />
+            </div>
           ) : (
-            <div className="h-12 w-12 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-lg font-semibold">
+            <div className="skeu-inset h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold"
+              style={{ color: 'var(--text-secondary)' }}
+            >
               {user.name.charAt(0).toUpperCase()}
             </div>
           )}
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white">{user.name}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+            <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{user.name}</h3>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{user.email}</p>
           </div>
         </div>
         <button
           onClick={() => toggleUserExpand(user.id)}
-          className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          className="skeu-btn-icon p-2 rounded-lg"
         >
           {expandedUser === user.id ? (
-            <ChevronUp className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            <ChevronUp className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
           ) : (
-            <ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            <ChevronDown className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
           )}
         </button>
       </div>
       <div className="grid grid-cols-2 gap-4 text-sm mb-3">
         <div>
-          <p className="text-gray-500 dark:text-gray-400">Joined</p>
-          <p className="font-medium text-gray-900 dark:text-white">{formatDate(user.createdAt)}</p>
+          <p style={{ color: 'var(--text-muted)' }}>Joined</p>
+          <p className="font-medium" style={{ color: 'var(--text-primary)' }}>{formatDate(user.createdAt)}</p>
         </div>
         <div>
-          <p className="text-gray-500 dark:text-gray-400">Last Active</p>
-          <p className="font-medium text-gray-900 dark:text-white">{formatDate(user.updatedAt)}</p>
+          <p style={{ color: 'var(--text-muted)' }}>Last Active</p>
+          <p className="font-medium" style={{ color: 'var(--text-primary)' }}>{formatDate(user.updatedAt)}</p>
         </div>
       </div>
       {expandedUser === user.id && (
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+        <div className="mt-4 pt-4" style={{ borderTop: '1px solid var(--border-primary)' }}>
           {renderProgressData(user.id)}
         </div>
       )}

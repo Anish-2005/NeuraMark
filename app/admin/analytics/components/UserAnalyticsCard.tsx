@@ -35,43 +35,42 @@ const UserAnalyticsCard: React.FC<UserAnalyticsCardProps> = ({
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3 }}
-    className={`p-5 rounded-xl ${isDark ? 'bg-gray-700/50' : 'bg-white/60'} border-2 ${borderColor} shadow-lg hover:shadow-xl transition-all backdrop-blur-sm`}
+    className="skeu-card-static p-5 rounded-xl border border-skeu"
   >
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
         {user.photoURL ? (
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur opacity-40"></div>
+          <div className="skeu-inset p-0.5 rounded-full">
             <Image
               src={user.photoURL}
               alt={user.name}
-              width={48}
-              height={48}
-              className="rounded-full ring-2 ring-indigo-500 relative"
+              width={44}
+              height={44}
+              className="rounded-full"
             />
           </div>
         ) : (
-          <div className={`h-12 w-12 rounded-full flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg`}>
-            <User size={20} />
+          <div className="skeu-inset h-12 w-12 rounded-full flex items-center justify-center">
+            <User size={20} style={{ color: 'var(--text-secondary)' }} />
           </div>
         )}
         <div>
-          <div className={`font-medium ${textColor}`}>{user.name}</div>
-          <div className={`text-xs ${secondaryText}`}>{user.email}</div>
+          <div className="font-medium" style={{ color: 'var(--text-primary)' }}>{user.name}</div>
+          <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>{user.email}</div>
         </div>
       </div>
       <button
         onClick={() => toggleUserExpand(user.id)}
-        className={`p-2 rounded-lg transition-all transform hover:scale-110 active:scale-95 ${isDark ? 'bg-gray-600/50 hover:bg-gray-600' : 'bg-purple-100 hover:bg-purple-200'}`}
+        className="skeu-btn-icon p-2 rounded-lg"
+        style={{ color: 'var(--accent-primary)' }}
       >
         {expandedUser === user.id ? (
-          <ChevronUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <ChevronUp className="w-5 h-5" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <ChevronDown className="w-5 h-5" />
         )}
       </button>
     </div>
-    {/* KPI, KRA, and Yearly Progress charts/components would go here, to be further componentized if needed */}
     {expandedUser === user.id && (
       <div className="mt-6">
         <KPICharts

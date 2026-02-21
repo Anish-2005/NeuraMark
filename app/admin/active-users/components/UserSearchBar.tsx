@@ -17,12 +17,14 @@ export default function UserSearchBar({ searchQuery, setSearchQuery, fetchAllDat
           placeholder="Search users..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="skeu-input w-full sm:w-64 px-4 py-2 rounded-lg text-sm"
+          style={{ color: 'var(--text-primary)' }}
         />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery('')}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+            style={{ color: 'var(--text-muted)' }}
           >
             <X className="w-4 h-4" />
           </button>
@@ -30,7 +32,7 @@ export default function UserSearchBar({ searchQuery, setSearchQuery, fetchAllDat
       </div>
       <button
         onClick={fetchAllData}
-        className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
+        className="skeu-btn-primary flex items-center justify-center px-4 py-2 rounded-lg font-medium text-sm"
         disabled={loading}
       >
         <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
