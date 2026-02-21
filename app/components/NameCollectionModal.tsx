@@ -15,7 +15,7 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
   const [loading, setLoading] = useState(false);
   const { completeProfile } = useAuth();
 
-  interface HandleSubmitEvent extends React.FormEvent<HTMLFormElement> {}
+  interface HandleSubmitEvent extends React.FormEvent<HTMLFormElement> { }
 
   interface CompleteProfileError extends Error {
     message: string;
@@ -42,24 +42,26 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="fixed inset-0 skeu-modal-backdrop flex items-center justify-center z-50 p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md"
+          className="skeu-modal p-8 w-full max-w-md rounded-2xl"
         >
-          <h2 className="text-2xl font-bold mb-4 dark:text-white">Tell us your name</h2>
-          
+          <h2 className="text-2xl font-bold mb-4 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+            Tell us your name
+          </h2>
+
           {error && (
-            <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded">
+            <div className="skeu-inset mb-4 p-3 rounded-xl text-sm" style={{ color: 'var(--accent-danger)' }}>
               {error}
             </div>
           )}
-          
+
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium mb-1 dark:text-gray-300">
+            <div className="mb-5">
+              <label htmlFor="name" className="block text-sm font-semibold mb-2 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                 Full Name
               </label>
               <input
@@ -67,24 +69,24 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="skeu-input w-full rounded-xl"
                 placeholder="Enter your full name"
                 autoFocus
               />
             </div>
-            
-            <div className="flex justify-end gap-2">
+
+            <div className="flex justify-end gap-3">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                className="skeu-btn-secondary px-5 py-2.5 rounded-xl text-sm"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50"
+                className="skeu-btn-primary px-5 py-2.5 rounded-xl text-sm disabled:opacity-50"
               >
                 {loading ? 'Saving...' : 'Continue'}
               </button>

@@ -7,7 +7,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { collection, query, where, getDocs, addDoc, doc, updateDoc, deleteDoc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useTheme } from '../../context/ThemeContext';
-import { Upload,MessageCircle, ChevronDown, ChevronUp, BarChart2, Bookmark, User, Menu, Moon, Sun, Plus, Trash2, Edit, Save, X, Copy, Activity, Clipboard, PieChart, BookOpen, Zap, FileText, Download } from 'lucide-react'
+import { Upload, MessageCircle, ChevronDown, ChevronUp, BarChart2, Bookmark, User, Menu, Moon, Sun, Plus, Trash2, Edit, Save, X, Copy, Activity, Clipboard, PieChart, BookOpen, Zap, FileText, Download } from 'lucide-react'
 
 interface Module {
     name: string;
@@ -374,7 +374,7 @@ export default function Dashboard() {
         };
 
         loadUserPreferences();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]); // Only depend on user
 
     const saveUserPreferences = useCallback(async () => {
@@ -898,11 +898,11 @@ export default function Dashboard() {
                 <div class="topics-label">Topics Covered:</div>
                 <ul class="topics">
                     ${Array.isArray(module.topics)
-                        ? (module.topics.map((topic: string) => `<li>${topic}</li>`).join(''))
-                        : (typeof module.topics === 'string' && module.topics.length > 0
-                            ? module.topics.split(',').map((t: string) => `<li>${t.trim()}</li>`).join('')
-                            : '<li>No topics specified</li>')
-                    }
+                ? (module.topics.map((topic: string) => `<li>${topic}</li>`).join(''))
+                : (typeof module.topics === 'string' && module.topics.length > 0
+                    ? module.topics.split(',').map((t: string) => `<li>${t.trim()}</li>`).join('')
+                    : '<li>No topics specified</li>')
+            }
                 </ul>
             </div>
         `).join('')}
@@ -930,19 +930,19 @@ export default function Dashboard() {
         printWindow.document.close();
     };
 
-    const bgColor = theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100';
-    const cardBg = theme === 'dark' ? 'bg-gray-800' : 'bg-white/60 backdrop-blur-sm';
-    const textColor = theme === 'dark' ? 'text-gray-100' : 'text-gray-900';
-    const secondaryText = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
-    const borderColor = theme === 'dark' ? 'border-gray-700' : 'border-purple-300';
-    const inputBg = theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white/90 text-gray-900';
+    const bgColor = '';
+    const cardBg = 'skeu-card-static';
+    const textColor = 'text-skeu-primary';
+    const secondaryText = 'text-skeu-secondary';
+    const borderColor = 'border-skeu';
+    const inputBg = 'skeu-input';
 
     return (
 
         <ProtectedRoute>
             <Suspense fallback={<div>Loading...</div>}>
-                <div className={`min-h-screen ${bgColor} transition-colors duration-200`}>
-                    <nav className={`${theme === 'dark' ? cardBg : 'bg-white/70 backdrop-blur-xl'} shadow-lg ${borderColor} border-b sticky top-0 z-50`}>
+                <div className="min-h-screen transition-colors duration-200" style={{ background: 'var(--surface-base)' }}>
+                    <nav className="skeu-navbar sticky top-0 z-50">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between items-center h-16 md:h-20">
                                 {/* Left Section */}
@@ -955,12 +955,12 @@ export default function Dashboard() {
                                         className="rounded-sm shadow-sm shrink-0"
                                         priority
                                     />
-                                    <h1 className={`text-lg sm:text-2xl font-bold ${textColor} tracking-tight truncate max-w-[140px] sm:max-w-xs`}>
+                                    <h1 className="text-lg sm:text-2xl font-bold skeu-text-embossed tracking-tight truncate max-w-[140px] sm:max-w-xs" style={{ color: 'var(--text-primary)' }}>
                                         {pageTitle}
                                     </h1>
 
                                     {isAdmin && (
-                                        <span className="ml-1 px-2 py-0.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white text-xs rounded-full shadow-sm">
+                                        <span className="skeu-badge ml-1 text-[10px]">
                                             ADMIN
                                         </span>
                                     )}
@@ -979,11 +979,11 @@ export default function Dashboard() {
                                             key={user!.uid} // Add key to force re-render when user changes
                                         />
                                     ) : (
-                                        <div className="h-7 w-7 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
-                                            <User size={16} />
+                                        <div className="skeu-inset h-7 w-7 rounded-full flex items-center justify-center">
+                                            <User size={16} style={{ color: 'var(--text-secondary)' }} />
                                         </div>
                                     )}
-                                    <span className={`hidden sm:inline-block ${secondaryText} text-sm md:text-base truncate max-w-[200px]`}>
+                                    <span className="hidden sm:inline-block text-sm md:text-base truncate max-w-[200px]" style={{ color: 'var(--text-secondary)' }}>
                                         {user?.displayName || user?.email}
                                     </span>
                                     <Link
@@ -1010,17 +1010,14 @@ export default function Dashboard() {
 
                                     <button
                                         onClick={logout}
-                                        className="px-3 py-1.5 bg-gradient-to-r from-red-600 to-rose-500 text-white rounded-md hover:from-red-700 hover:to-rose-600 text-sm shadow-md transition-all transform hover:scale-105 active:scale-95"
+                                        className="skeu-btn-danger text-sm py-2 px-4 rounded-lg"
                                     >
                                         Logout
                                     </button>
 
                                     <button
                                         onClick={toggleTheme}
-                                        className={`p-2 rounded-full transition-all duration-300
-                        ${isDark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}
-                        shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2
-                        ${isDark ? 'focus:ring-indigo-500' : 'focus:ring-blue-500'}`}
+                                        className="skeu-btn-icon rounded-lg"
                                         aria-label="Toggle Theme"
                                     >
                                         <AnimatePresence mode="wait" initial={false}>
@@ -1031,7 +1028,7 @@ export default function Dashboard() {
                                                     animate={{ rotate: 0, opacity: 1 }}
                                                     exit={{ rotate: 90, opacity: 0 }}
                                                     transition={{ duration: 0.3 }}
-                                                    className="text-yellow-400"
+                                                    style={{ color: 'var(--accent-warning)' }}
                                                 >
                                                     <Sun className="w-5 h-5 md:w-6 md:h-6" />
                                                 </motion.div>
@@ -1042,7 +1039,7 @@ export default function Dashboard() {
                                                     animate={{ rotate: 0, opacity: 1 }}
                                                     exit={{ rotate: -90, opacity: 0 }}
                                                     transition={{ duration: 0.3 }}
-                                                    className="text-indigo-600"
+                                                    style={{ color: 'var(--accent-primary)' }}
                                                 >
                                                     <Moon className="w-5 h-5 md:w-6 md:h-6" />
                                                 </motion.div>
@@ -1056,9 +1053,9 @@ export default function Dashboard() {
                                     <button
                                         onClick={() => setSidebarOpen(true)}
                                         aria-label="Open Menu"
-                                        className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-200"
+                                        className="skeu-btn-icon rounded-lg"
                                     >
-                                        <Menu className="w-6 h-6" />
+                                        <Menu className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                                     </button>
                                 </div>
                             </div>
@@ -1074,7 +1071,7 @@ export default function Dashboard() {
                                 animate={{ x: 0 }}
                                 exit={{ x: '-100%' }}
                                 transition={{ type: 'tween', duration: 0.3 }}
-                                className={`fixed inset-0 z-50 w-64 max-w-full p-4 flex flex-col gap-4 shadow-lg ${isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}
+                                className="fixed inset-0 z-50 w-64 max-w-full p-5 flex flex-col gap-4 skeu-sidebar"
                             >
                                 {/* Top Section */}
                                 <div className="flex justify-between items-center mb-4">
@@ -1087,11 +1084,11 @@ export default function Dashboard() {
                                             className="rounded shadow-sm"
                                         />
                                         <div className="flex items-center space-x-1">
-                                            <h2 className={`font-bold text-lg sm:text-xl ${textColor}`}>
+                                            <h2 className="font-bold text-lg sm:text-xl skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                                                 {pageTitle}
                                             </h2>
                                             {isAdmin && (
-                                                <span className="px-1.5 py-0.5 text-[10px] bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-full shadow">
+                                                <span className="skeu-badge text-[10px]">
                                                     ADMIN
                                                 </span>
                                             )}
@@ -1100,7 +1097,7 @@ export default function Dashboard() {
                                     <button
                                         onClick={() => setSidebarOpen(false)}
                                         aria-label="Close Menu"
-                                        className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                                        className="skeu-btn-icon rounded-lg"
                                     >
                                         <X className="w-6 h-6" />
                                     </button>
@@ -1160,7 +1157,7 @@ export default function Dashboard() {
                                         logout();
                                         setSidebarOpen(false);
                                     }}
-                                    className="w-full py-2 bg-gradient-to-r from-red-600 to-rose-500 text-white rounded-md hover:from-red-700 hover:to-rose-600 text-sm transition"
+                                    className="skeu-btn-danger w-full py-3 text-sm rounded-xl"
                                 >
                                     Logout
                                 </button>
@@ -1168,8 +1165,7 @@ export default function Dashboard() {
                                 {/* Theme Toggle with Icon */}
                                 <button
                                     onClick={toggleTheme}
-                                    className={`p-2 w-full rounded-md transition-all duration-300 flex justify-center items-center ${isDark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
-                                        }`}
+                                    className="skeu-btn-secondary w-full py-3 rounded-xl flex justify-center items-center"
                                     aria-label="Toggle Theme"
                                 >
                                     <AnimatePresence mode="wait" initial={false}>
@@ -1180,7 +1176,7 @@ export default function Dashboard() {
                                                 animate={{ rotate: 0, opacity: 1 }}
                                                 exit={{ rotate: 90, opacity: 0 }}
                                                 transition={{ duration: 0.3 }}
-                                                className="text-yellow-400 flex items-center space-x-2"
+                                                className="flex items-center space-x-2" style={{ color: 'var(--accent-warning)' }}
                                             >
                                                 <Sun className="w-5 h-5" />
                                                 <span>Light Mode</span>
@@ -1192,7 +1188,7 @@ export default function Dashboard() {
                                                 animate={{ rotate: 0, opacity: 1 }}
                                                 exit={{ rotate: -90, opacity: 0 }}
                                                 transition={{ duration: 0.3 }}
-                                                className="text-indigo-600 flex items-center space-x-2"
+                                                className="flex items-center space-x-2" style={{ color: 'var(--accent-primary)' }}
                                             >
                                                 <Moon className="w-5 h-5" />
                                                 <span>Dark Mode</span>
@@ -1211,7 +1207,7 @@ export default function Dashboard() {
                             <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
                             <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
                         </div>
-                        <div className={`${cardBg} p-6 rounded-2xl shadow-2xl mb-8 ${borderColor} border-2`}>
+                        <div className="skeu-card-static p-6 rounded-2xl mb-8">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
@@ -1276,7 +1272,7 @@ export default function Dashboard() {
                                                 setSelectedBranch(e.target.value);
                                                 setSelectedSubject(null);
                                             }}
-                                            className={`block w-full px-4 py-3 text-base border-2 ${borderColor} focus:outline-none focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500 rounded-xl ${inputBg} font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                            className="skeu-select block w-full font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                                             disabled={branches.length === 0}
                                         >
                                             {branches.length === 0 ? (
@@ -1352,7 +1348,7 @@ export default function Dashboard() {
                                                 setSelectedSemester(null);
                                                 setSelectedSubject(null);
                                             }}
-                                            className={`block w-full px-4 py-3 text-base border-2 ${borderColor} focus:outline-none focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500 rounded-xl ${inputBg} font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                            className="skeu-select block w-full font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                                             disabled={years.length === 0}
                                         >
                                             {years.length === 0 ? (
@@ -1389,7 +1385,7 @@ export default function Dashboard() {
                                                     className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
-                                                    onClick={() => {}}
+                                                    onClick={() => { }}
                                                     className="p-2 bg-green-600 text-white rounded-md hover:bg-green-700"
                                                 >
                                                     <Plus size={16} />
@@ -1403,7 +1399,7 @@ export default function Dashboard() {
                                                 setSelectedSemester(e.target.value ? Number(e.target.value) : null);
                                                 setSelectedSubject(null);
                                             }}
-                                            className={`block w-full px-4 py-3 text-base border-2 ${borderColor} focus:outline-none focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500 rounded-xl ${inputBg} font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                            className="skeu-select block w-full font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                                             disabled={!selectedYear}
                                         >
                                             <option value="">All Semesters</option>
@@ -1467,125 +1463,125 @@ export default function Dashboard() {
                                 </div>
 
                                 <AnimatePresence>
-                                {showActions && (
-                                    <motion.div 
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="overflow-x-auto sm:overflow-x-visible"
-                                    >
-                                        <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 min-w-[500px] sm:min-w-0">
-                                            {/* Shared Action Button Component */}
-                                            {[
-                                                {
-                                                    href: '/dashboard/progress',
-                                                    label: 'My Progress',
-                                                    colors: ['from-violet-600', 'to-violet-800'],
-                                                    hover: ['from-violet-700', 'to-violet-900'],
-                                                    bar: 'bg-violet-400',
-                                                    icon: <Bookmark size={20} />,
-                                                },
-                                                {
-                                                    href: '/dashboard/exams',
-                                                    label: 'My Exams',
-                                                    colors: ['from-blue-600', 'to-blue-800'],
-                                                    hover: ['from-blue-700', 'to-blue-900'],
-                                                    bar: 'bg-blue-400',
-                                                    icon: <Clipboard size={20} />,
-                                                },
-                                                {
-                                                    href: '/dashboard/kra-kpi',
-                                                    label: 'Performance',
-                                                    colors: ['from-orange-600', 'to-orange-700'],
-                                                    hover: ['from-orange-700', 'to-orange-800'],
-                                                    bar: 'bg-orange-400',
-                                                    icon: <BarChart2 size={20} />,
-                                                },
-                                                ...(isAdmin
-                                                    ? [
-                                                        {
-                                                            href: '/admin/analytics',
-                                                            label: 'Analytics',
-                                                            colors: ['from-cyan-600', 'to-cyan-700'],
-                                                            hover: ['from-cyan-700', 'to-cyan-800'],
-                                                            bar: 'bg-cyan-400',
-                                                            icon: <PieChart size={20} />,
-                                                        },
-                                                        {
-                                                            href: '/admin/subjects',
-                                                            label: 'All Subjects',
-                                                            colors: ['from-indigo-600', 'to-indigo-700'],
-                                                            hover: ['from-indigo-700', 'to-indigo-800'],
-                                                            bar: 'bg-indigo-400',
-                                                            icon: <BookOpen size={20} />,
-                                                        },
-                                                        {
-                                                            href: '/admin/active-users',
-                                                            label: 'Active Users',
-                                                            colors: ['from-green-600', 'to-green-700'],
-                                                            hover: ['from-green-700', 'to-green-800'],
-                                                            bar: 'bg-green-400',
-                                                            icon: <Activity size={20} />,
-                                                        },
-                                                        {
-                                                            href: '/admin/pdf-upload',
-                                                            label: 'PDF Upload',
-                                                            colors: ['from-red-600', 'to-red-700'],
-                                                            hover: ['from-red-700', 'to-red-800'],
-                                                            bar: 'bg-red-400',
-                                                            icon: <Upload size={20} />,
-                                                        },
-                                                    ]
-                                                    : []),
-                                            ].map((item, idx) => (
-                                                <motion.div
-                                                    key={idx}
-                                                    initial={{ opacity: 0, scale: 0.9 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    transition={{ delay: idx * 0.05 }}
-                                                >
-                                                    <Link
-                                                        href={item.href}
-                                                        className={`group relative flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br ${item.colors.join(
-                                                            ' '
-                                                        )} text-white overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-[1.05] active:scale-95 min-w-[150px]`}
+                                    {showActions && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="overflow-x-auto sm:overflow-x-visible"
+                                        >
+                                            <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 min-w-[500px] sm:min-w-0">
+                                                {/* Shared Action Button Component */}
+                                                {[
+                                                    {
+                                                        href: '/dashboard/progress',
+                                                        label: 'My Progress',
+                                                        colors: ['from-violet-600', 'to-violet-800'],
+                                                        hover: ['from-violet-700', 'to-violet-900'],
+                                                        bar: 'bg-violet-400',
+                                                        icon: <Bookmark size={20} />,
+                                                    },
+                                                    {
+                                                        href: '/dashboard/exams',
+                                                        label: 'My Exams',
+                                                        colors: ['from-blue-600', 'to-blue-800'],
+                                                        hover: ['from-blue-700', 'to-blue-900'],
+                                                        bar: 'bg-blue-400',
+                                                        icon: <Clipboard size={20} />,
+                                                    },
+                                                    {
+                                                        href: '/dashboard/kra-kpi',
+                                                        label: 'Performance',
+                                                        colors: ['from-orange-600', 'to-orange-700'],
+                                                        hover: ['from-orange-700', 'to-orange-800'],
+                                                        bar: 'bg-orange-400',
+                                                        icon: <BarChart2 size={20} />,
+                                                    },
+                                                    ...(isAdmin
+                                                        ? [
+                                                            {
+                                                                href: '/admin/analytics',
+                                                                label: 'Analytics',
+                                                                colors: ['from-cyan-600', 'to-cyan-700'],
+                                                                hover: ['from-cyan-700', 'to-cyan-800'],
+                                                                bar: 'bg-cyan-400',
+                                                                icon: <PieChart size={20} />,
+                                                            },
+                                                            {
+                                                                href: '/admin/subjects',
+                                                                label: 'All Subjects',
+                                                                colors: ['from-indigo-600', 'to-indigo-700'],
+                                                                hover: ['from-indigo-700', 'to-indigo-800'],
+                                                                bar: 'bg-indigo-400',
+                                                                icon: <BookOpen size={20} />,
+                                                            },
+                                                            {
+                                                                href: '/admin/active-users',
+                                                                label: 'Active Users',
+                                                                colors: ['from-green-600', 'to-green-700'],
+                                                                hover: ['from-green-700', 'to-green-800'],
+                                                                bar: 'bg-green-400',
+                                                                icon: <Activity size={20} />,
+                                                            },
+                                                            {
+                                                                href: '/admin/pdf-upload',
+                                                                label: 'PDF Upload',
+                                                                colors: ['from-red-600', 'to-red-700'],
+                                                                hover: ['from-red-700', 'to-red-800'],
+                                                                bar: 'bg-red-400',
+                                                                icon: <Upload size={20} />,
+                                                            },
+                                                        ]
+                                                        : []),
+                                                ].map((item, idx) => (
+                                                    <motion.div
+                                                        key={idx}
+                                                        initial={{ opacity: 0, scale: 0.9 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        transition={{ delay: idx * 0.05 }}
                                                     >
-                                                        <div
-                                                            className={`absolute inset-0 bg-gradient-to-br ${item.hover.join(
+                                                        <Link
+                                                            href={item.href}
+                                                            className={`skeu-action-card group relative flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br ${item.colors.join(
                                                                 ' '
-                                                            )} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                                                        />
-                                                        <div className="relative z-10 flex flex-col items-center">
-                                                            <div className="transform group-hover:scale-110 transition-transform duration-200">
-                                                                {item.icon}
+                                                            )} min-w-[150px]`}
+                                                        >
+                                                            <div
+                                                                className={`absolute inset-0 bg-gradient-to-br ${item.hover.join(
+                                                                    ' '
+                                                                )} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                                                            />
+                                                            <div className="relative z-10 flex flex-col items-center">
+                                                                <div className="transform group-hover:scale-110 transition-transform duration-200">
+                                                                    {item.icon}
+                                                                </div>
+                                                                <span className="mt-3 text-sm font-bold">{item.label}</span>
                                                             </div>
-                                                            <span className="mt-3 text-sm font-bold">{item.label}</span>
-                                                        </div>
-                                                        <div
-                                                            className={`absolute bottom-0 left-0 right-0 h-1 ${item.bar} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300`}
-                                                        />
-                                                    </Link>
-                                                </motion.div>
-                                            ))}
+                                                            <div
+                                                                className={`absolute bottom-0 left-0 right-0 h-1 ${item.bar} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300`}
+                                                            />
+                                                        </Link>
+                                                    </motion.div>
+                                                ))}
 
-                                            {/* Copy Subjects button (only admin) */}
-                                            {isAdmin && (
-                                                <button
-                                                    onClick={() => setShowCopyDialog(true)}
-                                                    className="group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] min-w-[150px]"
-                                                >
-                                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-700 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                                    <div className="relative z-10 flex flex-col items-center">
-                                                        <Copy size={20} className="group-hover:scale-110 transition-transform duration-300" />
-                                                        <span className="mt-2 text-sm font-medium">Copy Subjects</span>
-                                                    </div>
-                                                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-                                                </button>
-                                            )}
-                                        </div>
-                                    </motion.div>
-                                )}
+                                                {/* Copy Subjects button (only admin) */}
+                                                {isAdmin && (
+                                                    <button
+                                                        onClick={() => setShowCopyDialog(true)}
+                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 min-w-[150px]"
+                                                    >
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-purple-700 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                        <div className="relative z-10 flex flex-col items-center">
+                                                            <Copy size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                                                            <span className="mt-2 text-sm font-medium">Copy Subjects</span>
+                                                        </div>
+                                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    )}
                                 </AnimatePresence>
                             </div>
 
@@ -1593,7 +1589,7 @@ export default function Dashboard() {
 
                         {showCopyDialog && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                <div className={`${cardBg} rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto ${borderColor} border`}>
+                                <div className="skeu-modal p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                                     <div className="flex justify-between items-center mb-4">
                                         <h2 className={`text-xl font-bold ${textColor}`}>Copy Subjects Between Branches</h2>
                                         <button
@@ -1784,7 +1780,7 @@ export default function Dashboard() {
                         <div className="flex flex-col lg:flex-row gap-8">
                             {/* Subjects List */}
                             <div className="lg:w-1/3">
-                                <div className={`${cardBg} px-2 py-8 rounded-2xl shadow-2xl ${borderColor} border-2`}>
+                                <div className="skeu-card-static px-2 py-8 rounded-2xl">
                                     <div className="flex justify-between items-center mb-6">
                                         <div>
                                             <h2 className={`text-2xl font-black ${textColor} mb-1`}>
@@ -1801,7 +1797,7 @@ export default function Dashboard() {
                                                     setNewSubject({ name: '', code: '', modules: [] });
                                                     setShowAddSubject(true);
                                                 }}
-                                                className="p-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95"
+                                                className="skeu-btn-primary p-3 rounded-xl" style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
                                                 disabled={!selectedBranch}
                                             >
                                                 <Plus size={20} />
@@ -1811,7 +1807,7 @@ export default function Dashboard() {
 
                                     {/* Add/Edit Subject Form */}
                                     {showAddSubject && (
-                                        <div className={`mb-4 p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                                        <div className="skeu-inset mb-4 p-4 rounded-xl">
                                             <h3 className={`font-medium mb-2 ${textColor}`}>
                                                 {editingSubject ? 'Edit Subject' : 'Add New Subject'}
                                             </h3>
@@ -2015,11 +2011,11 @@ export default function Dashboard() {
                             {/* Modules and Progress */}
                             <div className="lg:w-2/3" id="subject-details">
                                 {selectedSubject ? (
-                                    <motion.div 
+                                    <motion.div
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.3 }}
-                                        className={`${cardBg} p-8 rounded-2xl shadow-xl ${borderColor} border-2`}
+                                        className="skeu-card-static p-8 rounded-2xl"
                                     >
                                         <div className="flex justify-between items-start mb-6">
                                             <div>
@@ -2034,7 +2030,7 @@ export default function Dashboard() {
                                             <div className="flex gap-2">
                                                 <button
                                                     onClick={() => exportSyllabusToPDF(selectedSubject)}
-                                                    className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 text-sm shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2"
+                                                    className="skeu-btn-primary px-4 py-2 rounded-xl text-sm flex items-center gap-2" style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
                                                     title="Download Syllabus PDF"
                                                 >
                                                     <Download size={16} />
@@ -2078,21 +2074,21 @@ export default function Dashboard() {
 
                                         {/* Progress Bar */}
                                         <div className="mb-4">
-                                            <div className={`w-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} rounded-full h-2.5`}>
+                                            <div className="skeu-progress-track">
                                                 <div
-                                                    className="bg-indigo-600 h-2.5 rounded-full"
+                                                    className="skeu-progress-fill"
                                                     style={{ width: `${calculateProgress(selectedSubject)}%` }}
                                                 ></div>
                                             </div>
-                                            <div className={`flex justify-between text-sm mt-1 ${secondaryText}`}>
-                                                <span>Progress</span>
-                                                <span>{calculateProgress(selectedSubject)}%</span>
+                                            <div className="flex justify-between text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
+                                                <span className="skeu-text-embossed">Progress</span>
+                                                <span className="font-bold" style={{ color: 'var(--accent-primary)' }}>{calculateProgress(selectedSubject)}%</span>
                                             </div>
                                         </div>
 
                                         {/* Module Edit Form */}
                                         {isEditingModule && (
-                                            <div className={`mb-4 p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                                            <div className="skeu-inset mb-4 p-4 rounded-xl">
                                                 <h3 className={`font-medium mb-2 ${textColor}`}>Edit Module</h3>
                                                 <div className="space-y-3">
                                                     <div>
@@ -2246,10 +2242,10 @@ export default function Dashboard() {
                                         </div>
                                     </motion.div>
                                 ) : (
-                                    <motion.div 
+                                    <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className={`${cardBg} p-12 rounded-2xl shadow-xl flex flex-col items-center justify-center min-h-[400px] ${borderColor} border-2 border-dashed`}
+                                        className="skeu-inset p-12 rounded-2xl flex flex-col items-center justify-center min-h-[400px]"
                                     >
                                         <div className="text-center">
                                             <BookOpen className={`w-24 h-24 mx-auto mb-6 ${secondaryText}`} />
