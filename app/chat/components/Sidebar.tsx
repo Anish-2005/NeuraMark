@@ -27,13 +27,11 @@ type SidebarProps = {
   currentRoom?: {
     type?: string
     isGlobal?: boolean
-    // Add other properties as needed
   }
   pendingRequests: any[]
   setShowPendingRequestsModal: (show: boolean) => void
   setShowMembersModal: (show: boolean) => void
   canManageRequests: boolean
-  // Add currentRoomMembers if used
   currentRoomMembers?: any[]
 }
 
@@ -57,7 +55,6 @@ export default function Sidebar({
   canManageRequests,
   currentRoomMembers = [],
 }: SidebarProps) {
-  const router = useRouter()
   const pathname = usePathname()
 
   return (
@@ -68,7 +65,7 @@ export default function Sidebar({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            className="fixed inset-0 skeu-modal-backdrop z-40 md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
 
@@ -77,39 +74,61 @@ export default function Sidebar({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] ${cardBg} shadow-xl flex flex-col`}
+            className="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] skeu-sidebar flex flex-col"
+            style={{ background: 'var(--surface-raised)' }}
           >
-            <div className={`flex items-center justify-between p-4 border-b ${borderColor}`}>
-              <div className="flex items-center space-x-2">
-                <Image src="/emblem.png" alt="Logo" width={32} height={32} className="rounded-sm" />
-                <h2 className={`text-lg font-bold ${textColor}`}>Menu</h2>
+            {/* Header */}
+            <div className="flex items-center justify-between p-5">
+              <div className="flex items-center space-x-3">
+                <div className="skeu-inset p-1 rounded-lg">
+                  <Image src="/emblem.png" alt="Logo" width={28} height={28} className="rounded-sm shrink-0" />
+                </div>
+                <h2 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>Menu</h2>
               </div>
-              <button onClick={() => setSidebarOpen(false)} className={`p-1 rounded-full ${hoverBg}`}>
-                <X className={`w-5 h-5 ${textColor}`} />
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="skeu-btn-icon rounded-lg"
+                aria-label="Close Menu"
+              >
+                <X className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-1">
+            <hr className="skeu-divider mx-4" />
+
+            {/* Navigation */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-2">
               <Link
                 href="/dashboard"
-                className={`flex items-center px-3 py-2 rounded-md ${hoverBg} ${pathname === "/dashboard" ? (isDark ? "bg-indigo-900 text-white" : "bg-indigo-100 text-indigo-700") : ""}`}
+                onClick={() => setSidebarOpen(false)}
+                className="block skeu-btn-secondary text-sm font-medium py-3 px-4 rounded-xl"
+                style={{
+                  color: pathname === "/dashboard" ? 'var(--accent-primary)' : 'var(--text-primary)',
+                }}
               >
                 Dashboard
               </Link>
               <Link
                 href="/chat"
-                className={`flex items-center px-3 py-2 rounded-md ${hoverBg} ${pathname === "/chat" ? (isDark ? "bg-indigo-900 text-white" : "bg-indigo-100 text-indigo-700") : ""}`}
+                onClick={() => setSidebarOpen(false)}
+                className="block skeu-btn-secondary text-sm font-medium py-3 px-4 rounded-xl"
+                style={{
+                  color: pathname === "/chat" ? 'var(--accent-primary)' : 'var(--text-primary)',
+                }}
               >
                 Chat
               </Link>
 
-              {/* Mobile-only Room Controls */}
+              <hr className="skeu-divider" />
+
+              {/* Room Controls */}
               <button
                 onClick={() => {
                   setShowJoinRoomModal(true)
                   setSidebarOpen(false)
                 }}
-                className={`flex items-center w-full px-3 py-2 rounded-md ${isDark ? "bg-emerald-700 hover:bg-emerald-600" : "bg-emerald-600 hover:bg-emerald-700"} text-white`}
+                className="skeu-btn-primary w-full flex items-center px-4 py-3 rounded-xl text-sm"
+                style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
               >
                 <Key className="w-4 h-4 mr-2" />
                 Join Room
@@ -120,7 +139,7 @@ export default function Sidebar({
                   setShowCreateRoomModal(true)
                   setSidebarOpen(false)
                 }}
-                className={`flex items-center w-full px-3 py-2 rounded-md ${isDark ? "bg-indigo-700 hover:bg-indigo-600" : "bg-indigo-600 hover:bg-indigo-700"} text-white`}
+                className="skeu-btn-primary w-full flex items-center px-4 py-3 rounded-xl text-sm"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Room
@@ -135,7 +154,8 @@ export default function Sidebar({
                       setShowPendingRequestsModal(true)
                       setSidebarOpen(false)
                     }}
-                    className={`flex items-center w-full px-3 py-2 rounded-md ${hoverBg}`}
+                    className="skeu-btn-secondary w-full flex items-center px-4 py-3 rounded-xl text-sm"
+                    style={{ color: 'var(--accent-warning)' }}
                   >
                     <Clock className="w-4 h-4 mr-2" />
                     <span>Requests ({pendingRequests.length})</span>
@@ -148,7 +168,8 @@ export default function Sidebar({
                     setShowMembersModal(true)
                     setSidebarOpen(false)
                   }}
-                  className={`flex items-center w-full px-3 py-2 rounded-md ${hoverBg}`}
+                  className="skeu-btn-secondary w-full flex items-center px-4 py-3 rounded-xl text-sm"
+                  style={{ color: 'var(--accent-primary)' }}
                 >
                   <Users className="w-4 h-4 mr-2" />
                   <span>Members ({currentRoomMembers.length})</span>
@@ -156,31 +177,37 @@ export default function Sidebar({
               )}
             </div>
 
-            <div className={`p-4 border-t ${borderColor}`}>
-              <div className="flex items-center space-x-3 mb-4">
+            {/* Footer */}
+            <div className="p-5 space-y-3">
+              <hr className="skeu-divider" />
+              <div className="flex items-center space-x-3 mb-3">
                 {user?.photoURL ? (
-                  <Image
-                    src={user.photoURL || "/placeholder.svg"}
-                    alt={user.displayName || "User"}
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                  />
+                  <div className="skeu-inset p-0.5 rounded-full">
+                    <Image
+                      src={user.photoURL || "/placeholder.svg"}
+                      alt={user.displayName || "User"}
+                      width={36}
+                      height={36}
+                      className="rounded-full"
+                    />
+                  </div>
                 ) : (
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-700"}`}
-                  >
-                    <User className="w-5 h-5" />
+                  <div className="skeu-inset w-10 h-10 rounded-full flex items-center justify-center">
+                    <User className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                   </div>
                 )}
-                <div>
-                  <p className={`font-medium ${textColor}`}>{user?.displayName || user?.email?.split("@")[0]}</p>
-                  <p className={`text-xs ${secondaryText}`}>{user?.email}</p>
+                <div className="min-w-0">
+                  <p className="font-medium text-sm truncate skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                    {user?.displayName || user?.email?.split("@")[0]}
+                  </p>
+                  <p className="text-xs truncate" style={{ color: 'var(--text-muted)' }}>
+                    {user?.email}
+                  </p>
                 </div>
               </div>
               <button
                 onClick={logout}
-                className="w-full py-2 bg-gradient-to-r from-red-600 to-rose-500 text-white rounded-md hover:from-red-700 hover:to-rose-600 transition-colors"
+                className="skeu-btn-danger w-full py-3 text-sm rounded-xl"
               >
                 Logout
               </button>

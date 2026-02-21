@@ -1,12 +1,11 @@
 // components/NavigationBar.jsx
 "use client"
 
-import { useTheme } from "@/app/context/ThemeContext"
 import { useAuth } from "@/app/context/AuthContext"
 import { Moon, Sun, Users, Clock, ChevronLeft, Menu } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { AnimatePresence, motion } from "framer-motion"
 
 type NavigationBarProps = {
   isDark: boolean
@@ -44,32 +43,35 @@ export default function NavigationBar({
   setShowMembersModal,
 }: NavigationBarProps) {
   const { user } = useAuth()
-  const router = useRouter()
 
   return (
-    <nav className={`${isDark ? "bg-gray-900" : "bg-white"} shadow-md ${borderColor} border-b sticky top-0 z-50`}>
+    <nav className="skeu-navbar sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4">
-             <Link
-                                    href="/dashboard"
-                                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                                    aria-label="Back to Dashboard"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600 dark:text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-                                    </svg>
-                                </Link>
+            <Link
+              href="/dashboard"
+              className="skeu-btn-icon rounded-lg"
+              aria-label="Back to Dashboard"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+              </svg>
+            </Link>
             <div className="flex items-center space-x-3">
-              <Image src="/emblem.png" alt="Logo" width={32} height={32} className="rounded" />
+              <div className="skeu-inset p-1 rounded-lg">
+                <Image src="/emblem.png" alt="Logo" width={28} height={28} className="rounded shrink-0" priority />
+              </div>
               <div className="flex flex-col">
-                <h1 className={`text-lg font-semibold ${textColor}`}>Study Chat</h1>
+                <h1 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                  Study Chat
+                </h1>
                 {currentRoom && (
-                  <p className={`text-xs ${secondaryText}`}>{currentRoom.name}</p>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{currentRoom.name}</p>
                 )}
               </div>
               {isSuperAdmin && (
-                <span className="px-2 py-0.5 bg-green-600 text-white text-xs font-medium rounded">
+                <span className="skeu-badge text-[10px]">
                   ADMIN
                 </span>
               )}
@@ -77,18 +79,21 @@ export default function NavigationBar({
           </div>
 
           {/* Desktop Controls */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {currentRoom &&
               canManageRequests &&
               currentRoom.type === "private" &&
               pendingRequests.length > 0 && (
                 <button
                   onClick={() => setShowPendingRequestsModal(true)}
-                  className={`flex items-center text-sm px-3 py-1.5 rounded-md ${isDark ? "text-amber-400 hover:text-amber-300 bg-amber-900/20 hover:bg-amber-900/30" : "text-amber-700 hover:text-amber-800 bg-amber-100 hover:bg-amber-200"} transition-colors relative`}
+                  className="skeu-btn-secondary flex items-center text-sm px-3 py-2 rounded-lg relative"
+                  style={{ color: 'var(--accent-warning)' }}
                 >
                   <Clock className="w-4 h-4 mr-2" />
                   <span>Requests</span>
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                    style={{ background: 'var(--accent-danger)' }}
+                  >
                     {pendingRequests.length}
                   </span>
                 </button>
@@ -97,7 +102,8 @@ export default function NavigationBar({
             {currentRoom && !currentRoom.isGlobal && (
               <button
                 onClick={() => setShowMembersModal(true)}
-                className={`flex items-center text-sm px-3 py-1.5 rounded-md ${isDark ? "text-blue-400 hover:text-blue-300 bg-blue-900/20 hover:bg-blue-900/30" : "text-blue-700 hover:text-blue-800 bg-blue-100 hover:bg-blue-200"} transition-colors`}
+                className="skeu-btn-secondary flex items-center text-sm px-3 py-2 rounded-lg"
+                style={{ color: 'var(--accent-primary)' }}
               >
                 <Users className="w-4 h-4 mr-2" />
                 <span>Members</span>
@@ -106,28 +112,41 @@ export default function NavigationBar({
 
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-md ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-100"} transition-colors`}
+              className="skeu-btn-icon rounded-lg"
+              aria-label="Toggle Theme"
             >
-              {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-indigo-600" />}
+              <AnimatePresence mode="wait" initial={false}>
+                {isDark ? (
+                  <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-warning)' }}>
+                    <Sun className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-primary)' }}>
+                    <Moon className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
 
-            <div className="flex items-center space-x-2 ml-4 pl-3 border-l border-gray-300 dark:border-gray-600">
+            <div className="flex items-center space-x-2 ml-2 pl-3 skeu-divider-v">
               {user?.photoURL ? (
-                <Image
-                  src={user.photoURL || "/placeholder.svg"}
-                  alt={user.displayName || "User"}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
+                <div className="skeu-inset p-0.5 rounded-full">
+                  <Image
+                    src={user.photoURL || "/placeholder.svg"}
+                    alt={user.displayName || "User"}
+                    width={28}
+                    height={28}
+                    className="rounded-full"
+                  />
+                </div>
               ) : (
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center ${isDark ? "bg-gray-700 text-gray-300" : "bg-gray-200 text-gray-700"} text-sm font-medium`}
-                >
-                  {(user?.displayName || user?.email)?.charAt(0).toUpperCase()}
+                <div className="skeu-inset h-8 w-8 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                    {(user?.displayName || user?.email)?.charAt(0).toUpperCase()}
+                  </span>
                 </div>
               )}
-              <span className={`text-sm ${textColor} hidden lg:inline`}>
+              <span className="text-sm hidden lg:inline font-medium" style={{ color: 'var(--text-secondary)' }}>
                 {user?.displayName || user?.email?.split("@")[0]}
               </span>
             </div>
@@ -137,13 +156,18 @@ export default function NavigationBar({
           <div className="flex md:hidden items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-md ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-100"} transition-colors`}
+              className="skeu-btn-icon rounded-lg"
+              aria-label="Toggle Theme"
             >
-              {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-indigo-600" />}
+              {isDark ? <Sun className="w-5 h-5" style={{ color: 'var(--accent-warning)' }} /> : <Moon className="w-5 h-5" style={{ color: 'var(--accent-primary)' }} />}
             </button>
 
-            <button onClick={() => setSidebarOpen(true)} className={`p-2 rounded-md ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-100"} transition-colors`}>
-              <Menu className={`w-5 h-5 ${textColor}`} />
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="skeu-btn-icon rounded-lg"
+              aria-label="Open Menu"
+            >
+              <Menu className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
             </button>
           </div>
         </div>

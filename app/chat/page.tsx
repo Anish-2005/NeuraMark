@@ -96,7 +96,7 @@ export default function ChatPage() {
         code?: string
         createdAt?: any
     }
-    
+
     const [rooms, setRooms] = useState<Room[]>([])
     const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
     const [showRoomList, setShowRoomList] = useState(true)
@@ -134,15 +134,15 @@ export default function ChatPage() {
     }
     const [currentRoomMembers, setCurrentRoomMembers] = useState<RoomMember[]>([])
 
-    // Enhanced color scheme
-    const bgColor = isDark ? "bg-gray-900" : "bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100"
-    const cardBg = isDark ? "bg-gray-800" : "bg-white/70 backdrop-blur-lg"
-    const textColor = isDark ? "text-gray-100" : "text-gray-900"
-    const secondaryText = isDark ? "text-gray-400" : "text-gray-700"
-    const borderColor = isDark ? "border-gray-700" : "border-purple-200"
-    const inputBg = isDark ? "bg-gray-700 text-white" : "bg-gray-50 text-gray-900"
-    const hoverBg = isDark ? "hover:bg-gray-700" : "hover:bg-gray-100"
-    const activeBg = isDark ? "active:bg-gray-600" : "active:bg-gray-200"
+    // Skeuomorphic color scheme
+    const bgColor = ""
+    const cardBg = "skeu-card-static"
+    const textColor = "text-skeu-primary"
+    const secondaryText = "text-skeu-secondary"
+    const borderColor = "border-skeu"
+    const inputBg = "skeu-input"
+    const hoverBg = "hover:brightness-95"
+    const activeBg = "active:brightness-90"
 
     // Check if user is super admin
     useEffect(() => {
@@ -367,7 +367,7 @@ export default function ChatPage() {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
-    interface HandleSendMessageEvent extends React.FormEvent<HTMLFormElement> {}
+    interface HandleSendMessageEvent extends React.FormEvent<HTMLFormElement> { }
 
     interface MessageData {
         text: string;
@@ -682,11 +682,11 @@ export default function ChatPage() {
     const getRoleBadge = (role: string): React.ReactElement | null => {
         switch (role) {
             case "superadmin":
-                return <span className="ml-2 text-xs bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full font-bold shadow-lg">SUPER ADMIN</span>
+                return <span className="skeu-badge ml-2 text-[10px]">SUPER ADMIN</span>
             case "admin":
-                return <span className="ml-2 text-xs bg-gradient-to-r from-green-600 to-teal-600 text-white px-3 py-1 rounded-full font-bold shadow-lg">ADMIN</span>
+                return <span className="skeu-badge ml-2 text-[10px]">ADMIN</span>
             case "moderator":
-                return <span className="ml-2 text-xs bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-3 py-1 rounded-full font-bold shadow-lg">MOD</span>
+                return <span className="skeu-badge ml-2 text-[10px]" style={{ background: 'linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-primary-dark) 100%)' }}>MOD</span>
             default:
                 return null
         }
@@ -696,12 +696,12 @@ export default function ChatPage() {
         <ProtectedRoute>
             <Suspense
                 fallback={
-                    <div className={`min-h-screen flex items-center justify-center ${bgColor}`}>
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+                    <div className={`min-h-screen flex items-center justify-center`} style={{ background: 'var(--surface-base)' }}>
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2" style={{ borderColor: 'var(--accent-primary)' }}></div>
                     </div>
                 }
             >
-                <div className={`min-h-screen ${bgColor} transition-colors duration-200 relative overflow-hidden`}>
+                <div className="min-h-screen transition-colors duration-200 relative overflow-hidden" style={{ background: 'var(--surface-base)' }}>
                     {/* Animated background blobs */}
                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
                         <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10 animate-blob"></div>
@@ -719,10 +719,10 @@ export default function ChatPage() {
                         currentRoom={
                             currentRoom
                                 ? {
-                                      name: currentRoom.name,
-                                      type: currentRoom.type ?? "public",
-                                      isGlobal: currentRoom.isGlobal,
-                                  }
+                                    name: currentRoom.name,
+                                    type: currentRoom.type ?? "public",
+                                    isGlobal: currentRoom.isGlobal,
+                                }
                                 : null
                         }
                         pendingRequests={pendingRequests}
@@ -746,10 +746,10 @@ export default function ChatPage() {
                         user={
                             user
                                 ? {
-                                      photoURL: user.photoURL ?? undefined,
-                                      displayName: user.displayName ?? undefined,
-                                      email: user.email ?? undefined,
-                                  }
+                                    photoURL: user.photoURL ?? undefined,
+                                    displayName: user.displayName ?? undefined,
+                                    email: user.email ?? undefined,
+                                }
                                 : { photoURL: undefined, displayName: undefined, email: undefined }
                         }
                         logout={logout}
@@ -775,7 +775,7 @@ export default function ChatPage() {
                                 cardBg={cardBg}
                                 filteredRooms={filteredRooms}
                                 currentRoom={currentRoom}
-                                    setCurrentRoom={(room) => setCurrentRoom(room)}
+                                setCurrentRoom={(room) => setCurrentRoom(room)}
                                 setShowRoomList={setShowRoomList}
                                 setShowCreateRoomModal={setShowCreateRoomModal}
                                 setShowJoinRoomModal={setShowJoinRoomModal}
@@ -794,7 +794,7 @@ export default function ChatPage() {
                                 cardBg={cardBg}
                                 filteredRooms={filteredRooms}
                                 currentRoom={currentRoom}
-                                    setCurrentRoom={(room) => setCurrentRoom(room)}
+                                setCurrentRoom={(room) => setCurrentRoom(room)}
                                 setShowRoomList={setShowRoomList}
                                 setShowCreateRoomModal={setShowCreateRoomModal}
                                 setShowJoinRoomModal={setShowJoinRoomModal}
@@ -904,9 +904,9 @@ export default function ChatPage() {
                         cardBg={cardBg}
                         showRoomSettings={showRoomSettings}
                         setShowRoomSettings={setShowRoomSettings}
-                        currentRoom={currentRoom ? { 
-                            ...currentRoom, 
-                            code: currentRoom.code ?? "", 
+                        currentRoom={currentRoom ? {
+                            ...currentRoom,
+                            code: currentRoom.code ?? "",
                             type: currentRoom.type ?? "public",
                             members: (currentRoom.members as { id: string; displayName?: string; email?: string }[] | undefined)
                         } : null}

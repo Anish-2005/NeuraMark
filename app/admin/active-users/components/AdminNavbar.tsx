@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sun, Moon, Menu, ArrowLeft, User } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminNavbarProps {
   user: any;
@@ -12,64 +13,80 @@ interface AdminNavbarProps {
 
 export default function AdminNavbar({ user, isDark, toggleTheme, setSidebarOpen }: AdminNavbarProps) {
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+    <nav className="skeu-navbar sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left Section */}
           <div className="flex items-center space-x-4 min-w-0">
             <Link
               href="/dashboard"
-              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="skeu-btn-icon rounded-lg"
               aria-label="Back to Dashboard"
             >
-              <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+              <ArrowLeft className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} />
             </Link>
-            <Image
-              src="/emblem.png"
-              alt="NeuraMark Logo"
-              width={32}
-              height={32}
-              className="rounded shrink-0"
-              priority
-            />
-            <h1 className={`text-lg font-semibold text-gray-900 dark:text-white truncate max-w-[140px] sm:max-w-xs`}>
+            <div className="skeu-inset p-1 rounded-lg">
+              <Image
+                src="/emblem.png"
+                alt="NeuraMark Logo"
+                width={28}
+                height={28}
+                className="rounded shrink-0"
+                priority
+              />
+            </div>
+            <h1 className="text-lg font-bold skeu-text-embossed truncate max-w-[140px] sm:max-w-xs"
+              style={{ color: 'var(--text-primary)' }}
+            >
               Active Users
             </h1>
-            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 bg-green-600 text-white text-xs font-medium rounded">
+            <span className="skeu-badge hidden sm:inline-block text-[10px]">
               ADMIN
             </span>
           </div>
 
           {/* Desktop Controls */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-3 ml-4 pl-3 border-l border-gray-300 dark:border-gray-600">
+          <div className="hidden md:flex items-center space-x-3">
+            <div className="flex items-center space-x-3">
               {user?.photoURL ? (
-                <Image
-                  src={user.photoURL}
-                  alt={user.displayName || 'User'}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
+                <div className="skeu-inset p-0.5 rounded-full">
+                  <Image
+                    src={user.photoURL}
+                    alt={user.displayName || 'User'}
+                    width={28}
+                    height={28}
+                    className="rounded-full"
+                  />
+                </div>
               ) : (
-                <div className="h-8 w-8 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium">
-                  {(user?.displayName || user?.email)?.charAt(0).toUpperCase()}
+                <div className="skeu-inset h-8 w-8 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                    {(user?.displayName || user?.email)?.charAt(0).toUpperCase()}
+                  </span>
                 </div>
               )}
-              <span className={`hidden sm:inline-block text-sm font-medium truncate max-w-[200px] text-gray-700 dark:text-gray-200`}>
+              <span className="hidden sm:inline-block text-sm font-medium truncate max-w-[200px]"
+                style={{ color: 'var(--text-secondary)' }}
+              >
                 {user?.displayName || user?.email?.split("@")[0]}
               </span>
             </div>
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-md ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} transition-colors`}
+              className="skeu-btn-icon rounded-lg"
               aria-label="Toggle Theme"
             >
-              {isDark ? (
-                <Sun className="w-5 h-5 text-amber-400" />
-              ) : (
-                <Moon className="w-5 h-5 text-indigo-600" />
-              )}
+              <AnimatePresence mode="wait" initial={false}>
+                {isDark ? (
+                  <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-warning)' }}>
+                    <Sun className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-primary)' }}>
+                    <Moon className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
           </div>
 
@@ -77,10 +94,10 @@ export default function AdminNavbar({ user, isDark, toggleTheme, setSidebarOpen 
           <div className="md:hidden">
             <button
               onClick={() => setSidebarOpen(true)}
-              className={`p-2 rounded-md ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} transition-colors`}
+              className="skeu-btn-icon rounded-lg"
               aria-label="Open Menu"
             >
-              <Menu className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+              <Menu className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
             </button>
           </div>
         </div>

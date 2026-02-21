@@ -41,20 +41,22 @@ export default function CreateRoomModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 skeu-modal-backdrop flex items-center justify-center z-50 p-4"
           onClick={() => setShowCreateRoomModal(false)}
         >
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: 20 }}
-            className={`w-full max-w-md ${cardBg} rounded-lg shadow-xl p-6`}
+            className="skeu-modal w-full max-w-md p-8 rounded-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className={`text-lg font-medium mb-4 ${textColor}`}>Create New Room</h3>
-            <div className="space-y-4">
+            <h3 className="text-lg font-bold mb-5 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+              Create New Room
+            </h3>
+            <div className="space-y-5">
               <div>
-                <label htmlFor="roomName" className={`block text-sm font-medium mb-1 ${secondaryText}`}>
+                <label htmlFor="roomName" className="block text-sm font-semibold mb-2 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                   Room Name
                 </label>
                 <input
@@ -62,45 +64,49 @@ export default function CreateRoomModal({
                   id="roomName"
                   value={newRoomName}
                   onChange={(e) => setNewRoomName(e.target.value)}
-                  className={`w-full px-3 py-2 rounded-md ${inputBg} focus:outline-none focus:ring-2 focus:ring-indigo-500 ${borderColor} border`}
+                  className="skeu-input w-full rounded-xl text-sm"
                   placeholder="Enter room name"
                 />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-1 ${secondaryText}`}>Room Type</label>
+                <label className="block text-sm font-semibold mb-2 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                  Room Type
+                </label>
                 <div className="flex space-x-4">
-                  <label className="flex items-center">
+                  <label className="flex items-center cursor-pointer">
                     <input
                       type="radio"
                       value="public"
                       checked={newRoomType === "public"}
                       onChange={(e) => setNewRoomType(e.target.value)}
                       className="mr-2"
+                      style={{ accentColor: 'var(--accent-primary)' }}
                     />
-                    <span className={textColor}>Public</span>
+                    <span className="text-sm" style={{ color: 'var(--text-primary)' }}>Public</span>
                   </label>
-                  <label className="flex items-center">
+                  <label className="flex items-center cursor-pointer">
                     <input
                       type="radio"
                       value="private"
                       checked={newRoomType === "private"}
                       onChange={(e) => setNewRoomType(e.target.value)}
                       className="mr-2"
+                      style={{ accentColor: 'var(--accent-primary)' }}
                     />
-                    <span className={textColor}>Private</span>
+                    <span className="text-sm" style={{ color: 'var(--text-primary)' }}>Private</span>
                   </label>
                 </div>
-                <p className={`text-xs mt-1 ${secondaryText}`}>
+                <p className="text-xs mt-2" style={{ color: 'var(--text-muted)' }}>
                   {newRoomType === "public"
                     ? "Anyone can join with the room code"
                     : "Users need approval to join"}
                 </p>
               </div>
-              <div className="flex justify-end space-x-2 pt-4">
+              <div className="flex justify-end space-x-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowCreateRoomModal(false)}
-                  className={`px-4 py-2 rounded-md ${isDark ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"} text-sm`}
+                  className="skeu-btn-secondary px-5 py-2.5 rounded-xl text-sm"
                 >
                   Cancel
                 </button>
@@ -108,7 +114,7 @@ export default function CreateRoomModal({
                   type="button"
                   onClick={createNewRoom}
                   disabled={!newRoomName.trim()}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  className="skeu-btn-primary px-5 py-2.5 rounded-xl text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Create Room
                 </button>
