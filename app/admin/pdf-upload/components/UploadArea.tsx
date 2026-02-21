@@ -11,18 +11,17 @@ interface UploadAreaProps {
 const UploadArea: React.FC<UploadAreaProps> = ({ getRootProps, getInputProps, isDragActive }) => (
   <div
     {...getRootProps()}
-    className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-      isDragActive
-        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
-    }`}
+    className={`skeu-inset rounded-xl p-8 text-center cursor-pointer transition-all duration-200 border-2 border-dashed ${isDragActive
+        ? 'border-[var(--accent-primary)] opacity-90'
+        : 'border-[var(--border-secondary)] hover:border-[var(--accent-primary)]'
+      }`}
   >
     <input {...getInputProps()} />
-    <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-    <p className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+    <Upload className="mx-auto h-12 w-12 mb-4" style={{ color: 'var(--text-muted)' }} />
+    <p className="text-lg font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
       {isDragActive ? 'Drop the PDF here' : 'Drag & drop a PDF file here'}
     </p>
-    <p className="text-sm text-gray-500 dark:text-gray-400">or click to select a file</p>
+    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>or click to select a file</p>
   </div>
 );
 

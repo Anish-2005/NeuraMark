@@ -14,20 +14,23 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, resetUpload }) 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
+        className="skeu-card-static flex items-center justify-between p-4 rounded-xl border border-skeu"
       >
         <div className="flex items-center space-x-3">
-          <FileText className="h-8 w-8 text-red-500" />
+          <div className="skeu-inset p-2 rounded-lg">
+            <FileText className="h-6 w-6" style={{ color: 'var(--accent-danger)' }} />
+          </div>
           <div>
-            <p className="font-medium text-gray-900 dark:text-white">{uploadedFile.name}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="font-medium" style={{ color: 'var(--text-primary)' }}>{uploadedFile.name}</p>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
             </p>
           </div>
         </div>
         <button
           onClick={resetUpload}
-          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          className="skeu-btn-icon rounded-lg p-2"
+          style={{ color: 'var(--text-muted)' }}
         >
           <XCircle className="h-5 w-5" />
         </button>

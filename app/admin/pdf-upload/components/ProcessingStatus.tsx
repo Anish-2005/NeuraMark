@@ -7,9 +7,9 @@ interface ProcessingStatusProps {
 
 const ProcessingStatus: React.FC<ProcessingStatusProps> = ({ isProcessing }) => (
   isProcessing ? (
-    <div className="flex items-center justify-center space-x-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-      <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
-      <p className="text-blue-700 dark:text-blue-300 font-medium">
+    <div className="skeu-inset flex items-center justify-center space-x-3 p-4 rounded-xl">
+      <Loader2 className="h-6 w-6 animate-spin" style={{ color: 'var(--accent-primary)' }} />
+      <p className="font-medium" style={{ color: 'var(--accent-primary)' }}>
         Processing PDF with AI... This may take a few moments.
       </p>
     </div>
