@@ -7,7 +7,7 @@ import FeaturesSection from './components/FeaturesSection'
 import BranchesSection from './components/BranchesSection'
 import HowItWorksSection from './components/HowItWorksSection'
 import CallToAction from './components/CallToAction'
-import { BookOpen,CheckCircle,Layers,BarChart2,MessageCircle,TrendingUp,Award,BoxIcon } from 'lucide-react'
+import { BookOpen, CheckCircle, Layers, BarChart2, MessageCircle, TrendingUp, Award, BoxIcon } from 'lucide-react'
 const features = [
   {
     icon: <BookOpen className="w-6 h-6" />,
@@ -65,48 +65,23 @@ const branches = [
 export default function AboutPage() {
   const { isDark, theme, toggleTheme } = useTheme()
 
-  const bgGradient = isDark
-    ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
-    : 'bg-gradient-to-br from-indigo-50 via-blue-50 to-indigo-100'
-  const textPrimary = isDark ? 'text-white' : 'text-gray-800'
-  const textSecondary = isDark ? 'text-gray-300' : 'text-gray-600'
-  const cardBg = isDark ? 'bg-gray-800' : 'bg-white'
-  const borderColor = isDark ? 'border-gray-700' : 'border-gray-200'
-
   return (
-    <main className={`min-h-screen ${bgGradient} transition-colors duration-500`}>
+    <main className="min-h-screen transition-colors duration-500"
+      style={{
+        background: isDark
+          ? 'radial-gradient(ellipse at 30% 10%, #2a2a4a 0%, #1e1e2e 50%, #151520 100%)'
+          : 'radial-gradient(ellipse at 30% 10%, #f0e9e2 0%, #e8e0d8 50%, #ddd5cc 100%)'
+      }}
+    >
       <BackButton isDark={isDark} />
       <ThemeToggleButton isDark={isDark} toggleTheme={toggleTheme} />
 
       <div className="max-w-7xl mx-auto px-6 py-20 sm:px-12 lg:px-16">
-        <HeroSection isDark={isDark} textPrimary={textPrimary} textSecondary={textSecondary} />
-
-        <FeaturesSection
-          features={features}
-          isDark={isDark}
-          cardBg={cardBg}
-          borderColor={borderColor}
-          textPrimary={textPrimary}
-          textSecondary={textSecondary}
-        />
-
-        <BranchesSection
-          branches={branches}
-          isDark={isDark}
-          cardBg={cardBg}
-          borderColor={borderColor}
-          textPrimary={textPrimary}
-        />
-
-        <HowItWorksSection
-          isDark={isDark}
-          cardBg={cardBg}
-          borderColor={borderColor}
-          textPrimary={textPrimary}
-          textSecondary={textSecondary}
-        />
-
-        <CallToAction isDark={isDark} textPrimary={textPrimary} />
+        <HeroSection isDark={isDark} />
+        <FeaturesSection features={features} isDark={isDark} />
+        <BranchesSection branches={branches} isDark={isDark} />
+        <HowItWorksSection isDark={isDark} />
+        <CallToAction isDark={isDark} />
       </div>
     </main>
   )

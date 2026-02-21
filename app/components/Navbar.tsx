@@ -28,83 +28,102 @@ export default function Navbar({ user, logout, toggleTheme, isDark, page = "Dash
 
     return (
         <>
-            <nav className={`bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50`}>
+            <nav className="skeu-navbar sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
                     <div className="flex justify-between items-center h-16">
                         {/* Left Section */}
                         <div className="flex items-center space-x-4 min-w-0">
-                            <Image
-                                src="/emblem.png"
-                                alt="NeuraMark Logo"
-                                width={32}
-                                height={32}
-                                className="rounded shrink-0"
-                                priority
-                            />
-                            <h1 className={`text-lg font-semibold text-gray-900 dark:text-white truncate max-w-[140px] sm:max-w-xs`}>
+                            <div className="skeu-inset p-1 rounded-lg">
+                                <Image
+                                    src="/emblem.png"
+                                    alt="NeuraMark Logo"
+                                    width={28}
+                                    height={28}
+                                    className="rounded shrink-0"
+                                    priority
+                                />
+                            </div>
+                            <h1 className="text-lg font-bold skeu-text-embossed truncate max-w-[140px] sm:max-w-xs"
+                                style={{ color: 'var(--text-primary)' }}
+                            >
                                 {page}
                             </h1>
                             {isAdmin && (
-                                <span className="ml-2 px-2 py-0.5 bg-green-600 text-white text-xs font-medium rounded">
+                                <span className="skeu-badge ml-2 text-[10px]">
                                     ADMIN
                                 </span>
                             )}
                         </div>
 
                         {/* Desktop Controls */}
-                        <div className="hidden md:flex items-center space-x-4">
+                        <div className="hidden md:flex items-center space-x-3">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                    className="skeu-btn-secondary text-sm py-2 px-4 rounded-lg font-medium"
+                                    style={{ color: 'var(--text-secondary)' }}
                                 >
                                     {item.name}
                                 </Link>
                             ))}
 
                             {user?.photoURL ? (
-                                <Image
-                                    src={user.photoURL}
-                                    alt={user.displayName || 'User'}
-                                    width={32}
-                                    height={32}
-                                    className="rounded-full"
-                                />
+                                <div className="skeu-inset p-0.5 rounded-full">
+                                    <Image
+                                        src={user.photoURL}
+                                        alt={user.displayName || 'User'}
+                                        width={30}
+                                        height={30}
+                                        className="rounded-full"
+                                    />
+                                </div>
                             ) : (
-                                <div className="h-8 w-8 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium">
-                                    <User size={16} />
+                                <div className="skeu-inset h-8 w-8 rounded-full flex items-center justify-center">
+                                    <User size={14} style={{ color: 'var(--text-secondary)' }} />
                                 </div>
                             )}
 
-                            <span className="hidden sm:inline-block text-sm font-medium truncate max-w-[200px] text-gray-700 dark:text-gray-200">
+                            <span className="hidden sm:inline-block text-sm font-medium truncate max-w-[200px]"
+                                style={{ color: 'var(--text-secondary)' }}
+                            >
                                 {user?.displayName || user?.email}
                             </span>
 
                             <button
                                 onClick={logout}
-                                className="px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 text-sm transition-colors"
+                                className="skeu-btn-danger text-sm py-2 px-4 rounded-lg"
                             >
                                 Logout
                             </button>
 
                             <button
                                 onClick={toggleTheme}
-                                className={`p-2 rounded-md ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} transition-colors`}
+                                className="skeu-btn-icon rounded-lg"
                                 aria-label="Toggle Theme"
                             >
-                                {isDark ? (
-                                    <Sun className="w-5 h-5 text-amber-400" />
-                                ) : (
-                                    <Moon className="w-5 h-5 text-indigo-600" />
-                                )}
+                                <AnimatePresence mode="wait" initial={false}>
+                                    {isDark ? (
+                                        <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-warning)' }}>
+                                            <Sun className="w-5 h-5" />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-primary)' }}>
+                                            <Moon className="w-5 h-5" />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </button>
                         </div>
 
                         {/* Hamburger for Mobile */}
                         <div className="md:hidden">
-                            <button onClick={() => setSidebarOpen(true)} className={`p-2 rounded-md ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} transition-colors`} aria-label="Open Menu">
-                                <Menu className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                            <button
+                                onClick={() => setSidebarOpen(true)}
+                                className="skeu-btn-icon rounded-lg"
+                                aria-label="Open Menu"
+                            >
+                                <Menu className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                             </button>
                         </div>
                     </div>
@@ -112,44 +131,83 @@ export default function Navbar({ user, logout, toggleTheme, isDark, page = "Dash
             </nav>
 
             {/* Mobile Sidebar */}
-            {sidebarOpen && (
-                <div className="fixed inset-0 z-50 bg-black bg-opacity-50 md:hidden" onClick={() => setSidebarOpen(false)}>
-                    <div
-                        className="absolute top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg p-4"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Menu</h2>
-                            <button onClick={() => setSidebarOpen(false)} className={`p-1 rounded-md ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} transition-colors`} aria-label="Close Menu">
-                                <X className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                            </button>
-                        </div>
-
-                        <nav className="space-y-4">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
+            <AnimatePresence>
+                {sidebarOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-50 skeu-modal-backdrop md:hidden"
+                            onClick={() => setSidebarOpen(false)}
+                        />
+                        <motion.div
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ type: 'tween', duration: 0.3 }}
+                            className="fixed top-0 left-0 h-full w-72 z-50 skeu-sidebar p-5 flex flex-col md:hidden"
+                            style={{ background: 'var(--surface-raised)' }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="flex justify-between items-center mb-8">
+                                <h2 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                                    Menu
+                                </h2>
+                                <button
                                     onClick={() => setSidebarOpen(false)}
-                                    className="block text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white text-sm font-medium py-2 px-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                    className="skeu-btn-icon rounded-lg"
+                                    aria-label="Close Menu"
                                 >
-                                    {item.name}
-                                </Link>
-                            ))}
+                                    <X className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
+                                </button>
+                            </div>
 
-                            <button
-                                onClick={() => {
-                                    logout();
-                                    setSidebarOpen(false);
-                                }}
-                                className="block text-red-600 hover:text-red-800 dark:hover:text-red-400 text-sm font-medium py-2 px-3 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors mt-4"
-                            >
-                                Logout
-                            </button>
-                        </nav>
-                    </div>
-                </div>
-            )}
+                            <nav className="space-y-2 flex-1">
+                                {navItems.map((item) => (
+                                    <Link
+                                        key={item.name}
+                                        href={item.href}
+                                        onClick={() => setSidebarOpen(false)}
+                                        className="block skeu-btn-secondary text-sm font-medium py-3 px-4 rounded-xl"
+                                        style={{ color: 'var(--text-primary)' }}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                ))}
+                            </nav>
+
+                            <div className="space-y-3 mt-auto">
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        setSidebarOpen(false);
+                                    }}
+                                    className="skeu-btn-danger w-full text-sm py-3 px-4 rounded-xl"
+                                >
+                                    Logout
+                                </button>
+                                <button
+                                    onClick={toggleTheme}
+                                    className="skeu-btn-secondary w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm"
+                                >
+                                    {isDark ? (
+                                        <>
+                                            <Sun className="w-4 h-4" style={{ color: 'var(--accent-warning)' }} />
+                                            <span>Light Mode</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Moon className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
+                                            <span>Dark Mode</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </>
     );
 }

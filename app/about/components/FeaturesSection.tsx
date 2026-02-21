@@ -9,40 +9,44 @@ type Feature = {
 type FeaturesSectionProps = {
   features?: Feature[];
   isDark: boolean;
-  cardBg: string;
-  borderColor: string;
-  textPrimary: string;
-  textSecondary: string;
+  cardBg?: string;
+  borderColor?: string;
+  textPrimary?: string;
+  textSecondary?: string;
 };
 
 export default function FeaturesSection({
   features = [],
   isDark,
-  cardBg,
-  borderColor,
-  textPrimary,
-  textSecondary,
 }: FeaturesSectionProps) {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-      <h2 className={`text-3xl font-semibold text-center mb-12 ${textPrimary}`}>
+      <h2 className="text-3xl font-bold text-center mb-12 skeu-text-embossed"
+        style={{ color: 'var(--text-primary)' }}
+      >
         Key Features
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {features.map(({ icon, title, description }, i) => (
           <motion.div
             key={i}
-            className={`${cardBg} border ${borderColor} rounded-xl p-7 shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-default`}
-            whileHover={{ y: -8 }}
+            className="skeu-card p-7 rounded-xl cursor-default"
+            whileHover={{ y: -4 }}
           >
             <div
-              className={`w-14 h-14 flex items-center justify-center rounded-full mb-5
-                ${isDark ? 'bg-indigo-900/60 text-indigo-300' : 'bg-indigo-100 text-indigo-600'}`}
+              className="skeu-inset w-14 h-14 flex items-center justify-center rounded-xl mb-5"
+              style={{ color: 'var(--accent-primary)' }}
             >
               {icon}
             </div>
-            <h3 className={`text-xl font-medium mb-3 ${textPrimary}`}>{title}</h3>
-            <p className={`text-base leading-relaxed ${textSecondary}`}>{description}</p>
+            <h3 className="text-lg font-semibold mb-3 skeu-text-embossed"
+              style={{ color: 'var(--text-primary)' }}
+            >
+              {title}
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              {description}
+            </p>
           </motion.div>
         ))}
       </div>

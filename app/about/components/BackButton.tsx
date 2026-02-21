@@ -13,18 +13,11 @@ export default function BackButton({ isDark }: { isDark: boolean }) {
       <Link
         href="/"
         aria-label="Go back to home"
-        className={`
-          p-3 rounded-full flex items-center justify-center
-          ${isDark ? 'bg-gray-700/90 hover:bg-gray-600/90' : 'bg-white shadow-sm hover:shadow-md'}
-          border ${isDark ? 'border-gray-600' : 'border-gray-200'}
-          transition-colors duration-200
-          shadow-md
-          focus:outline-none focus:ring-2 focus:ring-offset-1
-          ${isDark ? 'focus:ring-indigo-400' : 'focus:ring-indigo-600'}
-        `}
+        className="skeu-btn-icon p-3 rounded-full flex items-center justify-center"
       >
         <ArrowLeft
-          className={`w-6 h-6 ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}
+          className="w-5 h-5"
+          style={{ color: 'var(--accent-primary)' }}
           strokeWidth={2.5}
         />
       </Link>
