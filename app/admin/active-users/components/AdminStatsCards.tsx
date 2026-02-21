@@ -9,52 +9,28 @@ interface AdminStatsCardsProps {
 }
 
 export default function AdminStatsCards({ usersCount, activeLearners, subjectsCount, newThisWeek }: AdminStatsCardsProps) {
+  const stats = [
+    { icon: User, label: 'Total Users', value: usersCount, accent: 'var(--accent-primary)' },
+    { icon: CheckCircle, label: 'Active Learners', value: activeLearners, accent: 'var(--accent-success)' },
+    { icon: BookOpen, label: 'Subjects Available', value: subjectsCount, accent: 'var(--accent-secondary)' },
+    { icon: Calendar, label: 'New This Week', value: newThisWeek, accent: 'var(--accent-warning)' },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex items-center">
-          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-            <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          </div>
-          <div className="ml-4">
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Users</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{usersCount}</p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex items-center">
-          <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-            <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
-          </div>
-          <div className="ml-4">
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Learners</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{activeLearners}</p>
+      {stats.map((stat) => (
+        <div key={stat.label} className="skeu-card-static rounded-xl p-6 border border-skeu">
+          <div className="flex items-center">
+            <div className="skeu-inset p-2.5 rounded-xl">
+              <stat.icon className="w-6 h-6" style={{ color: stat.accent }} />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{stat.label}</p>
+              <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{stat.value}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex items-center">
-          <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-            <BookOpen className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-          </div>
-          <div className="ml-4">
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Subjects Available</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{subjectsCount}</p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-        <div className="flex items-center">
-          <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-            <Calendar className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-          </div>
-          <div className="ml-4">
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">New This Week</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{newThisWeek}</p>
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }

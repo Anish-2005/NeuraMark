@@ -44,15 +44,15 @@ export default function AdminKraKpiPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [expandedUser, setExpandedUser] = useState<string | null>(null);
 
-    // Enhanced theme styles
-    const bgColor = isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50';
-    const cardBg = isDark ? 'bg-gray-800/90 backdrop-blur-lg' : 'bg-white/80 backdrop-blur-lg';
-    const textColor = isDark ? 'text-gray-100' : 'text-gray-900';
-    const secondaryText = isDark ? 'text-gray-400' : 'text-gray-600';
-    const borderColor = isDark ? 'border-gray-700' : 'border-purple-200';
-    const inputBg = isDark ? 'bg-gray-700/80 text-white' : 'bg-white/90 text-gray-900';
-    const activeTabBg = isDark ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gradient-to-r from-indigo-500 to-purple-500';
-    const inactiveTabBg = isDark ? 'bg-gray-700/50' : 'bg-white/60';
+    // Skeuomorphic theme styles
+    const bgColor = '';
+    const cardBg = 'skeu-card-static';
+    const textColor = 'text-skeu-primary';
+    const secondaryText = 'text-skeu-secondary';
+    const borderColor = 'border-skeu';
+    const inputBg = 'skeu-input';
+    const activeTabBg = 'skeu-btn-primary';
+    const inactiveTabBg = 'skeu-btn-secondary';
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
@@ -178,20 +178,20 @@ export default function AdminKraKpiPage() {
     const getUserKpiData = (userId: string): UserKpiData[] => {
         const progress: UserKpiProgress | undefined = userProgress[userId];
         if (!progress) return [];
-        
+
         return Object.entries(progress)
             .filter(([key]) => key.startsWith('subject_'))
             .map(([key, value]) => {
                 const subjectId = key.replace('subject_', '');
                 const subjectInfo = syllabusData[subjectId];
                 if (!subjectInfo) return null;
-                
+
                 let subjectProgress: UserKpiProgress = {};
                 if (typeof value === 'object' && value !== null) {
                     subjectProgress = value as UserKpiProgress;
                 }
                 const progressResult = calculateProgress(subjectProgress, subjectId);
-                
+
                 return {
                     subjectId,
                     name: subjectInfo.name,
@@ -214,10 +214,10 @@ export default function AdminKraKpiPage() {
     const getUserKraData = (userId: string): KraData[] => {
         const kpiData: KpiData[] = getUserKpiData(userId);
         if (kpiData.length === 0) return [];
-        
+
         // Group by year and semester
         const kraData: KraDataMap = {};
-        
+
         kpiData.forEach((item: KpiData) => {
             const key = `Year ${item.year} - Semester ${item.semester}`;
             if (!kraData[key]) {
@@ -229,19 +229,19 @@ export default function AdminKraKpiPage() {
                     avgProgress: 0
                 };
             }
-            
+
             kraData[key].subjects += 1;
             kraData[key].totalModules += item.total;
             kraData[key].completedModules += item.completed;
         });
-        
+
         // Calculate average progress for each KRA
         Object.keys(kraData).forEach((key: string) => {
             kraData[key].avgProgress = Math.round(
                 (kraData[key].completedModules / kraData[key].totalModules) * 100
             );
         });
-        
+
         return Object.values(kraData);
     };
 
@@ -252,9 +252,9 @@ export default function AdminKraKpiPage() {
     const getYearlyProgressData = (userId: string): YearlyProgressData[] => {
         const kpiData: KpiData[] = getUserKpiData(userId);
         if (kpiData.length === 0) return [];
-        
+
         const yearlyData: YearlyProgressDataMap = {};
-        
+
         kpiData.forEach((item: KpiData) => {
             const yearKey = `Year ${item.year}`;
             if (!yearlyData[yearKey]) {
@@ -266,19 +266,19 @@ export default function AdminKraKpiPage() {
                     progress: 0
                 };
             }
-            
+
             yearlyData[yearKey].subjects += 1;
             yearlyData[yearKey].totalModules += item.total;
             yearlyData[yearKey].completedModules += item.completed;
         });
-        
+
         // Calculate progress for each year
         Object.keys(yearlyData).forEach((key: string) => {
             yearlyData[key].progress = Math.round(
                 (yearlyData[key].completedModules / yearlyData[key].totalModules) * 100
             );
         });
-        
+
         return Object.values(yearlyData);
     };
 
@@ -345,22 +345,22 @@ export default function AdminKraKpiPage() {
     if (!isAdmin) {
         return (
             <ProtectedRoute>
-                    <div className={`min-h-screen ${bgColor} flex items-center justify-center`}>
-                        <div className={`${cardBg} p-8 rounded-lg shadow-lg text-center max-w-md ${borderColor} border`}>
-                            <h2 className={`text-xl font-bold mb-4 ${textColor}`}>Access Denied</h2>
-                            <p className={secondaryText}>You don't have permission to access this page.</p>
-                            <Link href="/dashboard" className={`mt-4 inline-block text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300`}>
-                                Go back to Dashboard
-                            </Link>
-                        </div>
+                <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--surface-base)' }}>
+                    <div className="skeu-card-static p-8 rounded-xl text-center max-w-md border border-skeu">
+                        <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Access Denied</h2>
+                        <p style={{ color: 'var(--text-secondary)' }}>You don&apos;t have permission to access this page.</p>
+                        <Link href="/dashboard" className="mt-4 inline-block skeu-btn-primary px-4 py-2 rounded-lg text-sm font-medium">
+                            Go back to Dashboard
+                        </Link>
                     </div>
+                </div>
             </ProtectedRoute>
         );
     }
 
     return (
         <ProtectedRoute>
-            <div className={`min-h-screen ${bgColor} transition-colors duration-200 pb-8`}>
+            <div className="min-h-screen transition-colors duration-200 pb-8" style={{ background: 'var(--surface-base)' }}>
                 <Navbar
                     user={user ? {
                         displayName: user.displayName ?? undefined,
@@ -385,14 +385,13 @@ export default function AdminKraKpiPage() {
                     secondaryText={secondaryText}
                 />
                 <main className={`max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ${textColor} py-6`}>
-                    <div className={`${cardBg} p-6 sm:p-8 rounded-2xl shadow-2xl ${borderColor} border-2`}>
+                    <div className={`${cardBg} p-6 sm:p-8 rounded-2xl ${borderColor} border`}>
                         {loading ? (
                             <div className="flex flex-col justify-center items-center h-64 space-y-4">
-                                <div className="relative">
-                                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-indigo-600"></div>
-                                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 opacity-20 blur-xl"></div>
-                                </div>
-                                <p className={`text-sm font-medium ${secondaryText} animate-pulse`}>Loading analytics data...</p>
+                                <div className="animate-spin rounded-full h-16 w-16 border-4 border-t-transparent"
+                                    style={{ borderColor: 'var(--accent-primary)', borderTopColor: 'transparent' }}
+                                ></div>
+                                <p className="text-sm font-medium animate-pulse" style={{ color: 'var(--text-secondary)' }}>Loading analytics data...</p>
                             </div>
                         ) : (
                             <UserTable

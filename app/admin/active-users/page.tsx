@@ -43,13 +43,13 @@ export default function UserDataPage() {
     const [expandedUser, setExpandedUser] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Theme styles
-    const bgColor = theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50';
-    const cardBg = theme === 'dark' ? 'bg-gray-800' : 'bg-white';
-    const textColor = theme === 'dark' ? 'text-gray-100' : 'text-gray-900';
-    const secondaryText = theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
-    const borderColor = theme === 'dark' ? 'border-gray-700' : 'border-gray-200';
-    const inputBg = theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900';
+    // Skeuomorphic theme styles
+    const bgColor = '';
+    const cardBg = 'skeu-card-static';
+    const textColor = 'text-skeu-primary';
+    const secondaryText = 'text-skeu-secondary';
+    const borderColor = 'border-skeu';
+    const inputBg = 'skeu-input';
 
     const fetchAllData = useCallback(async () => {
         setLoading(true);
@@ -73,7 +73,7 @@ export default function UserDataPage() {
             // Sort by creation date (newest first)
             const sortedUsers = usersData.sort(
                 (a, b) =>
-                    ((b.createdAt ? b.createdAt.getTime() : 0) -
+                ((b.createdAt ? b.createdAt.getTime() : 0) -
                     (a.createdAt ? a.createdAt.getTime() : 0))
             );
             setUsers(sortedUsers);
@@ -220,7 +220,7 @@ export default function UserDataPage() {
                     <div className={`${cardBg} p-8 rounded-lg shadow-lg text-center max-w-md ${borderColor} border`}>
                         <h2 className={`text-xl font-bold mb-4 ${textColor}`}>Access Denied</h2>
                         <p className={secondaryText}>You don't have permission to access this page.</p>
-                        <Link href="/dashboard" className={`mt-4 inline-block text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300`}>
+                        <Link href="/dashboard" className="mt-4 inline-block skeu-btn-primary px-4 py-2 rounded-lg text-sm font-medium">
                             Go back to Dashboard
                         </Link>
                     </div>
@@ -231,45 +231,60 @@ export default function UserDataPage() {
 
     return (
         <ProtectedRoute>
-            <div className={`min-h-screen ${bgColor} transition-colors duration-200 pb-8`}>
+            <div className="min-h-screen transition-colors duration-200 pb-8" style={{ background: 'var(--surface-base)' }}>
                 {/* Navigation */}
-                <nav className={`bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50`}>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav className="skeu-navbar sticky top-0 z-50">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
                         <div className="flex justify-between items-center h-16">
                             {/* Left Section */}
                             <div className="flex items-center space-x-4 min-w-0">
                                 <Link
                                     href="/dashboard"
-                                    className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                    className="skeu-btn-icon rounded-lg"
                                     aria-label="Back to Dashboard"
                                 >
-                                    <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+                                    <ArrowLeft className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} />
                                 </Link>
-                                <Image
-                                    src="/emblem.png"
-                                    alt="NeuraMark Logo"
-                                    width={32}
-                                    height={32}
-                                    className="rounded shrink-0"
-                                    priority
-                                />
-                                <h1 className={`text-lg font-semibold text-gray-900 dark:text-white truncate max-w-[140px] sm:max-w-xs`}>
+                                <div className="skeu-inset p-1 rounded-lg">
+                                    <Image
+                                        src="/emblem.png"
+                                        alt="NeuraMark Logo"
+                                        width={28}
+                                        height={28}
+                                        className="rounded shrink-0"
+                                        priority
+                                    />
+                                </div>
+                                <h1 className="text-lg font-bold skeu-text-embossed truncate max-w-[140px] sm:max-w-xs"
+                                    style={{ color: 'var(--text-primary)' }}
+                                >
                                     Active Users
                                 </h1>
-                                <span className="hidden sm:inline-block ml-2 px-2 py-0.5 bg-green-600 text-white text-xs font-medium rounded">
+                                <span className="skeu-badge hidden sm:inline-block text-[10px]">
                                     ADMIN
                                 </span>
                             </div>
 
                             {/* Desktop Controls */}
-                            <div className="hidden md:flex items-center space-x-4">
+                            <div className="hidden md:flex items-center space-x-3">
                                 <button
                                     onClick={fetchAllData}
-                                    className="flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 text-sm transition-colors"
+                                    className="skeu-btn-primary text-sm py-2 px-4 rounded-lg font-medium flex items-center"
                                     disabled={loading}
                                 >
                                     <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
                                     <span>Refresh</span>
+                                </button>
+                            </div>
+
+                            {/* Hamburger for Mobile */}
+                            <div className="md:hidden">
+                                <button
+                                    onClick={() => setSidebarOpen(true)}
+                                    className="skeu-btn-icon rounded-lg"
+                                    aria-label="Open Menu"
+                                >
+                                    <svg className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
                                 </button>
                             </div>
                         </div>
@@ -298,14 +313,14 @@ export default function UserDataPage() {
                             return user.createdAt && user.createdAt > weekAgo;
                         }).length}
                     />
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div className="skeu-card-static rounded-xl border border-skeu">
+                        <div className="p-6" style={{ borderBottom: '1px solid var(--border-primary)' }}>
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                                    <h2 className="text-xl font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                                         User Management
                                     </h2>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                    <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
                                         Monitor user activity and learning progress
                                     </p>
                                 </div>
@@ -319,8 +334,8 @@ export default function UserDataPage() {
                         </div>
                         {loading ? (
                             <div className="flex flex-col items-center justify-center py-16">
-                                <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-200 border-t-blue-600 mb-4"></div>
-                                <p className="text-gray-600 dark:text-gray-400">Loading user data...</p>
+                                <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent mb-4" style={{ borderColor: 'var(--accent-primary)', borderTopColor: 'transparent' }}></div>
+                                <p style={{ color: 'var(--text-secondary)' }}>Loading user data...</p>
                             </div>
                         ) : (
                             <div className="overflow-x-auto">
@@ -352,14 +367,13 @@ export default function UserDataPage() {
                         )}
                         {!loading && filteredUsers.length === 0 && (
                             <div className="text-center py-16">
-                                <div className="mx-auto w-24 h-24 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
-                                    {/* User icon for empty state */}
-                                    <svg className="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" /></svg>
+                                <div className="skeu-inset mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-4">
+                                    <svg className="w-12 h-12" style={{ color: 'var(--text-muted)' }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" /></svg>
                                 </div>
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-lg font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
                                     {searchQuery ? 'No matching users found' : 'No users registered yet'}
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                                <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>
                                     {searchQuery
                                         ? 'Try adjusting your search terms or clear the search to see all users.'
                                         : 'Users will appear here once they register and start using the platform.'
@@ -368,9 +382,8 @@ export default function UserDataPage() {
                                 {searchQuery && (
                                     <button
                                         onClick={() => setSearchQuery('')}
-                                        className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
+                                        className="skeu-btn-primary inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium"
                                     >
-                                        {/* X icon */}
                                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                                         Clear Search
                                     </button>

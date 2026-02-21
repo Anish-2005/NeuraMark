@@ -988,24 +988,11 @@ export default function Dashboard() {
                                     </span>
                                     <Link
                                         href="/chat"
-                                        className={`relative px-3 py-1.5 rounded-md text-sm font-medium transition-all ${pathname === '/chat'
-                                            ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200'
-                                            : ''
-                                            }`}
+                                        className="skeu-btn-icon rounded-lg"
                                         aria-label="Chat"
+                                        style={pathname === '/chat' ? { color: 'var(--accent-primary)', boxShadow: 'var(--shadow-elevated)' } : { color: 'var(--text-secondary)' }}
                                     >
-                                        <div className="relative">
-                                            <MessageCircle
-                                                size={23}
-                                                className={`text-blue-400 transition-transform duration-200 ${pathname === '/chat'
-                                                    ? 'scale-110 text-blue-500 dark:text-blue-300'
-                                                    : 'hover:scale-110'
-                                                    }`}
-                                            />
-                                            <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                                                Chat
-                                            </span>
-                                        </div>
+                                        <MessageCircle size={20} />
                                     </Link>
 
                                     <button
@@ -1109,10 +1096,8 @@ export default function Dashboard() {
                                     <Link
                                         href="/dashboard"
                                         onClick={() => setSidebarOpen(false)}
-                                        className={`px-3 py-2 rounded-md text-base font-medium ${pathname === '/dashboard'
-                                            ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200'
-                                            : isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
-                                            }`}
+                                        className="block skeu-btn-secondary text-sm font-medium py-3 px-4 rounded-xl"
+                                        style={{ color: pathname === '/dashboard' ? 'var(--accent-primary)' : 'var(--text-primary)' }}
                                     >
                                         Dashboard
                                     </Link>
@@ -1120,10 +1105,8 @@ export default function Dashboard() {
                                     <Link
                                         href="/chat"
                                         onClick={() => setSidebarOpen(false)}
-                                        className={`px-3 py-2 rounded-md text-base font-medium ${pathname === '/chat'
-                                            ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200'
-                                            : isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
-                                            }`}
+                                        className="block skeu-btn-secondary text-sm font-medium py-3 px-4 rounded-xl"
+                                        style={{ color: pathname === '/chat' ? 'var(--accent-primary)' : 'var(--text-primary)' }}
                                     >
                                         Chat
                                     </Link>
@@ -1142,8 +1125,8 @@ export default function Dashboard() {
                                             className="rounded-full"
                                         />
                                     ) : (
-                                        <div className="h-8 w-8 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
-                                            <User size={16} />
+                                        <div className="skeu-inset h-8 w-8 rounded-full flex items-center justify-center">
+                                            <User size={16} style={{ color: 'var(--text-secondary)' }} />
                                         </div>
                                     )}
                                     <span className={`text-sm truncate ${secondaryText}`}>

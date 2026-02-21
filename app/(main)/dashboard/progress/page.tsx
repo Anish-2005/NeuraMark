@@ -41,13 +41,13 @@ export default function MyProgressPage() {
   const [userPreferences, setUserPreferences] = useState<Record<string, any> | null>(null)
   const router = useRouter()
 
-  // Enhanced theme styles
+  // Skeuomorphic theme styles
   const isDark = theme === 'dark'
-  const bgColor = isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50'
-  const cardBg = isDark ? 'bg-gray-800/90 backdrop-blur-lg' : 'bg-white/80 backdrop-blur-lg'
-  const textColor = isDark ? 'text-gray-100' : 'text-gray-900'
-  const secondaryText = isDark ? 'text-gray-400' : 'text-gray-600'
-  const borderColor = isDark ? 'border-gray-700' : 'border-purple-200'
+  const bgColor = ''
+  const cardBg = 'skeu-card-static'
+  const textColor = 'text-skeu-primary'
+  const secondaryText = 'text-skeu-secondary'
+  const borderColor = 'border-skeu'
 
   const fetchUserData = useCallback(async () => {
     setLoading(true)
@@ -138,7 +138,7 @@ export default function MyProgressPage() {
   }
   const filterSubjectsBySemester = () => {
     if (!userProgress) return []
-    
+
     return Object.entries(userProgress)
       .filter(([key]) => key.startsWith('subject_'))
       .filter(([key]) => {
@@ -187,45 +187,42 @@ export default function MyProgressPage() {
 
   return (
     <ProtectedRoute>
-      <div className={`min-h-screen ${bgColor} transition-colors duration-200 pb-8`}>
-        <ProgressHeader 
-          user={user} 
-          loading={loading} 
-          onRefresh={fetchUserData} 
-          onMenuOpen={() => setSidebarOpen(true)} 
+      <div className="min-h-screen transition-colors duration-200 pb-8" style={{ background: 'var(--surface-base)' }}>
+        <ProgressHeader
+          user={user}
+          loading={loading}
+          onRefresh={fetchUserData}
+          onMenuOpen={() => setSidebarOpen(true)}
         />
 
-        <ProgressSidebar 
-          isOpen={sidebarOpen} 
-          onClose={() => setSidebarOpen(false)} 
-          user={user} 
-          loading={loading} 
-          onRefresh={fetchUserData} 
+        <ProgressSidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          user={user}
+          loading={loading}
+          onRefresh={fetchUserData}
           logout={logout}
         />
 
         <main className={`max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ${textColor} py-6`}>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className={`${cardBg} p-6 sm:p-8 rounded-2xl shadow-2xl ${borderColor} border-2`}>
+            className={`${cardBg} p-6 sm:p-8 rounded-2xl ${borderColor} border`}>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
               <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-40"></div>
-                  <div className="relative p-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
+                <div className="skeu-inset p-3 rounded-2xl">
+                  <svg className="w-8 h-8" style={{ color: 'var(--accent-primary)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
                 </div>
                 <div>
                   <h2 className={`text-2xl sm:text-3xl font-bold ${textColor} mb-1`}>
                     Your Learning Progress
                   </h2>
                   <div className={`flex items-center space-x-2 ${secondaryText} text-sm font-medium`}>
-                    <span className="px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
+                    <span className="skeu-badge text-xs">
                       {user?.email}
                     </span>
                   </div>
@@ -249,13 +246,10 @@ export default function MyProgressPage() {
                     <div className="flex gap-2 flex-wrap">
                       <button
                         onClick={() => handleSemesterChange('all')}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all transform hover:scale-105 active:scale-95 ${
-                          selectedSemester === 'all'
-                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                            : isDark
-                            ? 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
-                            : 'bg-white/60 text-gray-700 hover:bg-white border border-purple-200'
-                        }`}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all transform hover:scale-105 active:scale-95 ${selectedSemester === 'all'
+                            ? 'skeu-btn-primary'
+                            : 'skeu-btn-secondary'
+                          }`}
                       >
                         All Semesters
                       </button>
@@ -263,13 +257,10 @@ export default function MyProgressPage() {
                         <button
                           key={semester}
                           onClick={() => handleSemesterChange(semester.toString())}
-                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all transform hover:scale-105 active:scale-95 ${
-                            selectedSemester === semester.toString()
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                              : isDark
-                              ? 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
-                              : 'bg-white/60 text-gray-700 hover:bg-white border border-purple-200'
-                          }`}
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all transform hover:scale-105 active:scale-95 ${selectedSemester === semester.toString()
+                              ? 'skeu-btn-primary'
+                              : 'skeu-btn-secondary'
+                            }`}
                         >
                           Semester {semester}
                         </button>
@@ -279,47 +270,46 @@ export default function MyProgressPage() {
                 </div>
 
                 <div className="space-y-4">
-                {filterSubjectsBySemester().length === 0 ? (
-                  <div className={`text-center py-16`}>
-                    <div className="relative inline-block">
-                      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-xl opacity-20"></div>
-                      <div className={`relative p-6 rounded-2xl ${isDark ? 'bg-gray-700/50' : 'bg-white/80'} shadow-xl`}>
-                        <Filter className={`w-16 h-16 mx-auto mb-4 ${secondaryText}`} />
-                        <h3 className={`text-xl font-bold ${textColor} mb-2`}>No Subjects Found</h3>
-                        <p className={`${secondaryText}`}>No subjects found for the selected semester.</p>
+                  {filterSubjectsBySemester().length === 0 ? (
+                    <div className={`text-center py-16`}>
+                      <div className="inline-block">
+                        <div className="skeu-inset p-6 rounded-2xl">
+                          <Filter className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--text-muted)' }} />
+                          <h3 className="text-xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>No Subjects Found</h3>
+                          <p style={{ color: 'var(--text-secondary)' }}>No subjects found for the selected semester.</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  filterSubjectsBySemester().map(([key, value]) => {
-                    const subjectId = key.replace('subject_', '')
-                    const subjectInfo = syllabusData[subjectId]
-                    if (!subjectInfo) return null
+                  ) : (
+                    filterSubjectsBySemester().map(([key, value]) => {
+                      const subjectId = key.replace('subject_', '')
+                      const subjectInfo = syllabusData[subjectId]
+                      if (!subjectInfo) return null
 
-                    const progress = calculateProgress(value, subjectId)
-                    const isExpanded = expandedSubjects.includes(subjectId)
+                      const progress = calculateProgress(value, subjectId)
+                      const isExpanded = expandedSubjects.includes(subjectId)
 
-                    // Ensure branch and year are present (fallback to empty string/0 if missing)
-                    const subjectWithRequiredFields = {
-                      ...subjectInfo,
-                      branch: subjectInfo.branch ?? '',
-                      year: subjectInfo.year ?? 0,
-                      semester: subjectInfo.semester ?? 0,
-                    }
+                      // Ensure branch and year are present (fallback to empty string/0 if missing)
+                      const subjectWithRequiredFields = {
+                        ...subjectInfo,
+                        branch: subjectInfo.branch ?? '',
+                        year: subjectInfo.year ?? 0,
+                        semester: subjectInfo.semester ?? 0,
+                      }
 
-                    return (
-                      <ProgressSubject
-                        key={key}
-                        subject={subjectWithRequiredFields}
-                        progress={progress}
-                        isExpanded={isExpanded}
-                        onToggle={() => toggleSubjectExpand(subjectId)}
-                        modules={subjectInfo.modules || []}
-                      />
-                    )
-                  })
-                )}
-              </div>
+                      return (
+                        <ProgressSubject
+                          key={key}
+                          subject={subjectWithRequiredFields}
+                          progress={progress}
+                          isExpanded={isExpanded}
+                          onToggle={() => toggleSubjectExpand(subjectId)}
+                          modules={subjectInfo.modules || []}
+                        />
+                      )
+                    })
+                  )}
+                </div>
               </>
             )}
           </motion.div>

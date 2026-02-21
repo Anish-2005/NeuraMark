@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/app/lib/firebase';
 import { useTheme } from '@/app/context/ThemeContext';
-import {User,RefreshCw,Menu, Moon, Sun, Trash2, Edit, ArrowLeft ,X, BookOpen, GraduationCap, Layers} from 'lucide-react';
+import { User, RefreshCw, Menu, Moon, Sun, Trash2, Edit, ArrowLeft, X, BookOpen, GraduationCap, Layers } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
@@ -21,11 +21,11 @@ export default function AdminSubjects() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const bgColor = isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50';
-    const cardBg = isDark ? 'bg-gray-800/90 backdrop-blur-lg' : 'bg-white/80 backdrop-blur-lg';
-    const textColor = isDark ? 'text-gray-100' : 'text-gray-900';
-    const secondaryText = isDark ? 'text-gray-400' : 'text-gray-600';
-    const borderColor = isDark ? 'border-gray-700' : 'border-purple-200';
+    // Skeuomorphic theme styles
+    const cardBg = 'skeu-card-static';
+    const textColor = 'text-skeu-primary';
+    const secondaryText = 'text-skeu-secondary';
+    const borderColor = 'border-skeu';
 
     useEffect(() => {
         if (user && user.email === "anishseth0510@gmail.com") {
@@ -84,11 +84,11 @@ export default function AdminSubjects() {
     if (!isAdmin) {
         return (
             <ProtectedRoute>
-                <div className={`min-h-screen ${bgColor} flex items-center justify-center`}>
-                    <div className={`${cardBg} p-8 rounded-lg shadow-lg text-center max-w-md ${borderColor} border`}>
+                <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--surface-base)' }}>
+                    <div className={`${cardBg} p-8 rounded-xl text-center max-w-md ${borderColor} border`}>
                         <h2 className={`text-xl font-bold mb-4 ${textColor}`}>Access Denied</h2>
-                        <p className={secondaryText}>You don't have permission to access this page.</p>
-                        <Link href="/dashboard" className={`mt-4 inline-block text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300`}>
+                        <p className={secondaryText}>You don&apos;t have permission to access this page.</p>
+                        <Link href="/dashboard" className="mt-4 inline-block skeu-btn-primary px-4 py-2 rounded-lg text-sm font-medium">
                             Go back to Dashboard
                         </Link>
                     </div>
@@ -108,44 +108,45 @@ export default function AdminSubjects() {
 
     return (
         <ProtectedRoute>
-            <div className={`min-h-screen ${bgColor} transition-colors duration-200`}>
-                 {/* Navigation */}
-                <nav className={`${cardBg} shadow-xl ${borderColor} border-b sticky top-0 z-50 backdrop-blur-xl`}>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-between items-center h-16 md:h-20">
+            <div className="min-h-screen transition-colors duration-200" style={{ background: 'var(--surface-base)' }}>
+                {/* Navigation */}
+                <nav className="skeu-navbar sticky top-0 z-50">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+                        <div className="flex justify-between items-center h-16">
                             {/* Left Section */}
-                            <div className="flex items-center space-x-3 min-w-0">
+                            <div className="flex items-center space-x-4 min-w-0">
                                 <Link
                                     href="/dashboard"
-                                    className={`p-2 rounded-lg transition-all hover:scale-110 active:scale-95 ${isDark ? 'hover:bg-gray-700' : 'hover:bg-purple-100'}`}
+                                    className="skeu-btn-icon rounded-lg"
                                     aria-label="Back to Dashboard"
                                 >
-                                    <ArrowLeft className={`h-5 w-5 ${textColor}`} />
+                                    <ArrowLeft className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} />
                                 </Link>
-                                <div className="relative">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg blur opacity-40"></div>
+                                <div className="skeu-inset p-1 rounded-lg">
                                     <Image
                                         src="/emblem.png"
                                         alt="NeuraMark Logo"
-                                        width={40}
-                                        height={40}
-                                        className="rounded-lg shadow-lg shrink-0 relative"
+                                        width={28}
+                                        height={28}
+                                        className="rounded shrink-0"
                                         priority
                                     />
                                 </div>
-                                <div>
-                                    <h1 className={`text-lg sm:text-2xl font-bold tracking-tight truncate max-w-[140px] sm:max-w-xs ${isDark ? 'bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent' : 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'}`}>
-                                        Subjects
-                                    </h1>
-                                    <p className={`text-xs ${secondaryText} hidden sm:block`}>Manage Syllabus</p>
-                                </div>
+                                <h1 className="text-lg font-bold skeu-text-embossed truncate max-w-[140px] sm:max-w-xs"
+                                    style={{ color: 'var(--text-primary)' }}
+                                >
+                                    Subjects
+                                </h1>
+                                <span className="skeu-badge hidden sm:inline-block text-[10px]">
+                                    ADMIN
+                                </span>
                             </div>
 
                             {/* Desktop Controls */}
-                            <div className="hidden md:flex items-center space-x-4">
+                            <div className="hidden md:flex items-center space-x-3">
                                 <button
                                     onClick={fetchAllSubjects}
-                                    className="flex items-center px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 text-sm font-medium shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="skeu-btn-primary text-sm py-2 px-4 rounded-lg font-medium flex items-center"
                                     disabled={loading}
                                 >
                                     <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
@@ -153,53 +154,40 @@ export default function AdminSubjects() {
                                 </button>
 
                                 {user?.photoURL ? (
-                                    <Image
-                                        src={user.photoURL}
-                                        alt={user.displayName || 'User'}
-                                        width={28}
-                                        height={28}
-                                        className="rounded-full"
-                                    />
+                                    <div className="skeu-inset p-0.5 rounded-full">
+                                        <Image
+                                            src={user.photoURL}
+                                            alt={user.displayName || 'User'}
+                                            width={28}
+                                            height={28}
+                                            className="rounded-full"
+                                        />
+                                    </div>
                                 ) : (
-                                    <div className="h-7 w-7 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
-                                        <User size={16} />
+                                    <div className="skeu-inset h-8 w-8 rounded-full flex items-center justify-center">
+                                        <User size={16} style={{ color: 'var(--text-secondary)' }} />
                                     </div>
                                 )}
 
-                                <span className={`hidden sm:inline-block ${secondaryText} text-sm md:text-base truncate max-w-[200px]`}>
+                                <span className="hidden sm:inline-block text-sm font-medium truncate max-w-[200px]"
+                                    style={{ color: 'var(--text-secondary)' }}
+                                >
                                     {user?.displayName || user?.email}
                                 </span>
 
                                 <button
                                     onClick={toggleTheme}
-                                    className={`p-2.5 rounded-xl transition-all duration-300 transform hover:scale-110 active:scale-95
-                        ${isDark ? 'bg-gray-700/80 hover:bg-gray-600/80' : 'bg-white/80 hover:bg-purple-100'}
-                        shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2
-                        ${isDark ? 'focus:ring-indigo-500' : 'focus:ring-purple-500'}`}
+                                    className="skeu-btn-icon rounded-lg"
                                     aria-label="Toggle Theme"
                                 >
                                     <AnimatePresence mode="wait" initial={false}>
                                         {isDark ? (
-                                            <motion.div
-                                                key="sun"
-                                                initial={{ rotate: -90, opacity: 0 }}
-                                                animate={{ rotate: 0, opacity: 1 }}
-                                                exit={{ rotate: 90, opacity: 0 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="text-yellow-400"
-                                            >
-                                                <Sun className="w-5 h-5 md:w-6 md:h-6" />
+                                            <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-warning)' }}>
+                                                <Sun className="w-5 h-5" />
                                             </motion.div>
                                         ) : (
-                                            <motion.div
-                                                key="moon"
-                                                initial={{ rotate: 90, opacity: 0 }}
-                                                animate={{ rotate: 0, opacity: 1 }}
-                                                exit={{ rotate: -90, opacity: 0 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="text-indigo-600"
-                                            >
-                                                <Moon className="w-5 h-5 md:w-6 md:h-6" />
+                                            <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: 'var(--accent-primary)' }}>
+                                                <Moon className="w-5 h-5" />
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
@@ -211,9 +199,9 @@ export default function AdminSubjects() {
                                 <button
                                     onClick={() => setSidebarOpen(true)}
                                     aria-label="Open Menu"
-                                    className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    className="skeu-btn-icon rounded-lg"
                                 >
-                                    <Menu className="w-6 h-6" />
+                                    <Menu className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                                 </button>
                             </div>
                         </div>
@@ -228,30 +216,32 @@ export default function AdminSubjects() {
                             animate={{ x: 0 }}
                             exit={{ x: '-100%' }}
                             transition={{ type: 'tween', duration: 0.3 }}
-                            className={`fixed inset-0 z-50 w-64 max-w-full p-4 flex flex-col gap-4 shadow-lg ${isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}
+                            className="skeu-sidebar fixed inset-0 z-50 w-64 max-w-full p-4 flex flex-col gap-4 shadow-lg"
                         >
                             {/* Top Section */}
                             <div className="flex justify-between items-center mb-4">
                                 <div className="flex items-center space-x-2">
-                                    <Image
-                                        src="/emblem.png"
-                                        alt="NeuraMark Logo"
-                                        width={28}
-                                        height={28}
-                                        className="rounded shadow-sm"
-                                    />
-                                    <div className="flex items-center space-x-1">
-                                        <h2 className={`font-bold text-lg sm:text-xl ${textColor}`}>
-                                            Subjects
-                                        </h2>
+                                    <div className="skeu-inset p-1 rounded-lg">
+                                        <Image
+                                            src="/emblem.png"
+                                            alt="NeuraMark Logo"
+                                            width={24}
+                                            height={24}
+                                            className="rounded shrink-0"
+                                        />
                                     </div>
+                                    <h2 className="font-bold text-lg skeu-text-embossed"
+                                        style={{ color: 'var(--text-primary)' }}
+                                    >
+                                        Subjects
+                                    </h2>
                                 </div>
                                 <button
                                     onClick={() => setSidebarOpen(false)}
                                     aria-label="Close Menu"
-                                    className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    className="skeu-btn-icon rounded-lg"
                                 >
-                                    <X className="w-6 h-6" />
+                                    <X className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                                 </button>
                             </div>
 
@@ -260,10 +250,8 @@ export default function AdminSubjects() {
                                 <Link
                                     href="/dashboard"
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`px-3 py-2 rounded-md text-base font-medium ${pathname === '/dashboard'
-                                        ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200'
-                                        : isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
-                                        }`}
+                                    className="skeu-btn-secondary px-3 py-2 rounded-lg text-base font-medium"
+                                    style={{ color: 'var(--text-secondary)' }}
                                 >
                                     Dashboard
                                 </Link>
@@ -271,56 +259,55 @@ export default function AdminSubjects() {
                                 <Link
                                     href="/chat"
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`px-3 py-2 rounded-md text-base font-medium ${pathname === '/chat'
-                                        ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200'
-                                        : isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
-                                        }`}
+                                    className="skeu-btn-secondary px-3 py-2 rounded-lg text-base font-medium"
+                                    style={{ color: 'var(--text-secondary)' }}
                                 >
                                     Chat
                                 </Link>
                             </div>
-                            {/* Add this button with the other action buttons in your mobile sidebar */}
+
+                            {/* Refresh Button */}
                             <button
                                 onClick={() => {
                                     fetchAllSubjects();
                                     setSidebarOpen(false);
                                 }}
-                                className={`w-full py-2 rounded-md text-sm transition flex items-center justify-center space-x-2 ${loading
-                                    ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-300'
-                                    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                                    }`}
+                                className="skeu-btn-primary w-full py-2 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
                                 disabled={loading}
                             >
                                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                                 <span>Refresh Progress</span>
                             </button>
+
                             {/* User Info */}
                             <div className="flex items-center space-x-2 mt-auto">
                                 {user?.photoURL ? (
-                                    <Image
-                                        src={user.photoURL}
-                                        alt={user.displayName || 'User'}
-                                        width={32}
-                                        height={32}
-                                        className="rounded-full"
-                                    />
+                                    <div className="skeu-inset p-0.5 rounded-full">
+                                        <Image
+                                            src={user.photoURL}
+                                            alt={user.displayName || 'User'}
+                                            width={32}
+                                            height={32}
+                                            className="rounded-full"
+                                        />
+                                    </div>
                                 ) : (
-                                    <div className="h-8 w-8 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
-                                        <User size={16} />
+                                    <div className="skeu-inset h-8 w-8 rounded-full flex items-center justify-center">
+                                        <User size={16} style={{ color: 'var(--text-secondary)' }} />
                                     </div>
                                 )}
-                                <span className={`text-sm truncate ${secondaryText}`}>
+                                <span className="text-sm truncate" style={{ color: 'var(--text-secondary)' }}>
                                     {user?.displayName || user?.email}
                                 </span>
                             </div>
 
-                            {/* Buttons */}
+                            {/* Logout */}
                             <button
                                 onClick={() => {
                                     logout();
                                     setSidebarOpen(false);
                                 }}
-                                className="w-full py-2 bg-gradient-to-r from-red-600 to-rose-500 text-white rounded-md hover:from-red-700 hover:to-rose-600 text-sm transition"
+                                className="skeu-btn-danger w-full py-2 rounded-lg text-sm font-medium"
                             >
                                 Logout
                             </button>
@@ -328,8 +315,7 @@ export default function AdminSubjects() {
                             {/* Theme Toggle */}
                             <button
                                 onClick={toggleTheme}
-                                className={`p-2 w-full rounded-md transition-all duration-300 flex justify-center items-center ${isDark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
-                                    }`}
+                                className="skeu-btn-secondary w-full p-2 rounded-lg flex justify-center items-center"
                                 aria-label="Toggle Theme"
                             >
                                 <AnimatePresence mode="wait" initial={false}>
@@ -340,7 +326,8 @@ export default function AdminSubjects() {
                                             animate={{ rotate: 0, opacity: 1 }}
                                             exit={{ rotate: 90, opacity: 0 }}
                                             transition={{ duration: 0.3 }}
-                                            className="text-yellow-400 flex items-center space-x-2"
+                                            className="flex items-center space-x-2"
+                                            style={{ color: 'var(--accent-warning)' }}
                                         >
                                             <Sun className="w-5 h-5" />
                                             <span>Light Mode</span>
@@ -352,7 +339,8 @@ export default function AdminSubjects() {
                                             animate={{ rotate: 0, opacity: 1 }}
                                             exit={{ rotate: -90, opacity: 0 }}
                                             transition={{ duration: 0.3 }}
-                                            className="text-indigo-600 flex items-center space-x-2"
+                                            className="flex items-center space-x-2"
+                                            style={{ color: 'var(--accent-primary)' }}
                                         >
                                             <Moon className="w-5 h-5" />
                                             <span>Dark Mode</span>
@@ -365,18 +353,20 @@ export default function AdminSubjects() {
                 </AnimatePresence>
 
 
-                <main className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ${textColor}`}>
-                    <div className={`${cardBg} p-6 sm:p-8 rounded-2xl shadow-2xl ${borderColor} border-2`}>
+                <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8" style={{ color: 'var(--text-primary)' }}>
+                    <div className={`${cardBg} p-6 sm:p-8 rounded-2xl ${borderColor} border`}>
                         <div className="flex justify-between items-center mb-8">
                             <div className="flex items-center gap-3">
-                                <div className="p-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg">
-                                    <BookOpen className="w-6 h-6 text-white" />
+                                <div className="skeu-inset p-3 rounded-xl">
+                                    <BookOpen className="w-6 h-6" style={{ color: 'var(--accent-primary)' }} />
                                 </div>
                                 <div>
-                                    <h2 className={`text-2xl sm:text-3xl font-bold ${textColor}`}>
+                                    <h2 className="text-2xl sm:text-3xl font-bold skeu-text-embossed"
+                                        style={{ color: 'var(--text-primary)' }}
+                                    >
                                         All Subjects
                                     </h2>
-                                    <p className={`text-sm ${secondaryText}`}>
+                                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                         {allSubjects.length} {allSubjects.length === 1 ? 'Subject' : 'Subjects'} in Database
                                     </p>
                                 </div>
@@ -385,79 +375,78 @@ export default function AdminSubjects() {
 
                         {loading ? (
                             <div className="flex flex-col justify-center items-center h-64 space-y-4">
-                                <div className="relative">
-                                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-indigo-600"></div>
-                                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 opacity-20 blur-xl"></div>
-                                </div>
-                                <p className={`text-sm font-medium ${secondaryText} animate-pulse`}>Loading subjects...</p>
+                                <div className="animate-spin rounded-full h-16 w-16 border-4 border-t-transparent"
+                                    style={{ borderColor: 'var(--accent-primary)', borderTopColor: 'transparent' }}
+                                ></div>
+                                <p className="text-sm font-medium animate-pulse" style={{ color: 'var(--text-secondary)' }}>Loading subjects...</p>
                             </div>
                         ) : (
                             <div className="overflow-x-auto rounded-xl">
-                                <table className="min-w-full divide-y-2 divide-gray-200 dark:divide-gray-700">
-                                    <thead className={`${isDark ? 'bg-gray-700/50' : 'bg-gradient-to-r from-indigo-50 to-purple-50'}`}>
-                                        <tr>
-                                            <th scope="col" className={`px-6 py-4 text-left text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                <table className="min-w-full" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
+                                    <thead>
+                                        <tr className="skeu-inset">
+                                            <th scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 <div className="flex items-center gap-2">
                                                     <BookOpen className="w-4 h-4" />
                                                     Subject
                                                 </div>
                                             </th>
-                                            <th scope="col" className={`px-6 py-4 text-left text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                            <th scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 Code
                                             </th>
-                                            <th scope="col" className={`px-6 py-4 text-left text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                            <th scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 <div className="flex items-center gap-2">
                                                     <GraduationCap className="w-4 h-4" />
                                                     Branch
                                                 </div>
                                             </th>
-                                            <th scope="col" className={`px-6 py-4 text-left text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                            <th scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 Year
                                             </th>
-                                            <th scope="col" className={`px-6 py-4 text-left text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                            <th scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 Semester
                                             </th>
-                                            <th scope="col" className={`px-6 py-4 text-left text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                            <th scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 <div className="flex items-center gap-2">
                                                     <Layers className="w-4 h-4" />
                                                     Modules
                                                 </div>
                                             </th>
-                                            <th scope="col" className={`px-6 py-4 text-right text-xs font-semibold ${textColor} uppercase tracking-wider`}>
+                                            <th scope="col" className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                                                 Actions
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className={`divide-y divide-gray-200 dark:divide-gray-700 ${isDark ? 'bg-gray-800/50' : 'bg-white/60'}`}>
+                                    <tbody>
                                         {allSubjects.map((subject) => (
-                                            <tr key={subject.id} className={`transition-all ${isDark ? 'hover:bg-gray-700/70' : 'hover:bg-purple-50/80'}`}>
+                                            <tr key={subject.id} className="transition-all hover:opacity-80" style={{ borderBottom: '1px solid var(--border-primary)' }}>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className={`text-sm font-medium ${textColor}`}>
+                                                    <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                                                         {subject.name}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className={`text-sm ${secondaryText}`}>
+                                                    <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                                         {subject.code}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className={`text-sm ${secondaryText}`}>
+                                                    <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                                         {subject.branch}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className={`text-sm ${secondaryText}`}>
+                                                    <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                                         Year {subject.year}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className={`text-sm ${secondaryText}`}>
+                                                    <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                                         Sem {subject.semester}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className={`text-sm ${secondaryText}`}>
+                                                    <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                                         {subject.modules?.length || 0}
                                                     </div>
                                                 </td>
@@ -465,13 +454,14 @@ export default function AdminSubjects() {
                                                     <div className="flex justify-end gap-2">
                                                         <button
                                                             onClick={() => handleViewSubject(subject)}
-                                                            className={`px-4 py-2 rounded-lg font-medium transition-all transform hover:scale-105 active:scale-95 ${isDark ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white'} shadow-md hover:shadow-lg`}
+                                                            className="skeu-btn-primary px-4 py-2 rounded-lg text-sm font-medium"
                                                         >
                                                             View
                                                         </button>
                                                         <button
                                                             onClick={() => deleteSubject(subject.id)}
-                                                            className={`p-2 rounded-lg transition-all transform hover:scale-110 active:scale-95 ${isDark ? 'bg-red-600/20 hover:bg-red-600/30 text-red-400' : 'bg-red-100 hover:bg-red-200 text-red-600'} shadow-sm hover:shadow-md`}
+                                                            className="skeu-btn-icon rounded-lg p-2"
+                                                            style={{ color: 'var(--accent-danger)' }}
                                                         >
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
@@ -485,13 +475,12 @@ export default function AdminSubjects() {
                         )}
 
                         {!loading && allSubjects.length === 0 && (
-                            <div className={`text-center py-16`}>
-                                <div className="relative inline-block">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-xl opacity-20"></div>
-                                    <div className={`relative p-6 rounded-2xl ${isDark ? 'bg-gray-700/50' : 'bg-white/80'} shadow-xl`}>
-                                        <BookOpen className={`w-16 h-16 mx-auto mb-4 ${secondaryText}`} />
-                                        <h3 className={`text-xl font-bold ${textColor} mb-2`}>No Subjects Found</h3>
-                                        <p className={`${secondaryText}`}>No subjects are currently available in the database.</p>
+                            <div className="text-center py-16">
+                                <div className="inline-block">
+                                    <div className="skeu-inset p-6 rounded-2xl">
+                                        <BookOpen className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--text-muted)' }} />
+                                        <h3 className="text-xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>No Subjects Found</h3>
+                                        <p style={{ color: 'var(--text-secondary)' }}>No subjects are currently available in the database.</p>
                                     </div>
                                 </div>
                             </div>
