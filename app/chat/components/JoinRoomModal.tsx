@@ -38,23 +38,25 @@ export default function JoinRoomModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 skeu-modal-backdrop flex items-center justify-center z-50 p-4"
           onClick={() => setShowJoinRoomModal(false)}
         >
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: 20 }}
-            className={`w-full max-w-md ${cardBg} rounded-lg shadow-xl p-6`}
+            className="skeu-modal w-full max-w-md p-8 rounded-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center mb-4">
-              <Key className={`w-5 h-5 mr-2 ${textColor}`} />
-              <h3 className={`text-lg font-medium ${textColor}`}>Join Room with Code</h3>
+            <div className="flex items-center mb-5">
+              <Key className="w-5 h-5 mr-2" style={{ color: 'var(--accent-primary)' }} />
+              <h3 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                Join Room with Code
+              </h3>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label htmlFor="roomCode" className={`block text-sm font-medium mb-1 ${secondaryText}`}>
+                <label htmlFor="roomCode" className="block text-sm font-semibold mb-2 skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                   Room Code
                 </label>
                 <input
@@ -62,17 +64,19 @@ export default function JoinRoomModal({
                   id="roomCode"
                   value={joinRoomCode}
                   onChange={(e) => setJoinRoomCode(e.target.value.toUpperCase())}
-                  className={`w-full px-3 py-2 rounded-md ${inputBg} focus:outline-none focus:ring-2 focus:ring-indigo-500 ${borderColor} border font-mono text-center`}
-                  placeholder="Enter 6-character code"
+                  className="skeu-input w-full rounded-xl font-mono text-center text-lg tracking-widest"
+                  placeholder="XXXXXX"
                   maxLength={6}
                 />
-                <p className={`text-xs mt-1 ${secondaryText}`}>Enter the 6-character room code to join</p>
+                <p className="text-xs mt-2" style={{ color: 'var(--text-muted)' }}>
+                  Enter the 6-character room code to join
+                </p>
               </div>
-              <div className="flex justify-end space-x-2 pt-4">
+              <div className="flex justify-end space-x-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowJoinRoomModal(false)}
-                  className={`px-4 py-2 rounded-md ${isDark ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"} text-sm`}
+                  className="skeu-btn-secondary px-5 py-2.5 rounded-xl text-sm"
                 >
                   Cancel
                 </button>
@@ -80,7 +84,8 @@ export default function JoinRoomModal({
                   type="button"
                   onClick={joinRoomByCode}
                   disabled={joinRoomCode.length !== 6}
-                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  className="skeu-btn-primary px-5 py-2.5 rounded-xl text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ background: joinRoomCode.length === 6 ? 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' : undefined }}
                 >
                   Join Room
                 </button>

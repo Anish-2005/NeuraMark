@@ -56,7 +56,7 @@ export default function MobileRoomList({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="md:hidden fixed inset-0 skeu-modal-backdrop z-40"
           onClick={() => setShowRoomList(false)}
         >
           <motion.div
@@ -64,42 +64,49 @@ export default function MobileRoomList({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 30 }}
-            className={`absolute bottom-0 left-0 right-0 ${cardBg} rounded-t-2xl shadow-xl max-h-[80vh] flex flex-col`}
+            className="absolute bottom-0 left-0 right-0 skeu-modal rounded-t-2xl max-h-[80vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b ${borderColor}">
-              <div className="flex justify-between items-center mb-3">
-                <h2 className={`text-lg font-semibold ${textColor}`}>Chat Rooms</h2>
-                <button onClick={() => setShowRoomList(false)} className={`p-1 rounded-full ${hoverBg}`}>
-                  <X className={`w-5 h-5 ${textColor}`} />
+            <div className="p-5">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                  Chat Rooms
+                </h2>
+                <button
+                  onClick={() => setShowRoomList(false)}
+                  className="skeu-btn-icon rounded-lg"
+                >
+                  <X className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                 </button>
               </div>
 
               <div className="relative">
-                <Search className={`absolute left-3 top-3 ${secondaryText} w-4 h-4`} />
+                <Search className="absolute left-3 top-3" style={{ color: 'var(--text-muted)', width: 16, height: 16 }} />
                 <input
                   type="text"
                   placeholder="Search rooms..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-2 rounded-lg ${inputBg} focus:outline-none focus:ring-2 ${isDark ? "focus:ring-indigo-500" : "focus:ring-indigo-300"} ${borderColor} border text-sm`}
+                  className="skeu-input w-full pl-10 pr-4 py-2.5 rounded-xl text-sm"
                 />
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-2">
+            <hr className="skeu-divider mx-4 my-0" />
+
+            <div className="flex-1 overflow-y-auto p-3">
               {filteredRooms.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-64 text-center p-4">
-                  <MessageCircle className={`w-12 h-12 mb-4 ${secondaryText}`} />
-                  <p className={`${textColor} mb-2`}>No rooms available</p>
-                  <p className={`text-sm ${secondaryText} mb-6`}>Create a new room or join with a code</p>
+                  <MessageCircle className="w-12 h-12 mb-4" style={{ color: 'var(--text-muted)' }} />
+                  <p className="mb-2 font-bold" style={{ color: 'var(--text-primary)' }}>No rooms available</p>
+                  <p className="text-sm mb-6" style={{ color: 'var(--text-muted)' }}>Create a new room or join with a code</p>
                   <div className="flex space-x-3 w-full">
                     <button
                       onClick={() => {
                         setShowCreateRoomModal(true)
                         setShowRoomList(false)
                       }}
-                      className={`flex-1 py-2 ${isDark ? "bg-indigo-700 hover:bg-indigo-600" : "bg-indigo-600 hover:bg-indigo-700"} text-white rounded-md text-sm`}
+                      className="skeu-btn-primary flex-1 py-2.5 rounded-xl text-sm"
                     >
                       Create Room
                     </button>
@@ -108,14 +115,15 @@ export default function MobileRoomList({
                         setShowJoinRoomModal(true)
                         setShowRoomList(false)
                       }}
-                      className={`flex-1 py-2 ${isDark ? "bg-emerald-700 hover:bg-emerald-600" : "bg-emerald-600 hover:bg-emerald-700"} text-white rounded-md text-sm`}
+                      className="skeu-btn-primary flex-1 py-2.5 rounded-xl text-sm"
+                      style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
                     >
                       Join Room
                     </button>
                   </div>
                 </div>
               ) : (
-                <ul className="divide-y ${borderColor}">
+                <ul className="space-y-2">
                   {filteredRooms.map((room) => (
                     <li key={room.id}>
                       <button
@@ -123,27 +131,31 @@ export default function MobileRoomList({
                           setCurrentRoom(room)
                           setShowRoomList(false)
                         }}
-                        className={`w-full text-left p-3 ${hoverBg} ${currentRoom?.id === room.id ? (isDark ? "bg-gray-700" : "bg-gray-100") : ""} transition-colors`}
+                        className={`w-full text-left p-3 rounded-xl transition-all duration-200 ${currentRoom?.id === room.id ? 'skeu-card-static' : 'skeu-inset'
+                          }`}
+                        style={currentRoom?.id === room.id ? {
+                          boxShadow: 'var(--shadow-elevated)',
+                          borderColor: 'var(--accent-primary)',
+                          borderWidth: '2px'
+                        } : undefined}
                       >
                         <div className="flex items-center">
-                          <div
-                            className={`flex-shrink-0 h-10 w-10 rounded-lg ${isDark ? "bg-gray-700" : "bg-gray-100"} flex items-center justify-center`}
-                          >
-                            <Users className={`${isDark ? "text-gray-400" : "text-gray-500"} w-5 h-5`} />
+                          <div className="skeu-inset flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center">
+                            <Users className="w-5 h-5" style={{ color: 'var(--text-muted)' }} />
                           </div>
                           <div className="ml-3 flex-1 min-w-0">
-                            <p className={`text-sm font-medium ${textColor} truncate`}>{room.name}</p>
+                            <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{room.name}</p>
                             <div className="flex items-center mt-1 space-x-2">
-                              <span className={`text-xs ${secondaryText}`}>
+                              <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
                                 {room.members?.length || 0} members
                               </span>
                               {room.code && (
-                                <span className={`text-xs font-mono ${secondaryText}`}>{room.code}</span>
+                                <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{room.code}</span>
                               )}
                             </div>
                           </div>
                           {room.isGlobal && (
-                            <span className="text-xs bg-blue-500 text-white px-1.5 py-0.5 rounded">
+                            <span className="skeu-badge text-[10px]">
                               Global
                             </span>
                           )}

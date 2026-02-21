@@ -2,7 +2,7 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { X, UserPlus, UserMinus } from "lucide-react"
+import { X, UserPlus, UserMinus, Users } from "lucide-react"
 import Image from "next/image"
 
 type Member = {
@@ -15,12 +15,10 @@ type Member = {
 
 type Room = {
   isGlobal?: boolean;
-  // add other properties as needed
 };
 
 type User = {
   uid: string;
-  // add other properties as needed
 };
 
 interface MembersModalProps {
@@ -65,31 +63,33 @@ export default function MembersModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 skeu-modal-backdrop flex items-center justify-center z-50 p-4"
           onClick={() => setShowMembersModal(false)}
         >
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: 20 }}
-            className={`w-full max-w-lg ${cardBg} rounded-2xl shadow-2xl border-2 ${borderColor} p-6 max-h-[80vh] overflow-hidden flex flex-col backdrop-blur-lg`}
+            className="skeu-modal w-full max-w-lg p-8 rounded-2xl max-h-[80vh] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
-                <div className="p-2 rounded-xl bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 mr-3">
-                  <UserPlus className={`w-6 h-6 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
+                <div className="skeu-inset p-2 rounded-xl mr-3">
+                  <Users className="w-5 h-5" style={{ color: 'var(--accent-primary)' }} />
                 </div>
-                <h3 className={`text-2xl font-black ${textColor} bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400`}>Room Members</h3>
-                <span className={`ml-2 px-3 py-1 text-sm font-bold rounded-full ${isDark ? 'bg-gray-700 text-gray-300' : 'bg-purple-100 text-purple-800'} border-2 ${isDark ? 'border-gray-600' : 'border-purple-200'}`}>
+                <h3 className="text-xl font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
+                  Room Members
+                </h3>
+                <span className="skeu-badge ml-3 text-[10px]">
                   {currentRoomMembers.length}
                 </span>
               </div>
               <button
                 onClick={() => setShowMembersModal(false)}
-                className="p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all transform hover:scale-110 active:scale-95"
+                className="skeu-btn-icon rounded-lg"
               >
-                <X size={24} className={textColor} />
+                <X size={18} style={{ color: 'var(--text-secondary)' }} />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto">
@@ -99,32 +99,40 @@ export default function MembersModal({
                     key={member.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`flex items-center justify-between p-4 rounded-2xl ${isDark ? "bg-gray-700/50" : "bg-white/60"} backdrop-blur-sm border-2 ${borderColor} shadow-lg hover:shadow-xl transition-all`}
+                    className="skeu-inset flex items-center justify-between p-4 rounded-xl"
                   >
                     <div className="flex items-center space-x-3">
                       {member.photoURL ? (
-                        <Image
-                          src={member.photoURL || "/placeholder.svg"}
-                          alt={member.displayName || member.email || "Room member"}
-                          width={40}
-                          height={40}
-                          className="rounded-full"
-                        />
+                        <div className="skeu-inset p-0.5 rounded-full">
+                          <Image
+                            src={member.photoURL || "/placeholder.svg"}
+                            alt={member.displayName || member.email || "Room member"}
+                            width={36}
+                            height={36}
+                            className="rounded-full"
+                          />
+                        </div>
                       ) : (
-                        <div className="h-10 w-10 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
-                          <span className="text-sm">{member.displayName?.charAt(0) || member.email?.charAt(0)}</span>
+                        <div className="skeu-inset h-10 w-10 rounded-full flex items-center justify-center">
+                          <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                            {member.displayName?.charAt(0) || member.email?.charAt(0)}
+                          </span>
                         </div>
                       )}
                       <div>
-                        <p className={`font-medium ${textColor}`}>{member.displayName || member.email}</p>
-                        <div className="flex items-center space-x-2">
+                        <p className="font-medium text-sm" style={{ color: 'var(--text-primary)' }}>
+                          {member.displayName || member.email}
+                        </p>
+                        <div className="flex items-center space-x-2 mt-0.5">
                           {member.role === "admin" && (
-                            <span className="text-xs bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full font-bold shadow-lg">Admin</span>
+                            <span className="skeu-badge text-[10px]">Admin</span>
                           )}
                           {member.role === "moderator" && (
-                            <span className="text-xs bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-3 py-1 rounded-full font-bold shadow-lg">Moderator</span>
+                            <span className="skeu-badge text-[10px]" style={{ background: 'linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-primary-dark) 100%)' }}>Moderator</span>
                           )}
-                          {member.role === "member" && <span className={`text-xs font-medium ${secondaryText}`}>Member</span>}
+                          {member.role === "member" && (
+                            <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Member</span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -133,32 +141,34 @@ export default function MembersModal({
                         {canManageRoles && member.role === "member" && (
                           <button
                             onClick={() => makeUserModerator(member.id)}
-                            className="p-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95"
+                            className="skeu-btn-icon rounded-lg"
                             title="Make moderator"
+                            style={{ color: 'var(--accent-primary)' }}
                           >
-                            <UserPlus size={16} />
+                            <UserPlus size={14} />
                           </button>
                         )}
                         {canManageRoles && member.role === "moderator" && (
                           <button
                             onClick={() => removeUserModerator(member.id)}
-                            className="p-2 rounded-xl bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95"
+                            className="skeu-btn-icon rounded-lg"
                             title="Remove moderator"
                           >
-                            <UserMinus size={16} />
+                            <UserMinus size={14} />
                           </button>
                         )}
                         <button
                           onClick={() => removeUserFromRoom(member.id)}
-                          className="p-2 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-110 active:scale-95"
+                          className="skeu-btn-icon rounded-lg"
                           title="Remove from room"
+                          style={{ color: 'var(--accent-danger)' }}
                         >
-                          <X size={16} />
+                          <X size={14} />
                         </button>
                       </div>
                     )}
-                    </motion.div>
-                  ))}
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
