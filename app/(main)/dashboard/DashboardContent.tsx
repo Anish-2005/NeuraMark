@@ -1187,8 +1187,8 @@ export default function Dashboard() {
                     <main className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ${textColor} relative`}>
                         {/* Subtle background gradient */}
                         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                            <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
-                            <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
+                            <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
+                            <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-emerald-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
                         </div>
                         <div className="skeu-card-static p-6 rounded-2xl mb-8">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -1212,7 +1212,7 @@ export default function Dashboard() {
                                                     value={newBranch}
                                                     onChange={(e) => setNewBranch(e.target.value)}
                                                     placeholder="New branch name"
-                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
                                                     onClick={addBranch}
@@ -1289,7 +1289,7 @@ export default function Dashboard() {
                                                     value={newYear}
                                                     onChange={(e) => setNewYear(e.target.value)}
                                                     placeholder="New year"
-                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
                                                     onClick={addYear}
@@ -1365,7 +1365,7 @@ export default function Dashboard() {
                                                     value={newSemester}
                                                     onChange={(e) => setNewSemester(e.target.value)}
                                                     placeholder="New semester"
-                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
                                                     onClick={() => { }}
@@ -1412,7 +1412,7 @@ export default function Dashboard() {
                                             )}
                                         </div>
                                         <select
-                                            className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                            className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                         >
                                             {specializations[selectedBranch].map(spec => (
                                                 <option key={spec} value={spec}>
@@ -1431,7 +1431,7 @@ export default function Dashboard() {
                                     </h3>
                                     <button
                                         onClick={() => setShowActions(!showActions)}
-                                        className={`text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-1 ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-purple-400' : 'bg-purple-50 hover:bg-purple-100 text-purple-600'}`}
+                                        className={`text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-1 ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-emerald-400' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-600'}`}
                                     >
                                         {showActions ? (
                                             <>
@@ -1494,9 +1494,9 @@ export default function Dashboard() {
                                                             {
                                                                 href: '/admin/subjects',
                                                                 label: 'All Subjects',
-                                                                colors: ['from-indigo-600', 'to-indigo-700'],
-                                                                hover: ['from-indigo-700', 'to-indigo-800'],
-                                                                bar: 'bg-indigo-400',
+                                                                colors: ['from-emerald-700', 'to-emerald-800'],
+                                                                hover: ['from-emerald-800', 'to-emerald-900'],
+                                                                bar: 'bg-emerald-500',
                                                                 icon: <BookOpen size={20} />,
                                                             },
                                                             {
@@ -1552,14 +1552,14 @@ export default function Dashboard() {
                                                 {isAdmin && (
                                                     <button
                                                         onClick={() => setShowCopyDialog(true)}
-                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 min-w-[150px]"
+                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 min-w-[150px]"
                                                     >
-                                                        <div className="absolute inset-0 bg-gradient-to-br from-purple-700 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-700 to-emerald-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                                         <div className="relative z-10 flex flex-col items-center">
                                                             <Copy size={20} className="group-hover:scale-110 transition-transform duration-300" />
                                                             <span className="mt-2 text-sm font-medium">Copy Subjects</span>
                                                         </div>
-                                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
                                                     </button>
                                                 )}
                                             </div>
@@ -1596,7 +1596,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyFromBranch}
                                                         onChange={(e) => setCopyFromBranch(e.target.value)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">Select Branch</option>
                                                         {branches.map(branch => (
@@ -1609,7 +1609,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyFromYear}
                                                         onChange={(e) => setCopyFromYear(Number(e.target.value))}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         {years.map(year => (
                                                             <option key={year} value={year}>Year {year}</option>
@@ -1621,7 +1621,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyFromSemester || ''}
                                                         onChange={(e) => setCopyFromSemester(e.target.value ? Number(e.target.value) : null)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">All Semesters</option>
                                                         {copyFromYear && getAvailableSemesters().map(semester => (
@@ -1647,7 +1647,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyToBranch}
                                                         onChange={(e) => setCopyToBranch(e.target.value)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">Select Branch</option>
                                                         {branches.map(branch => (
@@ -1660,7 +1660,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyToYear}
                                                         onChange={(e) => setCopyToYear(Number(e.target.value))}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         {years.map(year => (
                                                             <option key={year} value={year}>Year {year}</option>
@@ -1672,7 +1672,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyToSemester || ''}
                                                         onChange={(e) => setCopyToSemester(e.target.value ? Number(e.target.value) : null)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">Same as source</option>
                                                         {copyToYear && getAvailableSemesters().map(semester => (
@@ -1704,14 +1704,14 @@ export default function Dashboard() {
                                                         className={`
                   p-2 mb-2 rounded flex items-start
                   ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}
-                        ${selectedCopySubjects.includes(subject.id ?? '') ? (theme === 'dark' ? 'ring-1 ring-indigo-500' : 'ring-1 ring-indigo-300') : ''}
+                        ${selectedCopySubjects.includes(subject.id ?? '') ? (theme === 'dark' ? 'ring-1 ring-emerald-600' : 'ring-1 ring-emerald-400') : ''}
                 `}
                                                     >
                                                         <input
                                                             type="checkbox"
                                                             checked={selectedCopySubjects.includes(subject.id ?? '')}
                                                             onChange={() => toggleCopySubjectSelection(subject.id ?? '')}
-                                                            className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                                            className="mt-1 h-4 w-4 text-emerald-700 focus:ring-emerald-600 border-gray-300 rounded"
                                                         />
                                                         <div className="ml-2 flex-1">
                                                             <div className="flex justify-between items-center">
@@ -1801,7 +1801,7 @@ export default function Dashboard() {
                                                         type="text"
                                                         value={newSubject.name}
                                                         onChange={(e) => setNewSubject({ ...newSubject, name: e.target.value })}
-                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     />
                                                 </div>
                                                 <div>
@@ -1810,7 +1810,7 @@ export default function Dashboard() {
                                                         type="text"
                                                         value={newSubject.code}
                                                         onChange={(e) => setNewSubject({ ...newSubject, code: e.target.value })}
-                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     />
                                                 </div>
                                                 <div>
@@ -1825,7 +1825,7 @@ export default function Dashboard() {
                                                                 setSelectedSemester(semester);
                                                             }
                                                         }}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                         disabled={!selectedYear}
                                                     >
                                                         <option value="">Select Semester</option>
@@ -1842,7 +1842,7 @@ export default function Dashboard() {
                                                             value={newModule.name}
                                                             onChange={(e) => setNewModule({ ...newModule, name: e.target.value })}
                                                             placeholder="Module name"
-                                                            className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                            className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                         />
                                                         <button
                                                             onClick={addModule}
@@ -1857,7 +1857,7 @@ export default function Dashboard() {
                                                         value={newModule.topics}
                                                         onChange={(e) => setNewModule({ ...newModule, topics: e.target.value })}
                                                         placeholder="Topics (comma separated)"
-                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                     />
                                                 </div>
                                                 {(newSubject.modules ?? []).length > 0 && (
@@ -1920,7 +1920,7 @@ export default function Dashboard() {
                                     {/* Subjects List */}
                                     {loading ? (
                                         <div className="flex justify-center items-center h-40">
-                                            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+                                            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-600"></div>
                                         </div>
                                     ) : (
                                         <div className="space-y-3">
@@ -1933,7 +1933,7 @@ export default function Dashboard() {
                                                         className={`
                                                         p-4 rounded-xl cursor-pointer transition-all duration-200 border-2
                                                         ${selectedSubject?.id === subject.id
-                                                                ? 'bg-gradient-to-r from-purple-50 to-pink-50 border-purple-400 dark:from-purple-900/30 dark:to-pink-900/30 dark:border-purple-500 shadow-lg'
+                                                                ? 'bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-400 dark:from-emerald-900/30 dark:to-teal-900/30 dark:border-emerald-500 shadow-lg'
                                                                 : `${theme === 'dark'
                                                                     ? 'bg-gray-700/50 hover:bg-gray-700 border-gray-600 hover:border-gray-500'
                                                                     : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300'} shadow-sm hover:shadow-md`
@@ -1950,7 +1950,7 @@ export default function Dashboard() {
                                                                 </p>
                                                             </div>
                                                             <div className="flex items-center gap-3 shrink-0">
-                                                                <span className={`text-sm font-bold min-w-[3rem] text-right ${selectedSubject?.id === subject.id ? 'text-purple-600 dark:text-purple-400' : 'text-indigo-500 dark:text-indigo-400'}`}>
+                                                                <span className={`text-sm font-bold min-w-[3rem] text-right ${selectedSubject?.id === subject.id ? 'text-emerald-600 dark:text-emerald-400' : 'text-emerald-600 dark:text-emerald-500'}`}>
                                                                     {calculateProgress(subject)}%
                                                                 </span>
                                                                 {isAdmin && (
@@ -2080,7 +2080,7 @@ export default function Dashboard() {
                                                             type="text"
                                                             value={newModule.name}
                                                             onChange={(e) => setNewModule({ ...newModule, name: e.target.value })}
-                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                         />
                                                     </div>
                                                     <div>
@@ -2090,7 +2090,7 @@ export default function Dashboard() {
                                                             value={newModule.topics}
                                                             onChange={(e) => setNewModule({ ...newModule, topics: e.target.value })}
                                                             placeholder="Comma separated topics"
-                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${inputBg}`}
+                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
                                                         />
                                                     </div>
                                                     <div className="flex justify-end gap-2 pt-2">
@@ -2128,7 +2128,7 @@ export default function Dashboard() {
                                                                 : (theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200')
                                                             }
                                                         ${selectedModuleIndex === index
-                                                                ? (theme === 'dark' ? 'ring-2 ring-indigo-500' : 'ring-2 ring-indigo-300')
+                                                                ? (theme === 'dark' ? 'ring-2 ring-emerald-600' : 'ring-2 ring-emerald-400')
                                                                 : ''
                                                             }
                                                         transition-colors duration-200
@@ -2143,11 +2143,11 @@ export default function Dashboard() {
                                                             className={`
                                                             mt-1 flex-shrink-0 h-5 w-5 rounded border-2 flex items-center justify-center
                                                             ${isModuleCompleted(selectedSubject!.id!, index)
-                                                                    ? 'bg-indigo-600 border-indigo-600'
+                                                                    ? 'bg-emerald-700 border-emerald-700'
                                                                     : `${theme === 'dark' ? 'border-gray-500' : 'border-gray-300'} bg-transparent`
                                                                 }
                                                             transition-colors duration-200
-                                                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+                                                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600
                                                         `}
                                                             aria-label={isModuleCompleted(selectedSubject!.id!, index) ? "Mark as incomplete" : "Mark as complete"}
                                                             role="checkbox"

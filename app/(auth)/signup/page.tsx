@@ -77,8 +77,8 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden"
       style={{
         background: isDark
-          ? 'radial-gradient(ellipse at 40% 30%, #2a2a4a 0%, #1e1e2e 60%, #151520 100%)'
-          : 'radial-gradient(ellipse at 40% 30%, #f0e9e2 0%, #e8e0d8 60%, #ddd5cc 100%)'
+          ? 'radial-gradient(ellipse at 40% 30%, #121f17 0%, #0a0f0c 60%, #060a08 100%)'
+          : 'radial-gradient(ellipse at 40% 30%, #f8faf8 0%, #f0f5f1 60%, #e4ece6 100%)'
       }}
     >
       {/* Ambient light spots */}
@@ -86,15 +86,15 @@ export default function SignupPage() {
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full animate-blob"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(123,140,240,0.08) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(91,106,191,0.06) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(45,106,79,0.06) 0%, transparent 70%)'
           }}
         />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full animate-blob animation-delay-2000"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(224,122,158,0.08) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(181,84,122,0.06) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(64,145,108,0.06) 0%, transparent 70%)'
           }}
         />
       </div>

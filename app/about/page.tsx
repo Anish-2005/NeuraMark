@@ -69,8 +69,8 @@ export default function AboutPage() {
     <main className="min-h-screen transition-colors duration-500"
       style={{
         background: isDark
-          ? 'radial-gradient(ellipse at 30% 10%, #2a2a4a 0%, #1e1e2e 50%, #151520 100%)'
-          : 'radial-gradient(ellipse at 30% 10%, #f0e9e2 0%, #e8e0d8 50%, #ddd5cc 100%)'
+          ? 'radial-gradient(ellipse at 30% 10%, #121f17 0%, #0a0f0c 50%, #060a08 100%)'
+          : 'radial-gradient(ellipse at 30% 10%, #f8faf8 0%, #f0f5f1 50%, #e4ece6 100%)'
       }}
     >
       <BackButton isDark={isDark} />

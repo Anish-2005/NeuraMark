@@ -1,79 +1,81 @@
-/* globals.css - Skeuomorphic Design System */
+/* globals.css - NeuraMark Greenish Design System */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ==========================================
-   SKEUOMORPHIC DESIGN TOKENS
+   DARK GREENISH DESIGN TOKENS
+   Light: Dark green accents + clean white surfaces
+   Dark:  Dark green accents + deep black surfaces
    ========================================== */
 
 :root {
-  /* --- Surface Colors --- */
-  --surface-base: #e8e0d8;
-  --surface-raised: #f0e9e2;
-  --surface-inset: #d8cfc6;
-  --surface-overlay: #f5efe9;
+  /* --- Surface Colors (Light: White with green warmth) --- */
+  --surface-base: #f0f5f1;
+  --surface-raised: #f8faf8;
+  --surface-inset: #e4ece6;
+  --surface-overlay: #fbfdfb;
 
-  /* --- Text Colors --- */
-  --text-primary: #2c2217;
-  --text-secondary: #6b5d4f;
-  --text-muted: #9a8b7a;
+  /* --- Text Colors (Light: Deep greenish-charcoal) --- */
+  --text-primary: #1a2e22;
+  --text-secondary: #3d5a47;
+  --text-muted: #6b8f78;
   --text-on-accent: #ffffff;
 
-  /* --- Accent Colors --- */
-  --accent-primary: #5b6abf;
-  --accent-primary-dark: #4a57a0;
-  --accent-secondary: #b5547a;
-  --accent-success: #5a9e6f;
-  --accent-danger: #c5443e;
-  --accent-warning: #c4973b;
+  /* --- Accent Colors (Light: Rich forest/emerald greens) --- */
+  --accent-primary: #2d6a4f;
+  --accent-primary-dark: #1b4332;
+  --accent-secondary: #52796f;
+  --accent-success: #40916c;
+  --accent-danger: #c1413d;
+  --accent-warning: #b8860b;
 
-  /* --- Skeuomorphic Shadows --- */
+  /* --- Skeuomorphic Shadows (Light: Subtle green-tinted) --- */
   --shadow-raised:
-    0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.06) inset,
-    0 4px 12px rgba(0, 0, 0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.08);
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 -1px 0 rgba(27, 67, 50, 0.06) inset,
+    0 4px 12px rgba(27, 67, 50, 0.1),
+    0 1px 3px rgba(27, 67, 50, 0.06);
   --shadow-pressed:
-    0 1px 3px rgba(0, 0, 0, 0.2) inset,
+    0 1px 3px rgba(27, 67, 50, 0.2) inset,
     0 -1px 0 rgba(255, 255, 255, 0.3) inset;
   --shadow-inset:
-    0 2px 6px rgba(0, 0, 0, 0.15) inset,
+    0 2px 6px rgba(27, 67, 50, 0.12) inset,
     0 -1px 0 rgba(255, 255, 255, 0.5) inset;
   --shadow-elevated:
     0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.05) inset,
-    0 8px 30px rgba(0, 0, 0, 0.15),
-    0 2px 8px rgba(0, 0, 0, 0.1);
+    0 -1px 0 rgba(27, 67, 50, 0.05) inset,
+    0 8px 30px rgba(27, 67, 50, 0.12),
+    0 2px 8px rgba(27, 67, 50, 0.08);
   --shadow-card:
-    0 1px 0 rgba(255, 255, 255, 0.7) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.04) inset,
-    0 6px 20px rgba(0, 0, 0, 0.1),
-    0 1px 4px rgba(0, 0, 0, 0.06);
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 -1px 0 rgba(27, 67, 50, 0.04) inset,
+    0 6px 20px rgba(27, 67, 50, 0.08),
+    0 1px 4px rgba(27, 67, 50, 0.05);
   --shadow-deep:
-    0 2px 8px rgba(0, 0, 0, 0.2) inset,
+    0 2px 8px rgba(27, 67, 50, 0.15) inset,
     0 -1px 0 rgba(255, 255, 255, 0.4) inset;
   --shadow-button:
     0 1px 0 rgba(255, 255, 255, 0.4) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.1) inset,
-    0 3px 8px rgba(0, 0, 0, 0.15),
-    0 1px 2px rgba(0, 0, 0, 0.1);
+    0 -1px 0 rgba(27, 67, 50, 0.1) inset,
+    0 3px 8px rgba(27, 67, 50, 0.12),
+    0 1px 2px rgba(27, 67, 50, 0.08);
   --shadow-button-hover:
     0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
-    0 5px 14px rgba(0, 0, 0, 0.18),
-    0 2px 4px rgba(0, 0, 0, 0.12);
+    0 -1px 0 rgba(27, 67, 50, 0.12) inset,
+    0 5px 14px rgba(27, 67, 50, 0.16),
+    0 2px 4px rgba(27, 67, 50, 0.1);
 
-  /* --- Border --- */
-  --border-light: rgba(255, 255, 255, 0.6);
-  --border-dark: rgba(0, 0, 0, 0.1);
-  --border-primary: rgba(0, 0, 0, 0.12);
-  --border-secondary: rgba(0, 0, 0, 0.06);
-  --border-groove: 1px solid rgba(0, 0, 0, 0.08);
+  /* --- Border (Light: Green-tinted) --- */
+  --border-light: rgba(255, 255, 255, 0.7);
+  --border-dark: rgba(27, 67, 50, 0.1);
+  --border-primary: rgba(27, 67, 50, 0.12);
+  --border-secondary: rgba(27, 67, 50, 0.06);
+  --border-groove: 1px solid rgba(27, 67, 50, 0.08);
 
-  /* --- Texture & Gradient --- */
-  --surface-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.03) 100%);
-  --surface-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  /* --- Texture & Gradient (Light: Green warmth) --- */
+  --surface-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 50%, rgba(27, 67, 50, 0.02) 100%);
+  --surface-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 
   /* --- Border Radius --- */
   --radius-sm: 8px;
@@ -83,80 +85,80 @@
   --radius-pill: 999px;
 
   /* --- Foreground/Background for legacy --- */
-  --foreground-rgb: 44, 34, 23;
-  --background-rgb: 232, 224, 216;
+  --foreground-rgb: 26, 46, 34;
+  --background-rgb: 240, 245, 241;
 }
 
 .dark {
-  /* --- Surface Colors (Dark) --- */
-  --surface-base: #1e1e2e;
-  --surface-raised: #2a2a3e;
-  --surface-inset: #151520;
-  --surface-overlay: #32324a;
+  /* --- Surface Colors (Dark: True black with green undertones) --- */
+  --surface-base: #0a0f0c;
+  --surface-raised: #121a15;
+  --surface-inset: #060a08;
+  --surface-overlay: #1a251d;
 
-  /* --- Text Colors (Dark) --- */
-  --text-primary: #e8e4f0;
-  --text-secondary: #a8a2b8;
-  --text-muted: #706a82;
+  /* --- Text Colors (Dark: Cool whites with green tint) --- */
+  --text-primary: #e2ece6;
+  --text-secondary: #8faa97;
+  --text-muted: #5a7563;
   --text-on-accent: #ffffff;
 
-  /* --- Accent Colors (Dark) --- */
-  --accent-primary: #7b8cf0;
-  --accent-primary-dark: #6a79d4;
-  --accent-secondary: #e07a9e;
-  --accent-success: #6ec485;
-  --accent-danger: #e06060;
-  --accent-warning: #e6b84d;
+  /* --- Accent Colors (Dark: Vivid emerald/jade) --- */
+  --accent-primary: #4ade80;
+  --accent-primary-dark: #22c55e;
+  --accent-secondary: #6ee7b7;
+  --accent-success: #34d399;
+  --accent-danger: #f87171;
+  --accent-warning: #fbbf24;
 
-  /* --- Skeuomorphic Shadows (Dark) --- */
+  /* --- Skeuomorphic Shadows (Dark: Deep green-black) --- */
   --shadow-raised:
-    0 1px 0 rgba(255, 255, 255, 0.08) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.3) inset,
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    0 1px 3px rgba(0, 0, 0, 0.3);
+    0 1px 0 rgba(74, 222, 128, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.4) inset,
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-pressed:
-    0 2px 4px rgba(0, 0, 0, 0.5) inset,
-    0 -1px 0 rgba(255, 255, 255, 0.05) inset;
+    0 2px 4px rgba(0, 0, 0, 0.6) inset,
+    0 -1px 0 rgba(74, 222, 128, 0.04) inset;
   --shadow-inset:
-    0 2px 6px rgba(0, 0, 0, 0.4) inset,
-    0 -1px 0 rgba(255, 255, 255, 0.06) inset;
+    0 2px 6px rgba(0, 0, 0, 0.5) inset,
+    0 -1px 0 rgba(74, 222, 128, 0.04) inset;
   --shadow-elevated:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.25) inset,
-    0 8px 30px rgba(0, 0, 0, 0.5),
-    0 2px 8px rgba(0, 0, 0, 0.35);
+    0 1px 0 rgba(74, 222, 128, 0.05) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.35) inset,
+    0 8px 30px rgba(0, 0, 0, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.45);
   --shadow-card:
-    0 1px 0 rgba(255, 255, 255, 0.08) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.2) inset,
-    0 6px 20px rgba(0, 0, 0, 0.35),
-    0 1px 4px rgba(0, 0, 0, 0.25);
-  --shadow-deep:
-    0 3px 10px rgba(0, 0, 0, 0.5) inset,
-    0 -1px 0 rgba(255, 255, 255, 0.05) inset;
-  --shadow-button:
-    0 1px 0 rgba(255, 255, 255, 0.1) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.25) inset,
-    0 3px 8px rgba(0, 0, 0, 0.35),
-    0 1px 2px rgba(0, 0, 0, 0.25);
-  --shadow-button-hover:
-    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 1px 0 rgba(74, 222, 128, 0.05) inset,
     0 -1px 0 rgba(0, 0, 0, 0.3) inset,
-    0 5px 14px rgba(0, 0, 0, 0.4),
-    0 2px 4px rgba(0, 0, 0, 0.3);
+    0 6px 20px rgba(0, 0, 0, 0.45),
+    0 1px 4px rgba(0, 0, 0, 0.35);
+  --shadow-deep:
+    0 3px 10px rgba(0, 0, 0, 0.6) inset,
+    0 -1px 0 rgba(74, 222, 128, 0.03) inset;
+  --shadow-button:
+    0 1px 0 rgba(74, 222, 128, 0.08) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.35) inset,
+    0 3px 8px rgba(0, 0, 0, 0.45),
+    0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-button-hover:
+    0 1px 0 rgba(74, 222, 128, 0.1) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.4) inset,
+    0 5px 14px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.4);
 
-  /* --- Border (Dark) --- */
-  --border-light: rgba(255, 255, 255, 0.08);
-  --border-dark: rgba(0, 0, 0, 0.25);
-  --border-primary: rgba(255, 255, 255, 0.08);
-  --border-secondary: rgba(255, 255, 255, 0.04);
-  --border-groove: 1px solid rgba(255, 255, 255, 0.05);
+  /* --- Border (Dark: Green-tinted edges) --- */
+  --border-light: rgba(74, 222, 128, 0.08);
+  --border-dark: rgba(0, 0, 0, 0.35);
+  --border-primary: rgba(74, 222, 128, 0.1);
+  --border-secondary: rgba(74, 222, 128, 0.04);
+  --border-groove: 1px solid rgba(74, 222, 128, 0.06);
 
-  /* --- Texture (Dark) --- */
-  --surface-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.15) 100%);
+  /* --- Texture (Dark: Subtle green glow) --- */
+  --surface-gradient: linear-gradient(180deg, rgba(74, 222, 128, 0.03) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 100%);
 
   /* --- Legacy --- */
-  --foreground-rgb: 232, 228, 240;
-  --background-rgb: 30, 30, 46;
+  --foreground-rgb: 226, 236, 230;
+  --background-rgb: 10, 15, 12;
 }
 
 /* ==========================================
@@ -229,7 +231,7 @@ body {
   }
 
   .skeu-input:focus {
-    box-shadow: var(--shadow-deep), 0 0 0 3px rgba(91, 106, 191, 0.25);
+    box-shadow: var(--shadow-deep), 0 0 0 3px rgba(45, 106, 79, 0.25);
     border-color: var(--accent-primary);
   }
 
@@ -246,7 +248,7 @@ body {
     color: var(--text-primary);
     padding: 0.75rem 2.5rem 0.75rem 1rem;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b5d4f' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233d5a47' stroke-width='2' fill='none'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
@@ -255,7 +257,7 @@ body {
   }
 
   .skeu-select:focus {
-    box-shadow: var(--shadow-deep), 0 0 0 3px rgba(91, 106, 191, 0.25);
+    box-shadow: var(--shadow-deep), 0 0 0 3px rgba(45, 106, 79, 0.25);
     border-color: var(--accent-primary);
   }
 
@@ -508,7 +510,7 @@ body {
 
   .skeu-checkbox.checked {
     background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-primary-dark) 100%);
-    box-shadow: var(--shadow-deep), 0 0 0 2px rgba(91, 106, 191, 0.2);
+    box-shadow: var(--shadow-deep), 0 0 0 2px rgba(45, 106, 79, 0.2);
   }
 
   /* --- Modal / Dialog --- */
@@ -548,9 +550,9 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
 
-  /* --- Gradient Text (preserved) --- */
+  /* --- Gradient Text (green theme) --- */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-700 via-teal-600 to-green-500;
   }
 
   /* --- Skeuomorphic Sidebar --- */
@@ -683,11 +685,11 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(91, 106, 191, 0.3);
+    box-shadow: 0 0 0 0 rgba(45, 106, 79, 0.3);
   }
 
   50% {
-    box-shadow: 0 0 0 8px rgba(91, 106, 191, 0);
+    box-shadow: 0 0 0 8px rgba(45, 106, 79, 0);
   }
 }
 

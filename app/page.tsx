@@ -12,9 +12,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
-      style={{ background: isDark
-        ? 'radial-gradient(ellipse at 30% 20%, #2a2a4a 0%, #1e1e2e 50%, #151520 100%)'
-        : 'radial-gradient(ellipse at 30% 20%, #f0e9e2 0%, #e8e0d8 50%, #ddd5cc 100%)'
+      style={{
+        background: isDark
+          ? 'radial-gradient(ellipse at 30% 20%, #121f17 0%, #0a0f0c 50%, #060a08 100%)'
+          : 'radial-gradient(ellipse at 30% 20%, #f8faf8 0%, #f0f5f1 50%, #e4ece6 100%)'
       }}
     >
       {/* Subtle ambient light spots */}
@@ -22,15 +23,15 @@ export default function Home() {
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full animate-blob"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(123,140,240,0.12) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(91,106,191,0.1) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(45,106,79,0.08) 0%, transparent 70%)'
           }}
         />
         <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full animate-blob animation-delay-2000"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(224,122,158,0.1) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(181,84,122,0.08) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(64,145,108,0.06) 0%, transparent 70%)'
           }}
         />
       </div>
@@ -68,14 +69,14 @@ export default function Home() {
         </AnimatePresence>
       </button>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center p-8 max-w-4xl relative z-10"
       >
         {/* Logo with embossed container */}
-        <motion.div 
+        <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
@@ -86,8 +87,8 @@ export default function Home() {
             <div className="absolute -inset-3 rounded-3xl animate-pulse-glow"
               style={{
                 background: isDark
-                  ? 'radial-gradient(circle, rgba(123,140,240,0.15) 0%, transparent 70%)'
-                  : 'radial-gradient(circle, rgba(91,106,191,0.12) 0%, transparent 70%)'
+                  ? 'radial-gradient(circle, rgba(74,222,128,0.15) 0%, transparent 70%)'
+                  : 'radial-gradient(circle, rgba(45,106,79,0.12) 0%, transparent 70%)'
               }}
             />
             {/* Embossed logo container */}
@@ -105,7 +106,7 @@ export default function Home() {
         </motion.div>
 
         {/* Title */}
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -114,17 +115,17 @@ export default function Home() {
           <span className="bg-clip-text text-transparent animate-gradient"
             style={{
               backgroundImage: isDark
-                ? 'linear-gradient(135deg, #7b8cf0, #e07a9e, #6ec485, #7b8cf0)'
-                : 'linear-gradient(135deg, #5b6abf, #b5547a, #5a9e6f, #5b6abf)',
+                ? 'linear-gradient(135deg, #4ade80, #6ee7b7, #34d399, #4ade80)'
+                : 'linear-gradient(135deg, #2d6a4f, #40916c, #1b4332, #2d6a4f)',
               backgroundSize: '300% auto'
             }}
           >
             NeuraMark
           </span>
         </motion.h1>
-        
+
         {/* Subtitle */}
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -139,7 +140,7 @@ export default function Home() {
         </motion.p>
 
         {/* CTA Buttons */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -150,8 +151,10 @@ export default function Home() {
             className="skeu-btn-primary text-lg px-10 py-5 rounded-2xl flex items-center justify-center gap-2"
             style={{
               background: isDark
-                ? 'linear-gradient(180deg, #7b8cf0 0%, #6a79d4 100%)'
-                : 'linear-gradient(180deg, #5b6abf 0%, #4a57a0 100%)'
+                ? 'linear-gradient(180deg, #4ade80 0%, #22c55e 100%)'
+                : 'linear-gradient(180deg, #2d6a4f 0%, #1b4332 100%)',
+              color: isDark ? '#0a0f0c' : '#ffffff',
+              textShadow: isDark ? 'none' : '0 1px 2px rgba(0,0,0,0.25)'
             }}
           >
             <span className="relative z-10 flex items-center gap-2">
@@ -176,7 +179,7 @@ export default function Home() {
             Learn More
           </Link>
         </motion.div>
-        
+
         {/* Feature Pills */}
         <motion.div
           initial={{ opacity: 0 }}
