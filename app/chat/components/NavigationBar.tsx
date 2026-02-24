@@ -13,7 +13,7 @@ type NavigationBarProps = {
   secondaryText: string
   borderColor: string
   hoverBg: string
-  toggleTheme: () => void
+  toggleTheme: (e?: React.MouseEvent) => void
   isSuperAdmin: boolean
   currentRoom: { name: string; type: string; isGlobal?: boolean } | null
   pendingRequests: any[]

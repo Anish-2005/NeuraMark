@@ -12,7 +12,7 @@ interface MobileSidebarProps {
   loading: boolean;
   fetchAllData: () => void;
   logout: () => void;
-  toggleTheme: () => void;
+  toggleTheme: (e?: React.MouseEvent) => void;
   pathname: string;
   secondaryText: string;
 }

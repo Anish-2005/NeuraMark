@@ -12,7 +12,7 @@ interface NavbarProps {
         photoURL?: string;
     } | null;
     logout: () => void;
-    toggleTheme: () => void;
+    toggleTheme: (e?: React.MouseEvent) => void;
     isDark: boolean;
     page?: string;
     isAdmin?: boolean;

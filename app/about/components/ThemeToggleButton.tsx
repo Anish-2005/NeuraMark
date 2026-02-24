@@ -4,7 +4,7 @@ import { Moon, Sun } from "lucide-react"
 
 type ThemeToggleButtonProps = {
   isDark: boolean;
-  toggleTheme: () => void;
+  toggleTheme: (e?: React.MouseEvent) => void;
 };
 
 export default function ThemeToggleButton({ isDark, toggleTheme }: ThemeToggleButtonProps) {

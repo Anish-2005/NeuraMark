@@ -8,7 +8,7 @@ interface AdminSidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   isDark: boolean;
-  toggleTheme: () => void;
+  toggleTheme: (e?: React.MouseEvent) => void;
   pathname: string;
   user: any;
   logout: () => void;

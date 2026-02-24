@@ -78,47 +78,47 @@
 }
 
 .dark {
-  /* --- Surfaces (Dark) --- */
-  --surface-base: #0c1110;
-  --surface-raised: #151d19;
-  --surface-inset: #0a0f0d;
-  --surface-overlay: #1a2420;
+  /* --- Surfaces (Dark: Comfortable dark grays with green warmth) --- */
+  --surface-base: #161d1a;
+  --surface-raised: #1e2723;
+  --surface-inset: #121917;
+  --surface-overlay: #243029;
 
-  /* --- Text (Dark) --- */
-  --text-primary: #e4ece7;
-  --text-secondary: #8ea898;
-  --text-muted: #5b756a;
+  /* --- Text (Dark: Softer whites for less eye strain) --- */
+  --text-primary: #d8e3dc;
+  --text-secondary: #92a89a;
+  --text-muted: #637a6d;
   --text-on-accent: #ffffff;
 
-  /* --- Accents (Dark — slightly brighter for contrast) --- */
-  --accent-primary: #4ade80;
-  --accent-primary-hover: #22c55e;
-  --accent-primary-dark: #16a34a;
-  --accent-secondary: #5eead4;
-  --accent-success: #34d399;
-  --accent-danger: #f87171;
-  --accent-warning: #fbbf24;
+  /* --- Accents (Dark: Comfortable brightness, not neon) --- */
+  --accent-primary: #3ecf72;
+  --accent-primary-hover: #34b863;
+  --accent-primary-dark: #2a9d54;
+  --accent-secondary: #50d0b8;
+  --accent-success: #3ecf72;
+  --accent-danger: #ef6b6b;
+  --accent-warning: #f0b429;
 
-  /* --- Shadows (Dark) --- */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  /* --- Shadows (Dark: Softer since bg is lighter) --- */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.22), 0 1px 2px rgba(0, 0, 0, 0.14);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -4px rgba(0, 0, 0, 0.14);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.16);
 
   --shadow-raised: var(--shadow-sm);
   --shadow-pressed: var(--shadow-xs);
-  --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.15);
   --shadow-elevated: var(--shadow-lg);
   --shadow-card: var(--shadow-sm);
-  --shadow-deep: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-deep: inset 0 1px 3px rgba(0, 0, 0, 0.15);
   --shadow-button: var(--shadow-sm);
   --shadow-button-hover: var(--shadow-md);
 
-  /* --- Borders (Dark) --- */
-  --border-default: #243029;
-  --border-subtle: #1c2621;
-  --border-strong: #304a3c;
+  /* --- Borders (Dark: Visible but not harsh) --- */
+  --border-default: #2d3b33;
+  --border-subtle: #263029;
+  --border-strong: #3a5044;
   --border-focus: var(--accent-primary);
 
   --border-light: var(--border-subtle);
@@ -129,8 +129,34 @@
 
   --surface-gradient: none;
 
-  --foreground-rgb: 228, 236, 231;
-  --background-rgb: 12, 17, 16;
+  --foreground-rgb: 216, 227, 220;
+  --background-rgb: 22, 29, 26;
+}
+
+/* ==========================================
+   CIRCULAR THEME TRANSITION (View Transitions API)
+   ========================================== */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+::view-transition-old(root) {
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
 }
 
 /* ==========================================
@@ -269,7 +295,7 @@ body {
   }
 
   .dark .skeu-btn-primary {
-    color: #0c1110;
+    color: #121917;
   }
 
   .dark .skeu-btn-primary:focus-visible {
@@ -378,7 +404,7 @@ body {
   }
 
   .dark .skeu-badge {
-    color: #0c1110;
+    color: #121917;
   }
 
   /* --- Divider --- */

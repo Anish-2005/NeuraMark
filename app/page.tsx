@@ -14,7 +14,6 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
       style={{ background: 'var(--surface-base)' }}
     >
-      {/* Subtle ambient light spots */}
       {/* Subtle ambient spots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full"

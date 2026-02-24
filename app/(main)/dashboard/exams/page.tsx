@@ -402,7 +402,7 @@ export default function ExamsPage() {
                                         <span className="text-sm truncate" style={{ color: 'var(--text-secondary)' }}>{user?.displayName || user?.email}</span>
                                     </div>
                                     <button onClick={() => { logout(); setSidebarOpen(false); }} className="skeu-btn-danger w-full py-2 rounded-lg text-sm">Logout</button>
-                                    <button onClick={() => { toggleTheme(); setSidebarOpen(false); }} className="skeu-btn-secondary p-2 w-full rounded-lg flex justify-center items-center" aria-label="Toggle Theme">
+                                    <button onClick={(e) => { toggleTheme(e); setSidebarOpen(false); }} className="skeu-btn-secondary p-2 w-full rounded-lg flex justify-center items-center" aria-label="Toggle Theme">
                                         {isDark ? <><Sun className="w-5 h-5 mr-2" style={{ color: 'var(--accent-warning)' }} /><span>Light Mode</span></> : <><Moon className="w-5 h-5 mr-2" style={{ color: 'var(--accent-primary)' }} /><span>Dark Mode</span></>}
                                     </button>
                                 </motion.div>

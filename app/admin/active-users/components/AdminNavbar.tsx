@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 interface AdminNavbarProps {
   user: any;
   isDark: boolean;
-  toggleTheme: () => void;
+  toggleTheme: (e?: React.MouseEvent) => void;
   setSidebarOpen: (open: boolean) => void;
 }
 
