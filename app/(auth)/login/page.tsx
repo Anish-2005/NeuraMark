@@ -64,8 +64,8 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden"
       style={{
         background: isDark
-          ? 'radial-gradient(ellipse at 40% 30%, #121f17 0%, #0a0f0c 60%, #060a08 100%)'
-          : 'radial-gradient(ellipse at 40% 30%, #f8faf8 0%, #f0f5f1 60%, #e4ece6 100%)'
+          ? 'var(--surface-base)'
+          : 'var(--surface-base)'
       }}
     >
       {/* Ambient light spots */}
@@ -73,15 +73,15 @@ export default function LoginPage() {
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full animate-blob"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(45,106,79,0.06) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(22,163,74,0.03) 0%, transparent 70%)'
           }}
         />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full animate-blob animation-delay-2000"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(64,145,108,0.06) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(94,234,212,0.03) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(13,148,136,0.02) 0%, transparent 70%)'
           }}
         />
       </div>
@@ -124,7 +124,7 @@ export default function LoginPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="skeu-card-static max-w-md w-full mx-4 space-y-7 p-10 rounded-3xl relative z-10"
+        className="skeu-card-static max-w-md w-full mx-4 space-y-7 p-10 rounded-2xl relative z-10"
       >
         <div className="text-center">
           <h2 className="text-3xl font-black skeu-text-embossed mb-2 flex items-center justify-center gap-3"

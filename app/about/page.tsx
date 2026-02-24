@@ -66,12 +66,8 @@ export default function AboutPage() {
   const { isDark, theme, toggleTheme } = useTheme()
 
   return (
-    <main className="min-h-screen transition-colors duration-500"
-      style={{
-        background: isDark
-          ? 'radial-gradient(ellipse at 30% 10%, #121f17 0%, #0a0f0c 50%, #060a08 100%)'
-          : 'radial-gradient(ellipse at 30% 10%, #f8faf8 0%, #f0f5f1 50%, #e4ece6 100%)'
-      }}
+    <main className="min-h-screen transition-colors duration-300"
+      style={{ background: 'var(--surface-base)' }}
     >
       <BackButton isDark={isDark} />
       <ThemeToggleButton isDark={isDark} toggleTheme={toggleTheme} />

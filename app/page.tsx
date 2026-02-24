@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useAuth } from './context/AuthContext'
 import { useTheme } from './context/ThemeContext'
-import { Moon, Sun, BookOpen, ArrowRight, Sparkles, Zap, Users, BarChart2 } from 'lucide-react'
+import { Moon, Sun, BookOpen, ArrowRight, Zap, Users, BarChart2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
@@ -12,26 +12,23 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
-      style={{
-        background: isDark
-          ? 'radial-gradient(ellipse at 30% 20%, #121f17 0%, #0a0f0c 50%, #060a08 100%)'
-          : 'radial-gradient(ellipse at 30% 20%, #f8faf8 0%, #f0f5f1 50%, #e4ece6 100%)'
-      }}
+      style={{ background: 'var(--surface-base)' }}
     >
       {/* Subtle ambient light spots */}
+      {/* Subtle ambient spots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full animate-blob"
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(74,222,128,0.1) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(45,106,79,0.08) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(22,163,74,0.04) 0%, transparent 70%)'
           }}
         />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full animate-blob animation-delay-2000"
+        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(64,145,108,0.06) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(94,234,212,0.04) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(13,148,136,0.03) 0%, transparent 70%)'
           }}
         />
       </div>
@@ -83,22 +80,14 @@ export default function Home() {
           className="flex items-center justify-center mb-10"
         >
           <div className="relative group">
-            {/* Glow ring */}
-            <div className="absolute -inset-3 rounded-3xl animate-pulse-glow"
-              style={{
-                background: isDark
-                  ? 'radial-gradient(circle, rgba(74,222,128,0.15) 0%, transparent 70%)'
-                  : 'radial-gradient(circle, rgba(45,106,79,0.12) 0%, transparent 70%)'
-              }}
-            />
             {/* Embossed logo container */}
-            <div className="skeu-card-static p-3 rounded-3xl group-hover:shadow-[var(--shadow-elevated)] transition-all duration-500">
+            <div className="bg-[var(--surface-raised)] border border-[var(--border-default)] p-3 rounded-2xl shadow-sm group-hover:shadow-md transition-all duration-300">
               <Image
                 src="/emblem.png"
                 alt="NeuraMark Logo"
                 width={90}
                 height={90}
-                className="relative rounded-2xl shrink-0 transform group-hover:scale-105 transition duration-300"
+                className="relative rounded-xl shrink-0 transform group-hover:scale-[1.03] transition duration-300"
                 priority
               />
             </div>
@@ -110,18 +99,10 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-6xl md:text-8xl font-black mb-6 skeu-text-embossed"
+          className="text-6xl md:text-8xl font-black mb-6 tracking-tight"
+          style={{ color: 'var(--text-primary)' }}
         >
-          <span className="bg-clip-text text-transparent animate-gradient"
-            style={{
-              backgroundImage: isDark
-                ? 'linear-gradient(135deg, #4ade80, #6ee7b7, #34d399, #4ade80)'
-                : 'linear-gradient(135deg, #2d6a4f, #40916c, #1b4332, #2d6a4f)',
-              backgroundSize: '300% auto'
-            }}
-          >
-            NeuraMark
-          </span>
+          Neura<span style={{ color: 'var(--accent-primary)' }}>Mark</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -144,36 +125,27 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-6 justify-center mb-14"
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
         >
           <Link
             href={user ? '/dashboard' : '/login'}
-            className="skeu-btn-primary text-lg px-10 py-5 rounded-2xl flex items-center justify-center gap-2"
-            style={{
-              background: isDark
-                ? 'linear-gradient(180deg, #4ade80 0%, #22c55e 100%)'
-                : 'linear-gradient(180deg, #2d6a4f 0%, #1b4332 100%)',
-              color: isDark ? '#0a0f0c' : '#ffffff',
-              textShadow: isDark ? 'none' : '0 1px 2px rgba(0,0,0,0.25)'
-            }}
+            className="skeu-btn-primary text-lg px-8 py-4 rounded-xl flex items-center justify-center gap-2"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              {user ? (
-                <>
-                  Go to Dashboard
-                  <ArrowRight className="w-5 h-5" />
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-5 h-5" />
-                  Get Started
-                </>
-              )}
-            </span>
+            {user ? (
+              <>
+                Go to Dashboard
+                <ArrowRight className="w-5 h-5" />
+              </>
+            ) : (
+              <>
+                Get Started
+                <ArrowRight className="w-5 h-5" />
+              </>
+            )}
           </Link>
           <Link
             href="/about"
-            className="skeu-btn-secondary text-lg px-8 py-4 rounded-2xl flex items-center justify-center gap-2"
+            className="skeu-btn-secondary text-lg px-8 py-4 rounded-xl flex items-center justify-center gap-2"
           >
             <BookOpen className="w-5 h-5" />
             Learn More

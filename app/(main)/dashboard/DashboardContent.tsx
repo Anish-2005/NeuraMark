@@ -1185,10 +1185,8 @@ export default function Dashboard() {
 
 
                     <main className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ${textColor} relative`}>
-                        {/* Subtle background gradient */}
+                        {/* Clean background */}
                         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                            <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
-                            <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-emerald-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 dark:opacity-5"></div>
                         </div>
                         <div className="skeu-card-static p-6 rounded-2xl mb-8">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
