@@ -1172,7 +1172,7 @@ export default function Dashboard() {
                     </AnimatePresence>
 
 
-                    <main className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ${textColor} relative`}>
+                    <main className={`max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 ${textColor} relative`}>
                         {/* Abstract Background Elements */}
                         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 mt-16">
                             <motion.div
@@ -1187,10 +1187,10 @@ export default function Dashboard() {
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, ease: 'easeOut' }}
-                            className="bg-skeu-raised border border-skeu p-8 rounded-3xl mb-8 shadow-sm relative overflow-hidden"
+                            className="bg-skeu-raised border border-skeu p-5 sm:p-8 rounded-3xl mb-6 sm:mb-8 shadow-sm relative overflow-hidden"
                         >
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-success)] opacity-80"></div>
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
                                         <label className={`block text-sm font-bold ${textColor}`}>Branch</label>
@@ -1422,9 +1422,9 @@ export default function Dashboard() {
                                     </div>
                                 )}
                             </div>
-                            <div className="mt-8">
-                                <div className="flex justify-between items-center mb-6">
-                                    <h3 className={`text-2xl font-bold ${textColor} flex items-center gap-2`}>
+                            <div className="mt-6 sm:mt-8">
+                                <div className="flex justify-between items-center mb-4 sm:mb-6">
+                                    <h3 className={`text-xl sm:text-2xl font-bold ${textColor} flex items-center gap-2`}>
                                         <Zap className="w-6 h-6" />
                                         Quick Actions
                                     </h3>
@@ -1451,9 +1451,9 @@ export default function Dashboard() {
                                             animate={{ opacity: 1, height: 'auto', y: 0 }}
                                             exit={{ opacity: 0, height: 0, y: -10 }}
                                             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                            className="overflow-x-auto sm:overflow-x-visible mt-2"
+                                            className="mt-2"
                                         >
-                                            <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 min-w-[500px] sm:min-w-0">
+                                            <div className="flex overflow-x-auto pb-4 -mx-2 px-2 snap-x snap-mandatory sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:pb-0 sm:mx-0 sm:px-0 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
                                                 {/* Shared Action Button Component */}
                                                 {[
                                                     {
@@ -1525,9 +1525,9 @@ export default function Dashboard() {
                                                     >
                                                         <Link
                                                             href={item.href}
-                                                            className={`skeu-action-card group relative flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br ${item.colors.join(
+                                                            className={`skeu-action-card group relative flex flex-col items-center justify-center p-5 sm:p-6 rounded-2xl bg-gradient-to-br ${item.colors.join(
                                                                 ' '
-                                                            )} min-w-[150px]`}
+                                                            )} min-w-[140px] snap-center shrink-0 sm:shrink-auto`}
                                                         >
                                                             <div
                                                                 className={`absolute inset-0 bg-gradient-to-br ${item.hover.join(
@@ -1551,7 +1551,7 @@ export default function Dashboard() {
                                                 {isAdmin && (
                                                     <button
                                                         onClick={() => setShowCopyDialog(true)}
-                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 min-w-[150px]"
+                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 min-w-[140px] sm:min-w-[150px] snap-center shrink-0 sm:shrink-auto"
                                                     >
                                                         <div className="absolute inset-0 bg-gradient-to-br from-emerald-700 to-emerald-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                                         <div className="relative z-10 flex flex-col items-center">
@@ -1569,17 +1569,17 @@ export default function Dashboard() {
                         </motion.div>
 
                         {showCopyDialog && (
-                            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                <div className="skeu-modal p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h2 className={`text-xl font-bold ${textColor}`}>Copy Subjects Between Branches</h2>
+                            <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 sm:p-6">
+                                <div className="skeu-modal p-5 sm:p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl">
+                                    <div className="flex justify-between items-center mb-6">
+                                        <h2 className={`text-lg sm:text-xl font-bold ${textColor}`}>Copy Subjects</h2>
                                         <button
                                             onClick={() => {
                                                 setShowCopyDialog(false);
                                                 setCopySubjects([]);
                                                 setSelectedCopySubjects([]);
                                             }}
-                                            className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                                            className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                                         >
                                             <X size={20} />
                                         </button>
@@ -1758,7 +1758,7 @@ export default function Dashboard() {
                         )}
 
                         {/* Two-column layout */}
-                        <div className="flex flex-col lg:flex-row gap-8">
+                        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
                             {/* Subjects List */}
                             <motion.div
                                 initial={{ opacity: 0, x: -15 }}
@@ -1766,10 +1766,10 @@ export default function Dashboard() {
                                 transition={{ duration: 0.5, delay: 0.1 }}
                                 className="lg:w-1/3"
                             >
-                                <div className="bg-skeu-raised border border-skeu px-6 py-8 rounded-3xl shadow-sm">
-                                    <div className="flex justify-between items-center mb-6">
+                                <div className="bg-skeu-raised border border-skeu px-5 py-6 sm:px-6 sm:py-8 rounded-3xl shadow-sm">
+                                    <div className="flex justify-between items-start sm:items-center mb-6 gap-2">
                                         <div>
-                                            <h2 className={`text-2xl font-black ${textColor} mb-1`}>
+                                            <h2 className={`text-xl sm:text-2xl font-black ${textColor} mb-1 break-words`}>
                                                 {selectedBranch}
                                             </h2>
                                             <p className={`text-sm font-semibold ${secondaryText}`}>
@@ -1783,7 +1783,7 @@ export default function Dashboard() {
                                                     setNewSubject({ name: '', code: '', modules: [] });
                                                     setShowAddSubject(true);
                                                 }}
-                                                className="skeu-btn-primary p-3 rounded-xl" style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
+                                                className="skeu-btn-primary p-2 sm:p-3 rounded-xl shrink-0" style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
                                                 disabled={!selectedBranch}
                                             >
                                                 <Plus size={20} />
@@ -1942,12 +1942,12 @@ export default function Dashboard() {
                                                         `}
                                                         onClick={() => setSelectedSubject(subject)}
                                                     >
-                                                        <div className="flex justify-between items-center gap-4">
-                                                            <div className="flex-2 min-w-40 pl-1">
-                                                                <h3 className={`font-bold text-lg ${textColor}`}>{subject.name}</h3>
-                                                                <p className={`text-sm font-medium ${secondaryText} mt-1 flex items-center gap-1 whitespace-nowrap`}>
-                                                                    <BookOpen className="w-4 h-4 shrink-0" />
-                                                                    <span className="truncate">{subject.code} • Semester {subject.semester}</span>
+                                                        <div className="flex justify-between items-center gap-3 sm:gap-4">
+                                                            <div className="flex-1 min-w-0 pl-1">
+                                                                <h3 className={`font-bold text-base sm:text-lg ${textColor} truncate`}>{subject.name}</h3>
+                                                                <p className={`text-xs sm:text-sm font-medium ${secondaryText} mt-1 flex items-center gap-1 whitespace-nowrap`}>
+                                                                    <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                                                                    <span className="truncate">{subject.code} • Sem {subject.semester}</span>
                                                                 </p>
                                                             </div>
                                                             <div className="flex items-center gap-3 shrink-0">
@@ -2002,20 +2002,20 @@ export default function Dashboard() {
                             >
                                 {selectedSubject ? (
                                     <div
-                                        className="bg-skeu-raised border border-skeu p-8 md:p-10 rounded-3xl shadow-sm relative overflow-hidden"
+                                        className="bg-skeu-raised border border-skeu p-6 sm:p-8 md:p-10 rounded-3xl shadow-sm relative overflow-hidden"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent-primary)] opacity-5 blur-[60px] rounded-full"></div>
-                                        <div className="flex justify-between items-start mb-8 relative z-10">
-                                            <div>
-                                                <h2 className={`text-3xl font-black ${textColor} mb-2 flex items-center gap-2`}>
-                                                    <BookOpen className="w-8 h-8" />
+                                        <div className="flex flex-col lg:flex-row justify-between items-start mb-6 sm:mb-8 relative z-10 gap-4">
+                                            <div className="w-full">
+                                                <h2 className={`text-2xl sm:text-3xl font-black ${textColor} mb-2 flex items-center gap-2 break-words`}>
+                                                    <BookOpen className="w-6 h-6 sm:w-8 sm:h-8" />
                                                     {selectedSubject.name}
                                                 </h2>
-                                                <p className={`${secondaryText} font-semibold text-lg`}>
+                                                <p className={`${secondaryText} font-semibold text-base sm:text-lg`}>
                                                     {selectedSubject.code} • Semester {selectedSubject.semester}
                                                 </p>
                                             </div>
-                                            <div className="flex gap-2">
+                                            <div className="flex gap-2 shrink-0 self-start sm:self-auto w-full sm:w-auto">
                                                 <button
                                                     onClick={() => exportSyllabusToPDF(selectedSubject)}
                                                     className="skeu-btn-primary px-4 py-2 rounded-xl text-sm flex items-center gap-2" style={{ background: 'linear-gradient(180deg, var(--accent-success) 0%, #4a8a5e 100%)' }}
