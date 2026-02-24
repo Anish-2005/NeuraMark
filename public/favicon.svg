@@ -1,35 +1,55 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="48" y2="48">
-      <stop offset="0%" stop-color="#16a34a"/>
-      <stop offset="100%" stop-color="#166534"/>
-    </linearGradient>
-    <linearGradient id="bg-dark" x1="0" y1="0" x2="48" y2="48">
-      <stop offset="0%" stop-color="#3ecf72"/>
-      <stop offset="100%" stop-color="#2a9d54"/>
-    </linearGradient>
-    <linearGradient id="glow" x1="24" y1="4" x2="24" y2="44">
-      <stop offset="0%" stop-color="#fff" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <style>
-    .bg-rect { fill: url(#bg); }
-    @media (prefers-color-scheme: dark) {
-      .bg-rect { fill: url(#bg-dark); }
-    }
-  </style>
-  <!-- Background -->
-  <rect class="bg-rect" x="2" y="2" width="44" height="44" rx="13"/>
-  <rect x="2" y="2" width="44" height="44" rx="13" fill="url(#glow)"/>
-  <rect x="2.5" y="2.5" width="43" height="43" rx="12.5" stroke="#fff" stroke-opacity="0.12" fill="none"/>
-  <!-- N lettermark with neural nodes and checkmark -->
-  <path d="M14 34V14" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M14 14L30 34" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M30 34V16" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M30 16L36 10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Neural nodes -->
-  <circle cx="14" cy="14" r="2.5" fill="#fff" fill-opacity="0.9"/>
-  <circle cx="30" cy="34" r="2.5" fill="#fff" fill-opacity="0.9"/>
-  <circle cx="36" cy="10" r="2" fill="#fff" fill-opacity="0.75"/>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bgPlate" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1a1a24" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#09090e" stop-opacity="0.95" />
+        </linearGradient>
+
+        <linearGradient id="cyberBorder" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.6" />
+            <stop offset="50%" stop-color="#8A2BE2" stop-opacity="0.1" />
+            <stop offset="100%" stop-color="#00FFAA" stop-opacity="0.6" />
+        </linearGradient>
+
+        <linearGradient id="nPathway" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00F0FF" />
+            <stop offset="45%" stop-color="#7000FF" />
+            <stop offset="100%" stop-color="#00FFAA" />
+        </linearGradient>
+
+        <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        
+        <filter id="intenseGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feComponentTransfer in="blur" result="glow">
+                <feFuncA type="linear" slope="1.5" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode in="glow" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <rect x="4" y="4" width="92" height="92" rx="26" fill="url(#bgPlate)" stroke="url(#cyberBorder)" stroke-width="1.5" />
+    <rect x="4" y="4" width="92" height="92" rx="26" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="4" style="mix-blend-mode: overlay" />
+
+    <circle cx="50" cy="50" r="34" stroke="url(#nPathway)" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4 6" />
+    <circle cx="50" cy="50" r="26" stroke="url(#cyberBorder)" stroke-width="1" stroke-opacity="0.15" />
+
+    <path d="M 28 72 L 28 28" stroke="url(#nPathway)" stroke-width="8.5" stroke-linecap="round" filter="url(#neonGlow)" />
+    <path d="M 28 28 L 56 68 L 76 28" stroke="url(#nPathway)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow)" />
+    <path d="M 28 72 L 28 28 L 56 68 L 76 28 L 82 20" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.75" stroke-linecap="round" stroke-linejoin="round" style="mix-blend-mode: overlay" />
+
+    <circle cx="28" cy="72" r="5" fill="#00F0FF" filter="url(#intenseGlow)" />
+    <circle cx="28" cy="28" r="6" fill="#00F0FF" filter="url(#intenseGlow)" />
+    <circle cx="56" cy="68" r="5.5" fill="#7000FF" filter="url(#intenseGlow)" />
+    <circle cx="76" cy="28" r="6" fill="#00FFAA" filter="url(#intenseGlow)" />
+    <circle cx="82" cy="20" r="3.5" fill="#FFFFFF" filter="url(#intenseGlow)" />
 </svg>

@@ -31,22 +31,22 @@ export function LogoIcon({ size = 32, className = '' }: LogoIconProps) {
                 {/* Advanced Gradients */}
                 {/* Background Plate Gradient */}
                 <linearGradient id="bgPlate" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="var(--bg-secondary, #1a1a24)" stopOpacity="0.85" />
-                    <stop offset="100%" stopColor="var(--bg-primary, #09090e)" stopOpacity="0.95" />
+                    <stop offset="0%" stopColor="var(--surface-raised)" stopOpacity="0.85" />
+                    <stop offset="100%" stopColor="var(--surface-base)" stopOpacity="0.95" />
                 </linearGradient>
 
                 {/* Cyber-mesh border */}
                 <linearGradient id="cyberBorder" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00F0FF" stopOpacity="0.6" />
-                    <stop offset="50%" stopColor="#8A2BE2" stopOpacity="0.1" />
-                    <stop offset="100%" stopColor="#00FFAA" stopOpacity="0.6" />
+                    <stop offset="0%" stopColor="var(--accent-secondary)" stopOpacity="0.6" />
+                    <stop offset="50%" stopColor="var(--accent-primary)" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="var(--accent-success)" stopOpacity="0.6" />
                 </linearGradient>
 
                 {/* The core 'N' pathway gradient */}
                 <linearGradient id="nPathway" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00F0FF" />    {/* Cyan */}
-                    <stop offset="45%" stopColor="#7000FF" />   {/* Deep Purple */}
-                    <stop offset="100%" stopColor="#00FFAA" />  {/* Neon Emerald Checkmark */}
+                    <stop offset="0%" stopColor="var(--accent-secondary)" />
+                    <stop offset="45%" stopColor="var(--accent-primary)" />
+                    <stop offset="100%" stopColor="var(--accent-success)" />
                 </linearGradient>
 
                 {/* Node Glow Filters */}
@@ -74,20 +74,11 @@ export function LogoIcon({ size = 32, className = '' }: LogoIconProps) {
             <rect
                 x="4" y="4" width="92" height="92" rx="26"
                 fill="url(#bgPlate)"
-                stroke="url(#cyberBorder)" strokeWidth="1.5"
-            />
-
-            {/* Overlay reflection / depth */}
-            <rect
-                x="4" y="4" width="92" height="92" rx="26"
-                fill="none"
-                stroke="#ffffff" strokeOpacity="0.06" strokeWidth="4"
-                style={{ mixBlendMode: 'overlay' }}
             />
 
             {/* Futuristic Tech Grids / Inner Details */}
-            <circle cx="50" cy="50" r="34" stroke="url(#nPathway)" strokeWidth="0.8" strokeOpacity="0.25" strokeDasharray="4 6" />
-            <circle cx="50" cy="50" r="26" stroke="url(#cyberBorder)" strokeWidth="1" strokeOpacity="0.15" />
+            <circle cx="50" cy="50" r="34" stroke="url(#nPathway)" strokeWidth="0.8" strokeOpacity="0.5" strokeDasharray="4 6" />
+            <circle cx="50" cy="50" r="26" stroke="url(#cyberBorder)" strokeWidth="1" strokeOpacity="0.3" />
 
             {/* The "N" & Checkmark Pathway */}
             {/* Left Vertical */}
@@ -107,18 +98,18 @@ export function LogoIcon({ size = 32, className = '' }: LogoIconProps) {
             {/* Secondary thin energy line for extreme detail */}
             <path
                 d="M 28 72 L 28 28 L 56 68 L 76 28 L 82 20"
-                stroke="#FFFFFF" strokeWidth="2" strokeOpacity="0.75" strokeLinecap="round" strokeLinejoin="round"
+                stroke="var(--text-primary)" strokeWidth="2" strokeOpacity="0.4" strokeLinecap="round" strokeLinejoin="round"
                 style={{ mixBlendMode: 'overlay' }}
             />
 
             {/* Nexus Nodes (Synapses) */}
-            <circle cx="28" cy="72" r="5" fill="#00F0FF" filter="url(#intenseGlow)" />
-            <circle cx="28" cy="28" r="6" fill="#00F0FF" filter="url(#intenseGlow)" />
-            <circle cx="56" cy="68" r="5.5" fill="#7000FF" filter="url(#intenseGlow)" />
-            <circle cx="76" cy="28" r="6" fill="#00FFAA" filter="url(#intenseGlow)" />
+            <circle cx="28" cy="72" r="5" fill="var(--accent-secondary)" filter="url(#intenseGlow)" />
+            <circle cx="28" cy="28" r="6" fill="var(--accent-secondary)" filter="url(#intenseGlow)" />
+            <circle cx="56" cy="68" r="5.5" fill="var(--accent-primary)" filter="url(#intenseGlow)" />
+            <circle cx="76" cy="28" r="6" fill="var(--accent-success)" filter="url(#intenseGlow)" />
 
             {/* Energy spark at the tip of the checkmark */}
-            <circle cx="82" cy="20" r="3.5" fill="#FFFFFF" filter="url(#intenseGlow)" />
+            <circle cx="82" cy="20" r="3.5" fill="var(--text-primary)" filter="url(#intenseGlow)" />
 
         </svg>
     );
@@ -140,7 +131,7 @@ export function LogoFull({ size = 32, className = '', showText = true }: LogoFul
                     style={{
                         fontSize: size * 0.75,
                         lineHeight: 1,
-                        background: 'linear-gradient(to right, var(--text-primary, #ffffff) 30%, #00F0FF 75%, #00FFAA 100%)',
+                        background: 'linear-gradient(to right, var(--text-primary) 30%, var(--accent-secondary) 75%, var(--accent-success) 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
@@ -150,7 +141,7 @@ export function LogoFull({ size = 32, className = '', showText = true }: LogoFul
                 >
                     Neura<span style={{
                         fontWeight: 900,
-                        background: 'linear-gradient(135deg, #00F0FF, #00FFAA)',
+                        background: 'linear-gradient(135deg, var(--accent-secondary), var(--accent-success))',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text'
@@ -175,7 +166,6 @@ export function LogoMono({ size = 32, className = '' }: LogoIconProps) {
             <rect
                 x="4" y="4" width="92" height="92" rx="26"
                 fill="var(--text-primary)" fillOpacity="0.03"
-                stroke="var(--border-default)" strokeWidth="1.5" strokeOpacity="0.6"
             />
 
             <circle cx="50" cy="50" r="34" stroke="var(--text-muted)" strokeWidth="0.8" strokeOpacity="0.25" strokeDasharray="4 6" />
