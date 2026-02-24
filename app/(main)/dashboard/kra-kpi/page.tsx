@@ -8,6 +8,7 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { Sun, Moon, BookOpen, ChevronDown, ChevronUp, RefreshCw, User, BarChart2, Target, Award, TrendingUp, X, Menu, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { LogoIcon } from '@/app/components/Logo';
 import { db } from '@/app/lib/firebase';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -283,9 +284,7 @@ export default function KraKpiPage() {
                                 <Link href="/dashboard" className="skeu-btn-icon rounded-lg" aria-label="Back to Dashboard">
                                     <ArrowLeft className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} />
                                 </Link>
-                                <div className="skeu-inset p-1 rounded-lg">
-                                    <Image src="/emblem.png" alt="NeuraMark Logo" width={32} height={32} className="rounded shrink-0" priority />
-                                </div>
+                                <LogoIcon size={32} />
                                 <div>
                                     <h1 className="text-lg sm:text-2xl font-bold skeu-text-embossed tracking-tight truncate max-w-[140px] sm:max-w-xs" style={{ color: 'var(--text-primary)' }}>Learning Analytics</h1>
                                     <p className="text-xs hidden sm:block" style={{ color: 'var(--text-secondary)' }}>KPI & KRA Dashboard</p>
@@ -330,7 +329,7 @@ export default function KraKpiPage() {
                             <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'tween', duration: 0.3 }} className="skeu-sidebar fixed inset-y-0 left-0 z-50 w-64 p-4 flex flex-col gap-4">
                                 <div className="flex justify-between items-center mb-4">
                                     <div className="flex items-center space-x-2">
-                                        <div className="skeu-inset p-1 rounded-lg"><Image src="/emblem.png" alt="NeuraMark Logo" width={28} height={28} className="rounded" /></div>
+                                        <LogoIcon size={28} />
                                         <h2 className="font-bold text-lg skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>Analytics</h2>
                                     </div>
                                     <button onClick={() => setSidebarOpen(false)} aria-label="Close Menu" className="skeu-btn-icon rounded-lg"><X className="w-5 h-5" /></button>

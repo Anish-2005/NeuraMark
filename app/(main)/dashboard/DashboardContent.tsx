@@ -26,6 +26,7 @@ interface Subject {
 }
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { LogoIcon } from '../../components/Logo'
 import Link from 'next/link';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Navbar from '@/app/components/Navbar';
@@ -947,14 +948,7 @@ export default function Dashboard() {
                             <div className="flex justify-between items-center h-16 md:h-20">
                                 {/* Left Section */}
                                 <div className="flex items-center space-x-3 min-w-0">
-                                    <Image
-                                        src="/emblem.png"
-                                        alt="NeuraMark Logo"
-                                        width={36}
-                                        height={36}
-                                        className="rounded-sm shadow-sm shrink-0"
-                                        priority
-                                    />
+                                    <LogoIcon size={36} />
                                     <h1 className="text-lg sm:text-2xl font-bold skeu-text-embossed tracking-tight truncate max-w-[140px] sm:max-w-xs" style={{ color: 'var(--text-primary)' }}>
                                         {pageTitle}
                                     </h1>
@@ -1063,13 +1057,7 @@ export default function Dashboard() {
                                 {/* Top Section */}
                                 <div className="flex justify-between items-center mb-4">
                                     <div className="flex items-center space-x-2">
-                                        <Image
-                                            src="/emblem.png"
-                                            alt="NeuraMark Logo"
-                                            width={28}
-                                            height={28}
-                                            className="rounded shadow-sm"
-                                        />
+                                        <LogoIcon size={28} />
                                         <div className="flex items-center space-x-1">
                                             <h2 className="font-bold text-lg sm:text-xl skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                                                 {pageTitle}

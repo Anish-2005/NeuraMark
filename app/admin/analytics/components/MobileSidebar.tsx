@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { LogoIcon } from '@/app/components/Logo';
 import { AnimatePresence, motion } from 'framer-motion';
 import { RefreshCw, X, Sun, Moon, User } from 'lucide-react';
 
@@ -41,9 +42,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
         {/* Top Section */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center space-x-2">
-            <div className="skeu-inset p-1 rounded-lg">
-              <Image src="/emblem.png" alt="NeuraMark Logo" width={28} height={28} className="rounded-sm shrink-0" />
-            </div>
+            <LogoIcon size={28} />
             <h2 className="font-bold text-lg skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
               Analytics
             </h2>

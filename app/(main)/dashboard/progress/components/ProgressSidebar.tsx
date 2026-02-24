@@ -1,7 +1,7 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
+import { LogoIcon } from '@/app/components/Logo'
 import { RefreshCw, X, User, Moon, Sun } from 'lucide-react'
 import UserAvatar from './UserAvatar'
 import { useTheme } from '@/app/context/ThemeContext'
@@ -31,15 +31,7 @@ export default function ProgressSidebar({ isOpen, onClose, user, loading, onRefr
           {/* Header */}
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center space-x-2">
-              <div className="skeu-inset p-1 rounded-lg">
-                <Image
-                  src="/emblem.png"
-                  alt="NeuraMark Logo"
-                  width={24}
-                  height={24}
-                  className="rounded shrink-0"
-                />
-              </div>
+              <LogoIcon size={28} />
               <h2 className="font-bold text-lg skeu-text-embossed"
                 style={{ color: 'var(--text-primary)' }}
               >

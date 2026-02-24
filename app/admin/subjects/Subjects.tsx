@@ -8,6 +8,7 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { User, RefreshCw, Menu, Moon, Sun, Trash2, Edit, ArrowLeft, X, BookOpen, GraduationCap, Layers } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { LogoIcon } from '@/app/components/Logo';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 export default function AdminSubjects() {
@@ -122,16 +123,7 @@ export default function AdminSubjects() {
                                 >
                                     <ArrowLeft className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} />
                                 </Link>
-                                <div className="skeu-inset p-1 rounded-lg">
-                                    <Image
-                                        src="/emblem.png"
-                                        alt="NeuraMark Logo"
-                                        width={28}
-                                        height={28}
-                                        className="rounded shrink-0"
-                                        priority
-                                    />
-                                </div>
+                                <LogoIcon size={32} />
                                 <h1 className="text-lg font-bold skeu-text-embossed truncate max-w-[140px] sm:max-w-xs"
                                     style={{ color: 'var(--text-primary)' }}
                                 >
@@ -221,15 +213,7 @@ export default function AdminSubjects() {
                             {/* Top Section */}
                             <div className="flex justify-between items-center mb-4">
                                 <div className="flex items-center space-x-2">
-                                    <div className="skeu-inset p-1 rounded-lg">
-                                        <Image
-                                            src="/emblem.png"
-                                            alt="NeuraMark Logo"
-                                            width={24}
-                                            height={24}
-                                            className="rounded shrink-0"
-                                        />
-                                    </div>
+                                    <LogoIcon size={28} />
                                     <h2 className="font-bold text-lg skeu-text-embossed"
                                         style={{ color: 'var(--text-primary)' }}
                                     >

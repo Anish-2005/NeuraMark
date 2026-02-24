@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { LogoIcon } from '@/app/components/Logo';
 import { BarChart2, ArrowLeft } from 'lucide-react';
 
 interface NavbarProps {
@@ -24,16 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark, textColor, secondaryText, cardB
           >
             <ArrowLeft className="h-5 w-5" style={{ color: 'var(--text-secondary)' }} />
           </Link>
-          <div className="skeu-inset p-1 rounded-lg">
-            <Image
-              src="/emblem.png"
-              alt="NeuraMark Logo"
-              width={32}
-              height={32}
-              className="rounded shrink-0"
-              priority
-            />
-          </div>
+          <LogoIcon size={32} />
           <div>
             <h1 className="text-lg sm:text-2xl font-bold skeu-text-embossed tracking-tight truncate max-w-[140px] sm:max-w-xs"
               style={{ color: 'var(--text-primary)' }}

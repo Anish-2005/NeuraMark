@@ -4,6 +4,7 @@
 import { useAuth } from "@/app/context/AuthContext"
 import { Moon, Sun, Users, Clock, ChevronLeft, Menu } from "lucide-react"
 import Image from "next/image"
+import { LogoIcon } from "@/app/components/Logo"
 import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
 
@@ -59,9 +60,7 @@ export default function NavigationBar({
               </svg>
             </Link>
             <div className="flex items-center space-x-3">
-              <div className="skeu-inset p-1 rounded-lg">
-                <Image src="/emblem.png" alt="Logo" width={28} height={28} className="rounded shrink-0" priority />
-              </div>
+              <LogoIcon size={28} />
               <div className="flex flex-col">
                 <h1 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>
                   Study Chat

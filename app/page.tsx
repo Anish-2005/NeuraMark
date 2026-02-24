@@ -4,11 +4,31 @@ import { useAuth } from './context/AuthContext'
 import { useTheme } from './context/ThemeContext'
 import { Moon, Sun, BookOpen, ArrowRight, Zap, Users, BarChart2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
+import { LogoIcon } from './components/Logo'
 
 export default function Home() {
   const { user } = useAuth()
   const { theme, toggleTheme, isDark } = useTheme()
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+  };
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
@@ -19,14 +39,14 @@ export default function Home() {
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(62,207,114,0.05) 0%, transparent 70%)'
               : 'radial-gradient(circle, rgba(22,163,74,0.04) 0%, transparent 70%)'
           }}
         />
         <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(94,234,212,0.04) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(80,208,184,0.03) 0%, transparent 70%)'
               : 'radial-gradient(circle, rgba(13,148,136,0.03) 0%, transparent 70%)'
           }}
         />
@@ -35,7 +55,7 @@ export default function Home() {
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
-        className="skeu-btn-icon fixed top-6 right-6 z-50"
+        className="skeu-btn-icon fixed top-6 right-6 z-50 btn-press"
         aria-label="Toggle Theme"
       >
         <AnimatePresence mode="wait" initial={false}>
@@ -66,28 +86,21 @@ export default function Home() {
       </button>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
         className="text-center p-8 max-w-4xl relative z-10"
       >
-        {/* Logo with embossed container */}
+        {/* Logo with hover lift */}
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
+          variants={itemVariants}
           className="flex items-center justify-center mb-10"
         >
           <div className="relative group">
-            {/* Embossed logo container */}
-            <div className="bg-[var(--surface-raised)] border border-[var(--border-default)] p-3 rounded-2xl shadow-sm group-hover:shadow-md transition-all duration-300">
-              <Image
-                src="/emblem.png"
-                alt="NeuraMark Logo"
-                width={90}
-                height={90}
-                className="relative rounded-xl shrink-0 transform group-hover:scale-[1.03] transition duration-300"
-                priority
+            <div className="p-2 rounded-2xl shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:-translate-y-1">
+              <LogoIcon
+                size={90}
+                className="transform group-hover:scale-[1.03] transition duration-300"
               />
             </div>
           </div>
@@ -95,9 +108,7 @@ export default function Home() {
 
         {/* Title */}
         <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          variants={itemVariants}
           className="text-6xl md:text-8xl font-black mb-6 tracking-tight"
           style={{ color: 'var(--text-primary)' }}
         >
@@ -106,9 +117,7 @@ export default function Home() {
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          variants={itemVariants}
           className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed"
           style={{ color: 'var(--text-secondary)' }}
         >
@@ -121,30 +130,28 @@ export default function Home() {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
         >
           <Link
             href={user ? '/dashboard' : '/login'}
-            className="skeu-btn-primary text-lg px-8 py-4 rounded-xl flex items-center justify-center gap-2"
+            className="group skeu-btn-primary text-lg px-8 py-4 rounded-xl flex items-center justify-center gap-2 btn-press"
           >
             {user ? (
               <>
                 Go to Dashboard
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
               </>
             ) : (
               <>
                 Get Started
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
               </>
             )}
           </Link>
           <Link
             href="/about"
-            className="skeu-btn-secondary text-lg px-8 py-4 rounded-xl flex items-center justify-center gap-2"
+            className="skeu-btn-secondary text-lg px-8 py-4 rounded-xl flex items-center justify-center gap-2 btn-press"
           >
             <BookOpen className="w-5 h-5" />
             Learn More
@@ -153,9 +160,7 @@ export default function Home() {
 
         {/* Feature Pills */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          variants={itemVariants}
           className="flex flex-wrap justify-center gap-4"
         >
           {[
@@ -163,10 +168,15 @@ export default function Home() {
             { icon: <BarChart2 className="w-3.5 h-3.5" />, label: 'AI-Powered', color: 'var(--accent-primary)' },
             { icon: <Users className="w-3.5 h-3.5" />, label: 'Collaborative', color: 'var(--accent-secondary)' },
           ].map((item, i) => (
-            <div key={i} className="skeu-stat-pill">
+            <motion.div
+              key={i}
+              className="skeu-stat-pill group cursor-default"
+              whileHover={{ scale: 1.05, y: -2 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            >
               <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: item.color }} />
               <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{item.label}</span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </motion.div>

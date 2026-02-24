@@ -3,6 +3,7 @@
 
 import { User, X, MessageCircle, Users, Plus, Key, Clock } from "lucide-react"
 import Image from "next/image"
+import { LogoIcon } from "@/app/components/Logo"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -80,9 +81,7 @@ export default function Sidebar({
             {/* Header */}
             <div className="flex items-center justify-between p-5">
               <div className="flex items-center space-x-3">
-                <div className="skeu-inset p-1 rounded-lg">
-                  <Image src="/emblem.png" alt="Logo" width={28} height={28} className="rounded-sm shrink-0" />
-                </div>
+                <LogoIcon size={28} />
                 <h2 className="text-lg font-bold skeu-text-embossed" style={{ color: 'var(--text-primary)' }}>Menu</h2>
               </div>
               <button

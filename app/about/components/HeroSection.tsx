@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { LogoIcon } from '@/app/components/Logo'
 
 type HeroSectionProps = {
   isDark: boolean;
@@ -11,14 +11,7 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
     <section className="text-center mb-20 max-w-3xl mx-auto px-4">
       <div className="flex justify-center mb-8">
         <div className="skeu-card-static p-3 rounded-2xl">
-          <Image
-            src="/emblem.png"
-            alt="NeuraMark Logo"
-            width={90}
-            height={90}
-            className="rounded-xl"
-            priority
-          />
+          <LogoIcon size={90} />
         </div>
       </div>
       <h1
