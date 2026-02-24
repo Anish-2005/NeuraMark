@@ -943,7 +943,7 @@ export default function Dashboard() {
         <ProtectedRoute>
             <Suspense fallback={<div>Loading...</div>}>
                 <div className="min-h-screen transition-colors duration-200" style={{ background: 'var(--surface-base)' }}>
-                    <nav className="skeu-navbar sticky top-0 z-50">
+                    <nav className="skeu-navbar sticky top-0 z-50 bg-skeu-base/80 backdrop-blur-xl border-b border-skeu">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between items-center h-16 md:h-20">
                                 {/* Left Section */}
@@ -1173,11 +1173,24 @@ export default function Dashboard() {
 
 
                     <main className={`max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ${textColor} relative`}>
-                        {/* Clean background */}
-                        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+                        {/* Abstract Background Elements */}
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 mt-16">
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 2 }}
+                                className="absolute -top-[10%] -right-[10%] w-[40vw] h-[40vw] rounded-full blur-[100px]"
+                                style={{ background: isDark ? 'rgba(62, 207, 114, 0.04)' : 'rgba(22, 163, 74, 0.02)' }}
+                            />
                         </div>
-                        <div className="skeu-card-static p-6 rounded-2xl mb-8">
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, ease: 'easeOut' }}
+                            className="bg-skeu-raised border border-skeu p-8 rounded-3xl mb-8 shadow-sm relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-success)] opacity-80"></div>
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
                                         <label className={`block text-sm font-bold ${textColor}`}>Branch</label>
@@ -1434,11 +1447,11 @@ export default function Dashboard() {
                                 <AnimatePresence>
                                     {showActions && (
                                         <motion.div
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: 'auto' }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="overflow-x-auto sm:overflow-x-visible"
+                                            initial={{ opacity: 0, height: 0, y: -10 }}
+                                            animate={{ opacity: 1, height: 'auto', y: 0 }}
+                                            exit={{ opacity: 0, height: 0, y: -10 }}
+                                            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                            className="overflow-x-auto sm:overflow-x-visible mt-2"
                                         >
                                             <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 min-w-[500px] sm:min-w-0">
                                                 {/* Shared Action Button Component */}
@@ -1553,8 +1566,7 @@ export default function Dashboard() {
                                     )}
                                 </AnimatePresence>
                             </div>
-
-                        </div>
+                        </motion.div>
 
                         {showCopyDialog && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -1748,8 +1760,13 @@ export default function Dashboard() {
                         {/* Two-column layout */}
                         <div className="flex flex-col lg:flex-row gap-8">
                             {/* Subjects List */}
-                            <div className="lg:w-1/3">
-                                <div className="skeu-card-static px-2 py-8 rounded-2xl">
+                            <motion.div
+                                initial={{ opacity: 0, x: -15 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.1 }}
+                                className="lg:w-1/3"
+                            >
+                                <div className="bg-skeu-raised border border-skeu px-6 py-8 rounded-3xl shadow-sm">
                                     <div className="flex justify-between items-center mb-6">
                                         <div>
                                             <h2 className={`text-2xl font-black ${textColor} mb-1`}>
@@ -1914,17 +1931,15 @@ export default function Dashboard() {
                                                 syllabusData.map(subject => (
                                                     <motion.div
                                                         key={subject.id}
-                                                        whileHover={{ scale: 1.02 }}
-                                                        whileTap={{ scale: 0.98 }}
+                                                        whileHover={{ scale: 1.01 }}
+                                                        whileTap={{ scale: 0.99 }}
                                                         className={`
-                                                        p-4 rounded-xl cursor-pointer transition-all duration-200 border-2
-                                                        ${selectedSubject?.id === subject.id
-                                                                ? 'bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-400 dark:from-emerald-900/30 dark:to-teal-900/30 dark:border-emerald-500 shadow-lg'
-                                                                : `${theme === 'dark'
-                                                                    ? 'bg-gray-700/50 hover:bg-gray-700 border-gray-600 hover:border-gray-500'
-                                                                    : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300'} shadow-sm hover:shadow-md`
+                                                            p-4 rounded-2xl cursor-pointer transition-all duration-300 border
+                                                            ${selectedSubject?.id === subject.id
+                                                                ? 'bg-skeu-base border-[var(--accent-primary)] shadow-[0_0_15px_rgba(22,163,74,0.1)]'
+                                                                : 'bg-skeu-raised border-skeu hover:border-[var(--accent-secondary)] hover:shadow-md'
                                                             }
-                                                    `}
+                                                        `}
                                                         onClick={() => setSelectedSubject(subject)}
                                                     >
                                                         <div className="flex justify-between items-center gap-4">
@@ -1975,18 +1990,22 @@ export default function Dashboard() {
                                         </div>
                                     )}
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Modules and Progress */}
-                            <div className="lg:w-2/3" id="subject-details">
+                            <motion.div
+                                initial={{ opacity: 0, x: 15 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="lg:w-2/3"
+                                id="subject-details"
+                            >
                                 {selectedSubject ? (
-                                    <motion.div
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="skeu-card-static p-8 rounded-2xl"
+                                    <div
+                                        className="bg-skeu-raised border border-skeu p-8 md:p-10 rounded-3xl shadow-sm relative overflow-hidden"
                                     >
-                                        <div className="flex justify-between items-start mb-6">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent-primary)] opacity-5 blur-[60px] rounded-full"></div>
+                                        <div className="flex justify-between items-start mb-8 relative z-10">
                                             <div>
                                                 <h2 className={`text-3xl font-black ${textColor} mb-2 flex items-center gap-2`}>
                                                     <BookOpen className="w-8 h-8" />
@@ -2042,16 +2061,20 @@ export default function Dashboard() {
                                         </div>
 
                                         {/* Progress Bar */}
-                                        <div className="mb-4">
-                                            <div className="skeu-progress-track">
-                                                <div
-                                                    className="skeu-progress-fill"
-                                                    style={{ width: `${calculateProgress(selectedSubject)}%` }}
-                                                ></div>
+                                        <div className="mb-6 relative">
+                                            <div className="h-5 w-full bg-skeu-inset rounded-full overflow-hidden border border-skeu">
+                                                <motion.div
+                                                    initial={{ width: 0 }}
+                                                    animate={{ width: `${calculateProgress(selectedSubject)}%` }}
+                                                    transition={{ duration: 0.8, ease: "easeOut" }}
+                                                    className="h-full bg-gradient-to-r from-[var(--accent-secondary)] to-[var(--accent-primary)] rounded-full relative"
+                                                >
+                                                    <div className="absolute inset-0 bg-white/20 w-full h-full mix-blend-overlay"></div>
+                                                </motion.div>
                                             </div>
-                                            <div className="flex justify-between text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
-                                                <span className="skeu-text-embossed">Progress</span>
-                                                <span className="font-bold" style={{ color: 'var(--accent-primary)' }}>{calculateProgress(selectedSubject)}%</span>
+                                            <div className="flex justify-between text-sm mt-3" style={{ color: 'var(--text-secondary)' }}>
+                                                <span className="font-semibold tracking-wide uppercase text-xs text-skeu-muted">Completion</span>
+                                                <span className="font-black tracking-tight" style={{ color: 'var(--accent-primary)' }}>{calculateProgress(selectedSubject)}%</span>
                                             </div>
                                         </div>
 
@@ -2107,17 +2130,16 @@ export default function Dashboard() {
                                                 modules.map((module, index) => (
                                                     <motion.div
                                                         key={index}
+                                                        whileHover={{ x: 4 }}
+                                                        transition={{ duration: 0.2 }}
                                                         className={`
-                                                        flex items-start p-3 rounded-lg border
+                                                        flex items-start p-4 rounded-2xl border
                                                         ${isModuleCompleted(selectedSubject!.id!, index)
-                                                                ? (theme === 'dark' ? 'bg-green-900/30 border-green-700' : 'bg-green-100 border-green-200')
-                                                                : (theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200')
+                                                                ? 'bg-[var(--accent-primary)]/5 border-[var(--accent-primary)]/20 shadow-[0_0_10px_rgba(22,163,74,0.05)]'
+                                                                : 'bg-skeu-base border-skeu'
                                                             }
-                                                        ${selectedModuleIndex === index
-                                                                ? (theme === 'dark' ? 'ring-2 ring-emerald-600' : 'ring-2 ring-emerald-400')
-                                                                : ''
-                                                            }
-                                                        transition-colors duration-200
+                                                        ${selectedModuleIndex === index ? 'ring-2 ring-[var(--accent-primary)]' : ''}
+                                                        transition-all duration-300
                                                     `}
                                                     >
                                                         {/* Checkbox Button */}
@@ -2127,20 +2149,19 @@ export default function Dashboard() {
                                                                 await updateModuleStatus(index, !isModuleCompleted(selectedSubject!.id!, index));
                                                             }}
                                                             className={`
-                                                            mt-1 flex-shrink-0 h-5 w-5 rounded border-2 flex items-center justify-center
+                                                            mt-1 flex-shrink-0 h-6 w-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300
                                                             ${isModuleCompleted(selectedSubject!.id!, index)
-                                                                    ? 'bg-emerald-700 border-emerald-700'
-                                                                    : `${theme === 'dark' ? 'border-gray-500' : 'border-gray-300'} bg-transparent`
+                                                                    ? 'bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-success)] border-transparent shadow-[0_0_8px_rgba(22,163,74,0.4)]'
+                                                                    : 'bg-skeu-inset border-skeu group-hover:border-[var(--accent-primary)]'
                                                                 }
-                                                            transition-colors duration-200
-                                                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600
+                                                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent-primary)] focus:ring-offset-[var(--surface-base)]
                                                         `}
                                                             aria-label={isModuleCompleted(selectedSubject!.id!, index) ? "Mark as incomplete" : "Mark as complete"}
                                                             role="checkbox"
                                                             aria-checked={isModuleCompleted(selectedSubject!.id!, index)}
                                                         >
                                                             {isModuleCompleted(selectedSubject!.id!, index) && (
-                                                                <svg className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                                <svg className="h-4 w-4 text-skeu-base" viewBox="0 0 20 20" fill="currentColor">
                                                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                                                 </svg>
                                                             )}
@@ -2209,7 +2230,7 @@ export default function Dashboard() {
                                                 </div>
                                             )}
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 ) : (
                                     <motion.div
                                         initial={{ opacity: 0 }}
@@ -2217,7 +2238,7 @@ export default function Dashboard() {
                                         className="skeu-inset p-12 rounded-2xl flex flex-col items-center justify-center min-h-[400px]"
                                     >
                                         <div className="text-center">
-                                            <BookOpen className={`w-24 h-24 mx-auto mb-6 ${secondaryText}`} />
+                                            <BookOpen className={`w-20 h-20 mx-auto mb-6 text-skeu-muted opacity-50`} />
                                             <p className={`${textColor} text-2xl font-bold mb-2`}>
                                                 {syllabusData.length > 0
                                                     ? "Select a subject to view modules"
@@ -2231,12 +2252,13 @@ export default function Dashboard() {
                                         </div>
                                     </motion.div>
                                 )}
-                            </div>
+                            </motion.div>
                         </div>
                     </main>
                 </div>
             </Suspense>
-        </ProtectedRoute>
-
+        </ProtectedRoute >
     );
 }
+
+// Ensure the default export matches the generic wrapper in Page.tsx format if needed.

@@ -74,8 +74,9 @@ export default function TermsOfService() {
                 >
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)]"></div>
 
-                    <motion.div variants={itemVariants} className="w-14 h-14 rounded-2xl bg-[var(--accent-secondary)] bg-opacity-10 mb-8 flex items-center justify-center text-[var(--accent-secondary)]">
-                        <Scale className="w-7 h-7" />
+                    <motion.div variants={itemVariants} className="relative w-14 h-14 rounded-2xl text-[var(--accent-secondary)] mb-8 flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 bg-[var(--accent-secondary)] opacity-10 pointer-events-none"></div>
+                        <Scale className="w-7 h-7 relative z-10" />
                     </motion.div>
 
                     <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl font-bold tracking-tight text-skeu-primary mb-6">
