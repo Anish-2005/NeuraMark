@@ -1,20 +1,35 @@
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="48" y2="48">
+      <stop offset="0%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="bg-dark" x1="0" y1="0" x2="48" y2="48">
+      <stop offset="0%" stop-color="#3ecf72"/>
+      <stop offset="100%" stop-color="#2a9d54"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="24" y1="4" x2="24" y2="44">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
   <style>
-    .bg { fill: #16a34a; }
-    .node { fill: #ffffff; }
-    .node-dim { fill: rgba(255,255,255,0.5); }
-    .line { stroke: rgba(255,255,255,0.4); }
-    .ring { stroke: rgba(255,255,255,0.5); fill: rgba(255,255,255,0.15); }
-    .check { stroke: #ffffff; }
+    .bg-rect { fill: url(#bg); }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #3ecf72; }
+      .bg-rect { fill: url(#bg-dark); }
     }
   </style>
-  <rect class="bg" x="2" y="2" width="44" height="44" rx="12"/>
-  <path class="line" d="M12 14L24 24M24 24L36 14M24 24V36" stroke-width="2" stroke-linecap="round"/>
-  <circle class="node-dim" cx="12" cy="14" r="3.5"/>
-  <circle class="node-dim" cx="36" cy="14" r="3.5"/>
-  <circle class="node-dim" cx="24" cy="36" r="3.5"/>
-  <circle class="ring" cx="24" cy="24" r="9" stroke-width="1.5"/>
-  <path class="check" d="M19.5 24L22.5 27L28.5 21" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Background -->
+  <rect class="bg-rect" x="2" y="2" width="44" height="44" rx="13"/>
+  <rect x="2" y="2" width="44" height="44" rx="13" fill="url(#glow)"/>
+  <rect x="2.5" y="2.5" width="43" height="43" rx="12.5" stroke="#fff" stroke-opacity="0.12" fill="none"/>
+  <!-- N lettermark with neural nodes and checkmark -->
+  <path d="M14 34V14" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M14 14L30 34" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M30 34V16" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M30 16L36 10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Neural nodes -->
+  <circle cx="14" cy="14" r="2.5" fill="#fff" fill-opacity="0.9"/>
+  <circle cx="30" cy="34" r="2.5" fill="#fff" fill-opacity="0.9"/>
+  <circle cx="36" cy="10" r="2" fill="#fff" fill-opacity="0.75"/>
 </svg>
