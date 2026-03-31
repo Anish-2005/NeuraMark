@@ -4,7 +4,7 @@ import { Outfit, JetBrains_Mono } from 'next/font/google';
 import { ClientProviders } from './client-providers';
 import './globals.css';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuramark.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuramark.vercel.app';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -48,11 +48,20 @@ export const metadata: Metadata = {
     description:
       'Visualize your academic progress, track syllabus completion, and predict academic outcomes with NeuraMark.',
     siteName: 'NeuraMark',
+    images: [
+      {
+        url: '/icon.svg',
+        width: 1200,
+        height: 630,
+        alt: 'NeuraMark',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'NeuraMark - Next-Generation Academic Tracking',
     description: 'Track your syllabus progress across courses and branches seamlessly.',
+    images: ['/icon.svg'],
   },
   robots: {
     index: true,

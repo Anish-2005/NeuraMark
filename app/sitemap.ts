@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuramark.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuramark.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -8,9 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const publicRoutes = [
     '',
     '/about',
-    '/login',
-    '/signup',
-    '/forgot-password',
     '/privacy',
     '/terms',
   ];

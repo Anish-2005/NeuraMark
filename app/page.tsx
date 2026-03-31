@@ -6,9 +6,26 @@ import { Moon, Sun, ArrowRight, Zap, Target, BookOpen, Layers } from 'lucide-rea
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogoIcon } from './components/Logo';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuramark.vercel.app';
+
 export default function Home() {
   const { user } = useAuth();
   const { toggleTheme, isDark } = useTheme();
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'NeuraMark',
+    url: siteUrl,
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Web',
+    description:
+      'AI-powered academic progress tracking platform for students.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'NeuraMark',
+      url: siteUrl,
+    },
+  };
 
   // Premium Animation Variants
   const containerVariants = {
@@ -43,6 +60,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: 'var(--surface-base)' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* Abstract Animated Glow Backdrops */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
         <motion.div
