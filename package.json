@@ -2,6 +2,8 @@
   "name": "neuramark",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "homepage": "https://neuramark.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
