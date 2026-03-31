@@ -2,13 +2,13 @@
 import Link from 'next/link';
 import { useAuth } from './context/AuthContext';
 import { useTheme } from './context/ThemeContext';
-import { Moon, Sun, ArrowRight, Zap, Target, BookOpen, Layers, ShieldCheck } from 'lucide-react';
+import { Moon, Sun, ArrowRight, Zap, Target, BookOpen, Layers } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogoIcon } from './components/Logo';
 
 export default function Home() {
   const { user } = useAuth();
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
 
   // Premium Animation Variants
   const containerVariants = {
@@ -209,7 +209,7 @@ export default function Home() {
             <span className="font-bold text-sm tracking-tight text-skeu-secondary">NeuraMark Systems</span>
           </div>
           <p className="text-sm text-skeu-muted font-medium mb-4 md:mb-0">
-            © {new Date().getFullYear()} NeuraMark. Crafted for true scholars.
+            &copy; {new Date().getFullYear()} NeuraMark. Crafted for true scholars.
           </p>
           <div className="flex justify-center md:justify-end gap-6 md:gap-4 text-sm font-semibold text-skeu-muted">
             <Link href="/privacy" className="hover:text-skeu-primary cursor-pointer transition-colors">Privacy</Link>

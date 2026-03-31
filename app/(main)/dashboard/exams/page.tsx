@@ -3,16 +3,16 @@
 import { Suspense } from 'react';
 import ProtectedRoute from '@/app/components/ProtectedRoute';
 import { useAuth } from '@/app/context/AuthContext';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { collection, query, where, getDocs, addDoc, doc, updateDoc, deleteDoc, serverTimestamp, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/lib/firebase';
 import { useTheme } from '@/app/context/ThemeContext';
-import { User, Menu, Moon, Sun, Plus, Trash2, Edit, Save, X, Calendar, Clock, BookOpen, GraduationCap, Download, ArrowLeft, RefreshCw, ChevronDown } from 'lucide-react'
+import { User, Menu, Moon, Sun, Plus, Trash2, Edit, X, Calendar, Clock, BookOpen, GraduationCap, Download, ArrowLeft, RefreshCw, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { LogoIcon } from '@/app/components/Logo'
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 type Exam = {
     id: string;
@@ -30,9 +30,8 @@ type Exam = {
 
 export default function ExamsPage() {
     const { user, logout } = useAuth();
-    const router = useRouter();
     const pathname = usePathname();
-    const { theme, toggleTheme, isDark } = useTheme();
+    const { toggleTheme, isDark } = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [exams, setExams] = useState<Exam[]>([]);
     const [loading, setLoading] = useState(true);
@@ -59,7 +58,7 @@ export default function ExamsPage() {
     const [selectedSemester, setSelectedSemester] = useState('all');
     const [expandedExamId, setExpandedExamId] = useState<string | null>(null);
 
-    const fetchExams = async () => {
+    const fetchExams = useCallback(async () => {
         if (!user) return;
         setLoading(true);
         try {
@@ -112,11 +111,11 @@ export default function ExamsPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [user]);
 
     useEffect(() => {
         fetchExams();
-    }, [user]);
+    }, [fetchExams]);
 
     const getAvailableSemesters = () => {
         const examSemesters = exams.map(exam => exam.semester).filter(Boolean);
@@ -271,7 +270,7 @@ export default function ExamsPage() {
         return '';
     };
 
-    const exportToPDF = () => {
+    const exportSchedule = () => {
         const content = `
             <!DOCTYPE html>
             <html>
@@ -423,8 +422,8 @@ export default function ExamsPage() {
                                     </div>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    <button onClick={exportToPDF} disabled={filteredExams.length === 0} className="skeu-btn-secondary flex items-center px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50">
-                                        <Download className="w-4 h-4 mr-2" />Export PDF
+                                    <button onClick={exportSchedule} disabled={filteredExams.length === 0} className="skeu-btn-secondary flex items-center px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50">
+                                        <Download className="w-4 h-4 mr-2" />Export HTML
                                     </button>
                                     <button onClick={() => setShowAddExam(true)} className="skeu-btn-primary flex items-center px-4 py-2 rounded-lg text-sm font-medium">
                                         <Plus className="w-4 h-4 mr-2" />Add Exam

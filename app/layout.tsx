@@ -36,6 +36,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'NeuraMark' }],
   creator: 'NeuraMark',
   applicationName: 'NeuraMark',
+  manifest: '/manifest.webmanifest',
   alternates: {
     canonical: '/',
   },
@@ -87,9 +88,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className="font-sans antialiased text-skeu-primary min-h-screen flex flex-col bg-skeu-base"
         style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] skeu-btn-primary rounded-lg px-3 py-2 text-sm"
+        >
+          Skip to content
+        </a>
         <div id="js-app-root" className="flex-grow flex flex-col relative w-full h-full">
           <ClientProviders>
-            <div className="flex-grow flex flex-col relative w-full h-full">{children}</div>
+            <div id="main-content" tabIndex={-1} className="flex-grow flex flex-col relative w-full h-full">
+              {children}
+            </div>
           </ClientProviders>
         </div>
 
