@@ -1,101 +1,135 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { db } from '@/app/lib/firebase';
+import { PDFParse } from 'pdf-parse';
+import { checkRateLimit } from '@/app/lib/rate-limit';
 
-// Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10MB
+const MIN_TEXT_LENGTH = 80;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 10;
 
 interface Module {
-    name: string;
-    topics: string[];
+  name: string;
+  topics: string[];
 }
 
 interface Subject {
-    name: string;
-    code: string;
-    modules: Module[];
+  name: string;
+  code: string;
+  modules: Module[];
 }
 
 interface SyllabusJSON {
-    branch: string;
-    year: number;
-    semester: number;
-    subjects: Subject[];
+  branch: string;
+  year: number;
+  semester: number;
+  subjects: Subject[];
 }
 
+const getClientIp = (request: NextRequest): string => {
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  if (forwardedFor) return forwardedFor.split(',')[0].trim();
+  return request.headers.get('x-real-ip') ?? 'unknown';
+};
+
+const noStoreJson = (data: unknown, status = 200): NextResponse =>
+  NextResponse.json(data, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store, no-cache, max-age=0, must-revalidate',
+    },
+  });
+
+const normalizeSyllabus = (value: Partial<SyllabusJSON>): SyllabusJSON => ({
+  branch: value.branch?.trim() || 'Computer Science',
+  year: Number.isFinite(value.year) ? Number(value.year) : 1,
+  semester: Number.isFinite(value.semester) ? Number(value.semester) : 1,
+  subjects: Array.isArray(value.subjects) ? value.subjects : [],
+});
+
+const parseModelJson = (rawText: string): SyllabusJSON => {
+  const cleanedText = rawText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+  const parsed = JSON.parse(cleanedText) as Partial<SyllabusJSON>;
+  return normalizeSyllabus(parsed);
+};
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  const ip = getClientIp(request);
+  const limitResult = checkRateLimit({
+    key: `process-pdf:${ip}`,
+    limit: RATE_LIMIT_MAX,
+    windowMs: RATE_LIMIT_WINDOW_MS,
+  });
+
+  if (!limitResult.allowed) {
+    return noStoreJson(
+      {
+        error: 'Too many requests. Please wait before uploading another file.',
+        retryAfterSeconds: Math.max(1, Math.ceil((limitResult.resetAt - Date.now()) / 1000)),
+      },
+      429
+    );
+  }
+
+  const apiKey = process.env.GOOGLE_AI_API_KEY;
+  if (!apiKey || apiKey === 'your_google_ai_api_key_here') {
+    return noStoreJson(
+      { error: 'Server configuration error: AI provider is not configured.' },
+      500
+    );
+  }
+
+  try {
+    const formData = await request.formData();
+    const file = formData.get('pdf');
+
+    if (!(file instanceof File)) {
+      return noStoreJson({ error: 'No PDF file received.' }, 400);
+    }
+
+    if (!file.type.toLowerCase().includes('pdf')) {
+      return noStoreJson({ error: 'Invalid file type. Please upload a PDF file.' }, 400);
+    }
+
+    if (file.size === 0) {
+      return noStoreJson({ error: 'Uploaded file is empty.' }, 400);
+    }
+
+    if (file.size > MAX_FILE_BYTES) {
+      return noStoreJson(
+        { error: `File is too large. Maximum allowed size is ${MAX_FILE_BYTES / (1024 * 1024)}MB.` },
+        413
+      );
+    }
+
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const parser = new PDFParse({ data: buffer });
+    let pdfText = '';
     try {
-        console.log('PDF processing request received');
+      const parsedTextResult = await parser.getText();
+      pdfText = parsedTextResult.text?.trim() || '';
+    } finally {
+      await parser.destroy();
+    }
 
-        // Check if API key is configured
-        if (!process.env.GOOGLE_AI_API_KEY || process.env.GOOGLE_AI_API_KEY === 'your_google_ai_api_key_here') {
-            console.error('Google AI API key not configured');
-            return NextResponse.json({
-                error: 'Google AI API key not configured. Please set GOOGLE_AI_API_KEY in your environment variables.'
-            }, { status: 500 });
-        }
+    if (pdfText.length < MIN_TEXT_LENGTH) {
+      return noStoreJson(
+        {
+          error:
+            'Could not extract enough text from this PDF. Try a clearer syllabus file with selectable text.',
+        },
+        400
+      );
+    }
 
-        console.log('API key found, processing form data...');
-        const formData = await request.formData();
-        const file = formData.get('pdf') as File | null;
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-        if (!file || !file.type.includes('pdf')) {
-            console.error('Invalid file type:', file?.type);
-            return NextResponse.json({ error: 'Invalid PDF file' }, { status: 400 });
-        }
-
-        console.log('File received, converting to buffer...');
-        // Convert file to buffer
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        console.log('Extracting text from PDF...');
-        // Temporarily mock PDF parsing to test AI functionality
-        // TODO: Replace with proper PDF parsing library compatible with Next.js
-        const pdfText = `
-Computer Science Engineering Syllabus
-
-Year 1 Semester 1:
-- Mathematics I
-- Physics
-- Programming Fundamentals
-- English Communication
-
-Year 1 Semester 2:
-- Mathematics II
-- Chemistry
-- Data Structures
-- Discrete Mathematics
-
-Year 2 Semester 3:
-- Algorithms
-- Computer Networks
-- Database Management Systems
-- Operating Systems
-
-Year 2 Semester 4:
-- Software Engineering
-- Web Technologies
-- Computer Graphics
-- Theory of Computation
-`;
-
-        console.log('Mock PDF text extracted, length:', pdfText.length);
-
-        console.log('PDF text length:', pdfText?.length);
-        if (!pdfText || pdfText.trim().length < 100) {
-            return NextResponse.json({
-                error: 'PDF text extraction failed or PDF contains insufficient text'
-            }, { status: 400 });
-        }
-
-        // Use Gemini to analyze the syllabus
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-
-        const prompt = `Analyze this syllabus text and extract information in JSON format.
-
-Return ONLY a JSON object with this exact structure:
+    const prompt = `Analyze this syllabus text and return ONLY a JSON object:
 {
   "branch": "Computer Science",
   "year": 1,
@@ -115,72 +149,38 @@ Return ONLY a JSON object with this exact structure:
 }
 
 Syllabus text:
-${pdfText.substring(0, 10000)}
+${pdfText.substring(0, 14000)}
 
-If you cannot find specific information, use reasonable defaults like "Computer Science" for branch, 1 for year, etc.`;
+If any field is missing, infer safe defaults.`;
 
-        let result: any;
-        try {
-            result = await model.generateContent(prompt);
-        } catch (aiError: any) {
-            console.error('Gemini AI error:', aiError);
-            if (aiError.message.includes('API_KEY')) {
-                return NextResponse.json({
-                    error: 'Invalid Google AI API key. Please check your GOOGLE_AI_API_KEY configuration.'
-                }, { status: 500 });
-            }
-            return NextResponse.json({
-                error: 'AI processing failed. Please try again or contact support.'
-            }, { status: 500 });
-        }
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    const jsonResponse = parseModelJson(text);
 
-        const response = await result.response;
-        const text: string = response.text();
-        console.log('Raw AI response:', text);
-
-        // Clean the response to extract JSON
-        let jsonResponse: SyllabusJSON;
-        try {
-            // Remove markdown code blocks if present
-            const cleanedText = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-            console.log('Cleaned AI response:', cleanedText);
-            jsonResponse = JSON.parse(cleanedText) as SyllabusJSON;
-            console.log('Parsed JSON response:', jsonResponse);
-        } catch (parseError: any) {
-            console.error('Failed to parse Gemini response:', text);
-            return NextResponse.json({
-                error: 'Failed to parse AI response. Please try with a clearer PDF.',
-                rawResponse: text
-            }, { status: 500 });
-        }
-
-        const { branch, year, semester, subjects } = jsonResponse;
-        console.log('Extracted data:', { branch, year, semester, subjectsCount: subjects?.length });
-
-        // Temporarily relax validation to see what we're getting
-        if (!subjects || subjects.length === 0) {
-            return NextResponse.json({
-                error: 'Could not extract sufficient syllabus information from the PDF',
-                extractedData: { branch, year, semester, subjects },
-                rawResponse: text
-            }, { status: 400 });
-        }
-
-        // For now, skip database operations and just return the AI response
-        console.log('Skipping database operations for testing');
-        return NextResponse.json({
-            success: true,
-            branch: branch || 'Computer Science',
-            year: year || 1,
-            semester: semester || 1,
-            subjects: subjects || [],
-            message: `Successfully processed ${subjects?.length || 0} subjects for ${branch || 'Unknown Branch'} Year ${year || 'N/A'} Semester ${semester || 'N/A'} (database operations skipped)`
-        });
-
-    } catch (error: any) {
-        console.error('PDF processing error:', error);
-        return NextResponse.json({
-            error: 'Internal server error during PDF processing'
-        }, { status: 500 });
+    if (!jsonResponse.subjects || jsonResponse.subjects.length === 0) {
+      return noStoreJson(
+        {
+          error: 'Could not extract subjects from this PDF. Try another file.',
+        },
+        400
+      );
     }
+
+    return noStoreJson({
+      success: true,
+      branch: jsonResponse.branch,
+      year: jsonResponse.year,
+      semester: jsonResponse.semester,
+      subjects: jsonResponse.subjects,
+      message: `Processed ${jsonResponse.subjects.length} subjects successfully.`,
+    });
+  } catch (error) {
+    return noStoreJson(
+      {
+        error: 'Failed to process PDF right now. Please retry in a few minutes.',
+      },
+      500
+    );
+  }
 }
