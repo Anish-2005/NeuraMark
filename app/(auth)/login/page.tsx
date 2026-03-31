@@ -1,15 +1,16 @@
-// app/(auth)/login/page.js
-'use client'
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
 import Link from 'next/link';
 import { Moon, Sun, User, Lock, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FcGoogle } from 'react-icons/fc';
+import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import NameCollectionModal from '../../components/NameCollectionModal';
 import { LogoIcon } from '../../components/Logo';
+import { getAuthErrorMessage, normalizeEmail, validateEmail, validatePassword } from '@/app/lib/auth-utils';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,28 +19,41 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showNameModal, setShowNameModal] = useState(false);
   const [shakeKey, setShakeKey] = useState(0);
+
   const router = useRouter();
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
   const { login, googleSignIn, needsProfile, user, userProfile } = useAuth();
+  const canSubmit = Boolean(email.trim() && password.trim()) && !loading;
 
   useEffect(() => {
     if (user && !needsProfile && userProfile) {
-      router.push('/dashboard');
+      router.replace('/dashboard');
     } else if (user && needsProfile) {
       setShowNameModal(true);
     }
-  }, [user, needsProfile, userProfile, router]);
+  }, [needsProfile, router, user, userProfile]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const normalizedEmail = normalizeEmail(email);
+    const emailError = validateEmail(normalizedEmail);
+    const passwordError = validatePassword(password);
+
+    if (emailError || passwordError) {
+      setError(emailError || passwordError || 'Please check your details and try again.');
+      setShakeKey((prev) => prev + 1);
+      return;
+    }
+
     try {
       setError('');
       setLoading(true);
-      await login(email, password);
-    } catch (err: any) {
-      setError(err.message);
-      setShakeKey(prev => prev + 1); // Trigger shake
+      await login(normalizedEmail, password);
+    } catch (err) {
+      setError(getAuthErrorMessage(err));
+      setShakeKey((prev) => prev + 1);
+    } finally {
       setLoading(false);
     }
   };
@@ -49,19 +63,19 @@ export default function LoginPage() {
       setError('');
       setLoading(true);
       await googleSignIn();
-    } catch (err: any) {
-      setError(err.message);
-      setShakeKey(prev => prev + 1);
+    } catch (err) {
+      setError(getAuthErrorMessage(err));
+      setShakeKey((prev) => prev + 1);
+    } finally {
       setLoading(false);
     }
   };
 
   const handleNameComplete = () => {
     setShowNameModal(false);
-    router.push('/dashboard');
+    router.replace('/dashboard');
   };
 
-  // Stagger animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -69,8 +83,8 @@ export default function LoginPage() {
       transition: {
         staggerChildren: 0.08,
         delayChildren: 0.1,
-      }
-    }
+      },
+    },
   };
 
   const itemVariants = {
@@ -78,38 +92,32 @@ export default function LoginPage() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
-    }
+      transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      style={{ background: 'var(--surface-base)' }}
-    >
-      {/* Ambient light spots */}
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: 'var(--surface-base)' }}>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full animate-blob"
+        <div
+          className="absolute -top-40 -right-40 w-96 h-96 rounded-full animate-blob"
           style={{
             background: isDark
               ? 'radial-gradient(circle, rgba(45, 212, 191,0.04) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(13, 148, 136,0.03) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(13, 148, 136,0.03) 0%, transparent 70%)',
           }}
         />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full animate-blob animation-delay-2000"
+        <div
+          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full animate-blob animation-delay-2000"
           style={{
             background: isDark
               ? 'radial-gradient(circle, rgba(94, 234, 212,0.03) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(20, 184, 166,0.02) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(20, 184, 166,0.02) 0%, transparent 70%)',
           }}
         />
       </div>
 
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="skeu-btn-icon fixed top-6 right-6 z-50 btn-press"
-        aria-label="Toggle Theme"
-      >
+      <button onClick={toggleTheme} className="skeu-btn-icon fixed top-6 right-6 z-50 btn-press" aria-label="Toggle Theme">
         <AnimatePresence mode="wait" initial={false}>
           {isDark ? (
             <motion.div
@@ -137,18 +145,14 @@ export default function LoginPage() {
         </AnimatePresence>
       </button>
 
-      {/* Login Card */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         className="skeu-card-static max-w-md w-full mx-4 space-y-7 p-10 rounded-2xl relative z-10"
       >
-        {/* Header */}
         <motion.div variants={itemVariants} className="text-center">
-          <h2 className="text-3xl font-black mb-2 flex items-center justify-center gap-3"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h2 className="text-3xl font-black mb-2 flex items-center justify-center gap-3" style={{ color: 'var(--text-primary)' }}>
             <LogoIcon size={40} />
             Welcome Back!
           </h2>
@@ -157,7 +161,6 @@ export default function LoginPage() {
           </p>
         </motion.div>
 
-        {/* Error with shake */}
         <AnimatePresence mode="wait">
           {error && (
             <motion.div
@@ -168,6 +171,8 @@ export default function LoginPage() {
               transition={{ duration: 0.25 }}
               className="skeu-inset px-4 py-3 rounded-xl text-sm flex items-center gap-2 animate-shake"
               style={{ color: 'var(--accent-danger)', borderColor: 'var(--accent-danger)' }}
+              role="alert"
+              aria-live="polite"
             >
               <AlertCircle className="w-4 h-4 shrink-0" />
               {error}
@@ -175,7 +180,6 @@ export default function LoginPage() {
           )}
         </AnimatePresence>
 
-        {/* Google Sign-In */}
         <motion.div variants={itemVariants}>
           <button
             onClick={handleGoogleSignIn}
@@ -187,18 +191,12 @@ export default function LoginPage() {
           </button>
         </motion.div>
 
-        {/* Divider */}
         <motion.div variants={itemVariants} className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full" style={{ height: '1px', background: `linear-gradient(90deg, transparent, var(--border-default), transparent)` }} />
+            <div className="w-full" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, var(--border-default), transparent)' }} />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-4 font-medium"
-              style={{
-                background: 'var(--surface-raised)',
-                color: 'var(--text-muted)'
-              }}
-            >
+            <span className="px-4 font-medium" style={{ background: 'var(--surface-raised)', color: 'var(--text-muted)' }}>
               Or continue with email
             </span>
           </div>
@@ -207,9 +205,7 @@ export default function LoginPage() {
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-5">
             <motion.div variants={itemVariants} className="space-y-2">
-              <label htmlFor="email" className="flex items-center gap-2 text-sm font-semibold"
-                style={{ color: 'var(--text-primary)' }}
-              >
+              <label htmlFor="email" className="flex items-center gap-2 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                 <User className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
                 Email address
               </label>
@@ -222,12 +218,12 @@ export default function LoginPage() {
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+                inputMode="email"
               />
             </motion.div>
             <motion.div variants={itemVariants} className="space-y-2">
-              <label htmlFor="password" className="flex items-center gap-2 text-sm font-semibold"
-                style={{ color: 'var(--text-primary)' }}
-              >
+              <label htmlFor="password" className="flex items-center gap-2 text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                 <Lock className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
                 Password
               </label>
@@ -237,9 +233,10 @@ export default function LoginPage() {
                 type="password"
                 required
                 className="skeu-input w-full rounded-xl"
-                placeholder="••••••••"
+                placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
               />
             </motion.div>
           </div>
@@ -247,7 +244,7 @@ export default function LoginPage() {
           <motion.div variants={itemVariants}>
             <button
               type="submit"
-              disabled={loading}
+              disabled={!canSubmit}
               className={`skeu-btn-primary w-full py-4 px-6 rounded-2xl text-sm font-bold btn-press ${loading ? 'btn-loading' : ''}`}
             >
               {loading ? 'Signing in...' : 'Sign in'}
@@ -256,29 +253,17 @@ export default function LoginPage() {
         </form>
 
         <motion.div variants={itemVariants} className="text-center space-y-3 pt-2">
-          <Link href="/signup"
-            className="block text-sm font-semibold link-hover"
-            style={{ color: 'var(--accent-primary)' }}
-          >
-            Don&apos;t have an account? Sign Up →
+          <Link href="/signup" className="block text-sm font-semibold link-hover" style={{ color: 'var(--accent-primary)' }}>
+            Don&apos;t have an account? Sign Up -&gt;
           </Link>
-          <Link href="/forgot-password"
-            className="flex items-center justify-center gap-2 text-sm font-semibold link-hover"
-            style={{ color: 'var(--text-secondary)' }}
-          >
+          <Link href="/forgot-password" className="flex items-center justify-center gap-2 text-sm font-semibold link-hover" style={{ color: 'var(--text-secondary)' }}>
             <Lock className="w-4 h-4" />
             Forgot password?
           </Link>
         </motion.div>
       </motion.div>
 
-      {/* Name Collection Modal */}
-      {showNameModal && (
-        <NameCollectionModal
-          onComplete={handleNameComplete}
-          onClose={() => setShowNameModal(false)}
-        />
-      )}
+      {showNameModal && <NameCollectionModal onComplete={handleNameComplete} onClose={() => setShowNameModal(false)} />}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAuthErrorMessage, validateName } from '../lib/auth-utils';
 
 type NameCollectionModalProps = {
   onComplete: () => void;
@@ -17,14 +18,11 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
 
   interface HandleSubmitEvent extends React.FormEvent<HTMLFormElement> { }
 
-  interface CompleteProfileError extends Error {
-    message: string;
-  }
-
   const handleSubmit = async (e: HandleSubmitEvent) => {
     e.preventDefault();
-    if (!name.trim()) {
-      setError('Please enter your name');
+    const nameError = validateName(name);
+    if (nameError) {
+      setError(nameError);
       return;
     }
 
@@ -34,7 +32,7 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
       await completeProfile(name.trim());
       onComplete();
     } catch (err) {
-      setError((err as CompleteProfileError).message);
+      setError(getAuthErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -54,7 +52,7 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
           </h2>
 
           {error && (
-            <div className="skeu-inset mb-4 p-3 rounded-xl text-sm" style={{ color: 'var(--accent-danger)' }}>
+            <div className="skeu-inset mb-4 p-3 rounded-xl text-sm" style={{ color: 'var(--accent-danger)' }} role="alert" aria-live="polite">
               {error}
             </div>
           )}
@@ -71,6 +69,7 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
                 onChange={(e) => setName(e.target.value)}
                 className="skeu-input w-full rounded-xl"
                 placeholder="Enter your full name"
+                autoComplete="name"
                 autoFocus
               />
             </div>
@@ -79,6 +78,7 @@ export default function NameCollectionModal({ onComplete, onClose }: NameCollect
               <button
                 type="button"
                 onClick={onClose}
+                disabled={loading}
                 className="skeu-btn-secondary px-5 py-2.5 rounded-xl text-sm"
               >
                 Cancel
