@@ -24,12 +24,16 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'date-fns'],
+  },
   images: {
     remotePatterns: imageHosts.map((hostname) => ({
       protocol: 'https',
       hostname,
     })),
     formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60 * 60 * 24,
   },
   async headers() {
     return [

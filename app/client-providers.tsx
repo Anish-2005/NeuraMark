@@ -1,18 +1,19 @@
-// app/client-providers.js
-'use client'
+'use client';
 
-import { ThemeProvider } from './context/ThemeContext'
-import ServiceWorkerRegister from './components/ServiceWorkerRegister'
-import OfflineStatus from './components/OfflineStatus'
-
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+import ServiceWorkerRegister from './components/ServiceWorkerRegister';
+import OfflineStatus from './components/OfflineStatus';
 
 export function ClientProviders({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider>
-      <ServiceWorkerRegister />
-      <OfflineStatus />
-      {children}
-    </ThemeProvider>
-  )
+    <AuthProvider>
+      <ThemeProvider>
+        <ServiceWorkerRegister />
+        <OfflineStatus />
+        {children}
+      </ThemeProvider>
+    </AuthProvider>
+  );
 }

@@ -1,9 +1,10 @@
-// app/layout.js
+import type { Metadata, Viewport } from 'next';
+import type { ReactNode } from 'react';
 import { Outfit, JetBrains_Mono } from 'next/font/google';
-import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { ClientProviders } from './client-providers';
 import './globals.css';
-import { ReactNode } from 'react';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuramark.com';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -17,26 +18,39 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'NeuraMark — AI-Powered Academic Progress Tracking',
-    template: '%s | NeuraMark'
+    default: 'NeuraMark - AI-Powered Academic Progress Tracking',
+    template: '%s | NeuraMark',
   },
-  description: 'The next-generation academic tracking platform. Visualize your syllabus progress across CSE, ECE, AIML, DS and more with powerful insights.',
-  keywords: ['academic tracker', 'syllabus progress', 'B.Tech', 'student dashboard', 'AI learning'],
+  description:
+    'The next-generation academic tracking platform. Visualize your syllabus progress across CSE, ECE, AIML, DS and more with powerful insights.',
+  keywords: [
+    'academic tracker',
+    'syllabus progress',
+    'B.Tech',
+    'student dashboard',
+    'AI learning',
+  ],
   authors: [{ name: 'NeuraMark' }],
   creator: 'NeuraMark',
+  applicationName: 'NeuraMark',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://neuramark.com',
-    title: 'NeuraMark — Next-Generation Academic Tracking',
-    description: 'Visualize your academic progress, track syllabus completion, and predict academic outcomes with NeuraMark.',
+    url: siteUrl,
+    title: 'NeuraMark - Next-Generation Academic Tracking',
+    description:
+      'Visualize your academic progress, track syllabus completion, and predict academic outcomes with NeuraMark.',
     siteName: 'NeuraMark',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NeuraMark — Next-Generation Academic Tracking',
+    title: 'NeuraMark - Next-Generation Academic Tracking',
     description: 'Track your syllabus progress across courses and branches seamlessly.',
   },
   robots: {
@@ -51,25 +65,32 @@ export const metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     apple: '/icon.svg',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f2f8f7' },
+    { media: '(prefers-color-scheme: dark)', color: '#10201d' },
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${outfit.variable} ${jetbrainsMono.variable}`}>
-      <body className={`font-sans antialiased text-skeu-primary min-h-screen flex flex-col`} style={{ background: 'var(--surface-base)', fontFamily: 'var(--font-outfit), sans-serif' }}>
+      <body
+        className="font-sans antialiased text-skeu-primary min-h-screen flex flex-col bg-skeu-base"
+        style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
+      >
         <div id="js-app-root" className="flex-grow flex flex-col relative w-full h-full">
-          <ThemeProvider>
-            <AuthProvider>
-              <div className="flex-grow flex flex-col relative w-full h-full">
-                {children}
-              </div>
-            </AuthProvider>
-          </ThemeProvider>
+          <ClientProviders>
+            <div className="flex-grow flex flex-col relative w-full h-full">{children}</div>
+          </ClientProviders>
         </div>
 
         <noscript>
@@ -91,18 +112,30 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className="no-js-shell">
             <div className="no-js-wrap">
               <section className="no-js-card" aria-labelledby="no-js-heading">
-                <h1 id="no-js-heading" className="no-js-title">NeuraMark</h1>
-                <p className="no-js-subtitle">
-                  Academic progress tracking for B.Tech students.
-                </p>
+                <h1 id="no-js-heading" className="no-js-title">
+                  NeuraMark
+                </h1>
+                <p className="no-js-subtitle">Academic progress tracking for B.Tech students.</p>
                 <span className="no-js-badge">JavaScript is disabled: static mode</span>
                 <nav className="no-js-nav" aria-label="No JavaScript navigation">
-                  <a className="no-js-link" href="/">Home</a>
-                  <a className="no-js-link" href="/about">About</a>
-                  <a className="no-js-link" href="/login">Login</a>
-                  <a className="no-js-link" href="/signup">Sign Up</a>
-                  <a className="no-js-link" href="/privacy">Privacy</a>
-                  <a className="no-js-link" href="/terms">Terms</a>
+                  <a className="no-js-link" href="/">
+                    Home
+                  </a>
+                  <a className="no-js-link" href="/about">
+                    About
+                  </a>
+                  <a className="no-js-link" href="/login">
+                    Login
+                  </a>
+                  <a className="no-js-link" href="/signup">
+                    Sign Up
+                  </a>
+                  <a className="no-js-link" href="/privacy">
+                    Privacy
+                  </a>
+                  <a className="no-js-link" href="/terms">
+                    Terms
+                  </a>
                 </nav>
               </section>
 
