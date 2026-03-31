@@ -1,7 +1,7 @@
 /* globals.css - NeuraMark Design System
    Professional, clean, mass-market design.
-   Light: Muted greens + crisp whites
-   Dark:  Muted greens + deep blacks
+   Light: Muted cyan-greens + crisp whites
+   Dark:  Muted cyan-greens + deep blacks
    ========================================== */
 @tailwind base;
 @tailwind components;
@@ -13,23 +13,23 @@
 
 :root {
   /* --- Surfaces (Light) --- */
-  --surface-base: #f4f7f5;
+  --surface-base: #f2f8f7;
   --surface-raised: #ffffff;
-  --surface-inset: #edf1ee;
+  --surface-inset: #e8f3f1;
   --surface-overlay: #ffffff;
 
   /* --- Text (Light) --- */
-  --text-primary: #111b14;
-  --text-secondary: #49614f;
-  --text-muted: #7a9181;
+  --text-primary: #10221f;
+  --text-secondary: #40635c;
+  --text-muted: #6e8f87;
   --text-on-accent: #ffffff;
 
   /* --- Accents (Light) --- */
-  --accent-primary: #16a34a;
-  --accent-primary-hover: #15803d;
-  --accent-primary-dark: #166534;
-  --accent-secondary: #0d9488;
-  --accent-success: #16a34a;
+  --accent-primary: #0d9488;
+  --accent-primary-hover: #0f766e;
+  --accent-primary-dark: #115e59;
+  --accent-secondary: #14b8a6;
+  --accent-success: #0d9488;
   --accent-danger: #dc2626;
   --accent-warning: #d97706;
 
@@ -51,9 +51,9 @@
   --shadow-button-hover: var(--shadow-md);
 
   /* --- Borders --- */
-  --border-default: #d5ddd8;
-  --border-subtle: #e4eae6;
-  --border-strong: #b5c4ba;
+  --border-default: #cfe3de;
+  --border-subtle: #deebe8;
+  --border-strong: #a8c8c1;
   --border-focus: var(--accent-primary);
 
   /* Legacy aliases */
@@ -73,29 +73,29 @@
   --radius-pill: 999px;
 
   /* --- Legacy --- */
-  --foreground-rgb: 17, 27, 20;
-  --background-rgb: 244, 247, 245;
+  --foreground-rgb: 16, 34, 31;
+  --background-rgb: 242, 248, 247;
 }
 
 .dark {
-  /* --- Surfaces (Dark: Comfortable dark grays with green warmth) --- */
-  --surface-base: #161d1a;
-  --surface-raised: #1e2723;
-  --surface-inset: #121917;
-  --surface-overlay: #243029;
+  /* --- Surfaces (Dark: Comfortable dark grays with cyan-green warmth) --- */
+  --surface-base: #10201d;
+  --surface-raised: #182c28;
+  --surface-inset: #0d1917;
+  --surface-overlay: #1f3833;
 
   /* --- Text (Dark: Softer whites for less eye strain) --- */
-  --text-primary: #d8e3dc;
-  --text-secondary: #92a89a;
-  --text-muted: #637a6d;
+  --text-primary: #d3e9e4;
+  --text-secondary: #91b4ac;
+  --text-muted: #638881;
   --text-on-accent: #ffffff;
 
   /* --- Accents (Dark: Comfortable brightness, not neon) --- */
-  --accent-primary: #3ecf72;
-  --accent-primary-hover: #34b863;
-  --accent-primary-dark: #2a9d54;
-  --accent-secondary: #50d0b8;
-  --accent-success: #3ecf72;
+  --accent-primary: #2dd4bf;
+  --accent-primary-hover: #14b8a6;
+  --accent-primary-dark: #0d9488;
+  --accent-secondary: #5eead4;
+  --accent-success: #2dd4bf;
   --accent-danger: #ef6b6b;
   --accent-warning: #f0b429;
 
@@ -116,9 +116,9 @@
   --shadow-button-hover: var(--shadow-md);
 
   /* --- Borders (Dark: Visible but not harsh) --- */
-  --border-default: #2d3b33;
-  --border-subtle: #263029;
-  --border-strong: #3a5044;
+  --border-default: #274841;
+  --border-subtle: #213c37;
+  --border-strong: #336057;
   --border-focus: var(--accent-primary);
 
   --border-light: var(--border-subtle);
@@ -129,8 +129,8 @@
 
   --surface-gradient: none;
 
-  --foreground-rgb: 216, 227, 220;
-  --background-rgb: 22, 29, 26;
+  --foreground-rgb: 211, 233, 228;
+  --background-rgb: 16, 32, 29;
 }
 
 /* ==========================================
@@ -222,11 +222,11 @@ body {
 
   .skeu-input:focus {
     border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
   }
 
   .dark .skeu-input:focus {
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
   }
 
   .skeu-input::placeholder {
@@ -252,11 +252,11 @@ body {
 
   .skeu-select:focus {
     border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
   }
 
   .dark .skeu-select:focus {
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
   }
 
   /* --- Primary Button --- */
@@ -291,7 +291,7 @@ body {
 
   .skeu-btn-primary:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.3);
   }
 
   .dark .skeu-btn-primary {
@@ -299,7 +299,7 @@ body {
   }
 
   .dark .skeu-btn-primary:focus-visible {
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.3);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.3);
   }
 
   /* --- Secondary Button --- */
@@ -328,7 +328,7 @@ body {
 
   .skeu-btn-secondary:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
   }
 
   /* --- Danger Button --- */
@@ -558,11 +558,11 @@ body {
 
   /* --- Gradient Text --- */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-600 via-cyan-500 to-teal-500;
   }
 
   .dark .gradient-text {
-    @apply from-emerald-400 via-green-400 to-teal-400;
+    @apply from-teal-400 via-cyan-400 to-teal-300;
   }
 
   /* --- Sidebar --- */
@@ -686,11 +686,11 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.25);
+    box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.25);
   }
 
   50% {
-    box-shadow: 0 0 0 8px rgba(22, 163, 74, 0);
+    box-shadow: 0 0 0 8px rgba(13, 148, 136, 0);
   }
 }
 
@@ -783,12 +783,12 @@ html {
 
 /* Branded text selection */
 ::selection {
-  background: rgba(22, 163, 74, 0.2);
+  background: rgba(13, 148, 136, 0.2);
   color: var(--text-primary);
 }
 
 .dark ::selection {
-  background: rgba(62, 207, 114, 0.25);
+  background: rgba(45, 212, 191, 0.25);
 }
 
 /* Global focus-visible ring (accessibility) */

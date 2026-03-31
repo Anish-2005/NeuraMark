@@ -29,7 +29,7 @@ export default function UserAvatar({ user, size = 'md' }: UserAvatarProps) {
           className={`rounded-full ${sizeClasses[size]}`}
         />
       ) : (
-        <div className={`${sizeClasses[size]} rounded-full flex items-center justify-center bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300`}>
+        <div className={`${sizeClasses[size]} rounded-full flex items-center justify-center bg-teal-100 text-teal-800 dark:bg-teal-900/50 dark:text-teal-300`}>
           <User size={size === 'sm' ? 16 : size === 'md' ? 18 : 20} />
         </div>
       )}

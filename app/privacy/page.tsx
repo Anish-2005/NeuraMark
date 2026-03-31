@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 2 }}
                     className="absolute -top-[20%] right-[10%] w-[50vw] h-[50vw] rounded-full blur-[120px]"
-                    style={{ background: isDark ? 'rgba(62, 207, 114, 0.05)' : 'rgba(22, 163, 74, 0.03)' }}
+                    style={{ background: isDark ? 'rgba(45, 212, 191, 0.05)' : 'rgba(13, 148, 136, 0.03)' }}
                 />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] mix-blend-overlay"></div>
             </div>

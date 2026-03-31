@@ -31,7 +31,7 @@ export default function TermsOfService() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 2 }}
                     className="absolute -bottom-[20%] left-[10%] w-[50vw] h-[50vw] rounded-full blur-[120px]"
-                    style={{ background: isDark ? 'rgba(80, 208, 184, 0.05)' : 'rgba(13, 148, 136, 0.03)' }}
+                    style={{ background: isDark ? 'rgba(94, 234, 212, 0.05)' : 'rgba(20, 184, 166, 0.03)' }}
                 />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] mix-blend-overlay"></div>
             </div>

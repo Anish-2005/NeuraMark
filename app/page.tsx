@@ -50,14 +50,14 @@ export default function Home() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, ease: "easeOut" }}
           className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full blur-[120px]"
-          style={{ background: isDark ? 'rgba(62, 207, 114, 0.08)' : 'rgba(22, 163, 74, 0.05)' }}
+          style={{ background: isDark ? 'rgba(45, 212, 191, 0.08)' : 'rgba(13, 148, 136, 0.05)' }}
         />
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
           className="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full blur-[100px]"
-          style={{ background: isDark ? 'rgba(13, 148, 136, 0.06)' : 'rgba(13, 148, 136, 0.04)' }}
+          style={{ background: isDark ? 'rgba(20, 184, 166, 0.06)' : 'rgba(20, 184, 166, 0.04)' }}
         />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
       </div>

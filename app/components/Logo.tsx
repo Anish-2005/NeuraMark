@@ -10,7 +10,7 @@ interface LogoIconProps {
  *
  * Design:
  * - Stunning glassmorphism and neuro-cybernetic aesthetic.
- * - Dynamic neon gradients: deep purple, cyan, electric blue, and emerald green.
+ * - Dynamic neon gradients: deep purple, cyan, electric blue, and bright aqua.
  * - Neural pathway logic: flowing continuous line forming an 'N' that culminates in a checkmark ("Mark").
  * - Glowing nexus nodes representing AI synapses.
  * - Automatically adapts with CSS variables or stands out with hardcoded premium neon colors.

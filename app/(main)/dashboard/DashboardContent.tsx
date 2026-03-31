@@ -1180,7 +1180,7 @@ export default function Dashboard() {
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 2 }}
                                 className="absolute -top-[10%] -right-[10%] w-[40vw] h-[40vw] rounded-full blur-[100px]"
-                                style={{ background: isDark ? 'rgba(62, 207, 114, 0.04)' : 'rgba(22, 163, 74, 0.02)' }}
+                                style={{ background: isDark ? 'rgba(45, 212, 191, 0.04)' : 'rgba(13, 148, 136, 0.02)' }}
                             />
                         </div>
                         <motion.div
@@ -1211,11 +1211,11 @@ export default function Dashboard() {
                                                     value={newBranch}
                                                     onChange={(e) => setNewBranch(e.target.value)}
                                                     placeholder="New branch name"
-                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
                                                     onClick={addBranch}
-                                                    className="p-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                                                    className="p-2 bg-teal-600 text-white rounded-md hover:bg-teal-700"
                                                 >
                                                     <Plus size={16} />
                                                 </button>
@@ -1288,11 +1288,11 @@ export default function Dashboard() {
                                                     value={newYear}
                                                     onChange={(e) => setNewYear(e.target.value)}
                                                     placeholder="New year"
-                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
                                                     onClick={addYear}
-                                                    className="p-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                                                    className="p-2 bg-teal-600 text-white rounded-md hover:bg-teal-700"
                                                 >
                                                     <Plus size={16} />
                                                 </button>
@@ -1364,11 +1364,11 @@ export default function Dashboard() {
                                                     value={newSemester}
                                                     onChange={(e) => setNewSemester(e.target.value)}
                                                     placeholder="New semester"
-                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                    className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                 />
                                                 <button
                                                     onClick={() => { }}
-                                                    className="p-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                                                    className="p-2 bg-teal-600 text-white rounded-md hover:bg-teal-700"
                                                 >
                                                     <Plus size={16} />
                                                 </button>
@@ -1411,7 +1411,7 @@ export default function Dashboard() {
                                             )}
                                         </div>
                                         <select
-                                            className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                            className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                         >
                                             {specializations[selectedBranch].map(spec => (
                                                 <option key={spec} value={spec}>
@@ -1430,7 +1430,7 @@ export default function Dashboard() {
                                     </h3>
                                     <button
                                         onClick={() => setShowActions(!showActions)}
-                                        className={`text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-1 ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-emerald-400' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-600'}`}
+                                        className={`text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-1 ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-teal-400' : 'bg-teal-50 hover:bg-teal-100 text-teal-600'}`}
                                     >
                                         {showActions ? (
                                             <>
@@ -1485,25 +1485,25 @@ export default function Dashboard() {
                                                             {
                                                                 href: '/admin/analytics',
                                                                 label: 'Analytics',
-                                                                colors: ['from-cyan-600', 'to-cyan-700'],
-                                                                hover: ['from-cyan-700', 'to-cyan-800'],
-                                                                bar: 'bg-cyan-400',
+                                                                colors: ['from-teal-600', 'to-teal-700'],
+                                                                hover: ['from-teal-700', 'to-teal-800'],
+                                                                bar: 'bg-teal-400',
                                                                 icon: <PieChart size={20} />,
                                                             },
                                                             {
                                                                 href: '/admin/subjects',
                                                                 label: 'All Subjects',
-                                                                colors: ['from-emerald-700', 'to-emerald-800'],
-                                                                hover: ['from-emerald-800', 'to-emerald-900'],
-                                                                bar: 'bg-emerald-500',
+                                                                colors: ['from-teal-700', 'to-teal-800'],
+                                                                hover: ['from-teal-800', 'to-teal-900'],
+                                                                bar: 'bg-teal-500',
                                                                 icon: <BookOpen size={20} />,
                                                             },
                                                             {
                                                                 href: '/admin/active-users',
                                                                 label: 'Active Users',
-                                                                colors: ['from-green-600', 'to-green-700'],
-                                                                hover: ['from-green-700', 'to-green-800'],
-                                                                bar: 'bg-green-400',
+                                                                colors: ['from-teal-600', 'to-teal-700'],
+                                                                hover: ['from-teal-700', 'to-teal-800'],
+                                                                bar: 'bg-teal-400',
                                                                 icon: <Activity size={20} />,
                                                             },
                                                             {
@@ -1551,14 +1551,14 @@ export default function Dashboard() {
                                                 {isAdmin && (
                                                     <button
                                                         onClick={() => setShowCopyDialog(true)}
-                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-700 min-w-[140px] sm:min-w-[150px] snap-center shrink-0 sm:shrink-auto"
+                                                        className="skeu-action-card group relative flex flex-col items-center justify-center p-4 rounded-xl bg-gradient-to-br from-teal-600 to-teal-700 min-w-[140px] sm:min-w-[150px] snap-center shrink-0 sm:shrink-auto"
                                                     >
-                                                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-700 to-emerald-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-teal-700 to-teal-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                                         <div className="relative z-10 flex flex-col items-center">
                                                             <Copy size={20} className="group-hover:scale-110 transition-transform duration-300" />
                                                             <span className="mt-2 text-sm font-medium">Copy Subjects</span>
                                                         </div>
-                                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-teal-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
                                                     </button>
                                                 )}
                                             </div>
@@ -1594,7 +1594,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyFromBranch}
                                                         onChange={(e) => setCopyFromBranch(e.target.value)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">Select Branch</option>
                                                         {branches.map(branch => (
@@ -1607,7 +1607,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyFromYear}
                                                         onChange={(e) => setCopyFromYear(Number(e.target.value))}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         {years.map(year => (
                                                             <option key={year} value={year}>Year {year}</option>
@@ -1619,7 +1619,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyFromSemester || ''}
                                                         onChange={(e) => setCopyFromSemester(e.target.value ? Number(e.target.value) : null)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">All Semesters</option>
                                                         {copyFromYear && getAvailableSemesters().map(semester => (
@@ -1645,7 +1645,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyToBranch}
                                                         onChange={(e) => setCopyToBranch(e.target.value)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">Select Branch</option>
                                                         {branches.map(branch => (
@@ -1658,7 +1658,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyToYear}
                                                         onChange={(e) => setCopyToYear(Number(e.target.value))}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         {years.map(year => (
                                                             <option key={year} value={year}>Year {year}</option>
@@ -1670,7 +1670,7 @@ export default function Dashboard() {
                                                     <select
                                                         value={copyToSemester || ''}
                                                         onChange={(e) => setCopyToSemester(e.target.value ? Number(e.target.value) : null)}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     >
                                                         <option value="">Same as source</option>
                                                         {copyToYear && getAvailableSemesters().map(semester => (
@@ -1702,14 +1702,14 @@ export default function Dashboard() {
                                                         className={`
                   p-2 mb-2 rounded flex items-start
                   ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}
-                        ${selectedCopySubjects.includes(subject.id ?? '') ? (theme === 'dark' ? 'ring-1 ring-emerald-600' : 'ring-1 ring-emerald-400') : ''}
+                        ${selectedCopySubjects.includes(subject.id ?? '') ? (theme === 'dark' ? 'ring-1 ring-teal-600' : 'ring-1 ring-teal-400') : ''}
                 `}
                                                     >
                                                         <input
                                                             type="checkbox"
                                                             checked={selectedCopySubjects.includes(subject.id ?? '')}
                                                             onChange={() => toggleCopySubjectSelection(subject.id ?? '')}
-                                                            className="mt-1 h-4 w-4 text-emerald-700 focus:ring-emerald-600 border-gray-300 rounded"
+                                                            className="mt-1 h-4 w-4 text-teal-700 focus:ring-teal-600 border-gray-300 rounded"
                                                         />
                                                         <div className="ml-2 flex-1">
                                                             <div className="flex justify-between items-center">
@@ -1744,7 +1744,7 @@ export default function Dashboard() {
                                         <button
                                             onClick={copySubjectsToBranch}
                                             disabled={!copyToBranch || !copyToYear || (selectedCopySubjects.length === 0 && copySubjects.length === 0) || isCopying}
-                                            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                            className="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
                                         >
                                             {isCopying
                                                 ? 'Copying...'
@@ -1804,7 +1804,7 @@ export default function Dashboard() {
                                                         type="text"
                                                         value={newSubject.name}
                                                         onChange={(e) => setNewSubject({ ...newSubject, name: e.target.value })}
-                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     />
                                                 </div>
                                                 <div>
@@ -1813,7 +1813,7 @@ export default function Dashboard() {
                                                         type="text"
                                                         value={newSubject.code}
                                                         onChange={(e) => setNewSubject({ ...newSubject, code: e.target.value })}
-                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     />
                                                 </div>
                                                 <div>
@@ -1828,7 +1828,7 @@ export default function Dashboard() {
                                                                 setSelectedSemester(semester);
                                                             }
                                                         }}
-                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`block w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                         disabled={!selectedYear}
                                                     >
                                                         <option value="">Select Semester</option>
@@ -1845,7 +1845,7 @@ export default function Dashboard() {
                                                             value={newModule.name}
                                                             onChange={(e) => setNewModule({ ...newModule, name: e.target.value })}
                                                             placeholder="Module name"
-                                                            className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                            className={`flex-1 pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                         />
                                                         <button
                                                             onClick={addModule}
@@ -1860,7 +1860,7 @@ export default function Dashboard() {
                                                         value={newModule.topics}
                                                         onChange={(e) => setNewModule({ ...newModule, topics: e.target.value })}
                                                         placeholder="Topics (comma separated)"
-                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                        className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                     />
                                                 </div>
                                                 {(newSubject.modules ?? []).length > 0 && (
@@ -1908,7 +1908,7 @@ export default function Dashboard() {
                                                     </button>
                                                     <button
                                                         onClick={submitSubject}
-                                                        className="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm"
+                                                        className="px-3 py-1.5 bg-teal-600 text-white rounded-md hover:bg-teal-700 text-sm"
                                                         disabled={!newSubject.name || !newSubject.code ||
                                                             (editingSubject ? !newSubject.semester : !selectedSemester) ||
                                                             (newSubject.modules ?? []).length === 0}
@@ -1923,7 +1923,7 @@ export default function Dashboard() {
                                     {/* Subjects List */}
                                     {loading ? (
                                         <div className="flex justify-center items-center h-40">
-                                            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-600"></div>
+                                            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal-600"></div>
                                         </div>
                                     ) : (
                                         <div className="space-y-3">
@@ -1936,7 +1936,7 @@ export default function Dashboard() {
                                                         className={`
                                                             p-4 rounded-2xl cursor-pointer transition-all duration-300 border
                                                             ${selectedSubject?.id === subject.id
-                                                                ? 'bg-skeu-base border-[var(--accent-primary)] shadow-[0_0_15px_rgba(22,163,74,0.1)]'
+                                                                ? 'bg-skeu-base border-[var(--accent-primary)] shadow-[0_0_15px_rgba(13, 148, 136,0.1)]'
                                                                 : 'bg-skeu-raised border-skeu hover:border-[var(--accent-secondary)] hover:shadow-md'
                                                             }
                                                         `}
@@ -1951,7 +1951,7 @@ export default function Dashboard() {
                                                                 </p>
                                                             </div>
                                                             <div className="flex items-center gap-3 shrink-0">
-                                                                <span className={`text-sm font-bold min-w-[3rem] text-right ${selectedSubject?.id === subject.id ? 'text-emerald-600 dark:text-emerald-400' : 'text-emerald-600 dark:text-emerald-500'}`}>
+                                                                <span className={`text-sm font-bold min-w-[3rem] text-right ${selectedSubject?.id === subject.id ? 'text-teal-600 dark:text-teal-400' : 'text-teal-600 dark:text-teal-500'}`}>
                                                                     {calculateProgress(subject)}%
                                                                 </span>
                                                                 {isAdmin && (
@@ -2052,7 +2052,7 @@ export default function Dashboard() {
                                                                 });
                                                             }
                                                         }}
-                                                        className="p-1.5 bg-green-600 text-white rounded-md hover:bg-green-700"
+                                                        className="p-1.5 bg-teal-600 text-white rounded-md hover:bg-teal-700"
                                                     >
                                                         <Plus size={18} />
                                                     </button>
@@ -2089,7 +2089,7 @@ export default function Dashboard() {
                                                             type="text"
                                                             value={newModule.name}
                                                             onChange={(e) => setNewModule({ ...newModule, name: e.target.value })}
-                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                         />
                                                     </div>
                                                     <div>
@@ -2099,7 +2099,7 @@ export default function Dashboard() {
                                                             value={newModule.topics}
                                                             onChange={(e) => setNewModule({ ...newModule, topics: e.target.value })}
                                                             placeholder="Comma separated topics"
-                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-emerald-600 focus:border-emerald-600 sm:text-sm rounded-md ${inputBg}`}
+                                                            className={`w-full pl-3 pr-10 py-2 text-base ${borderColor} focus:outline-none focus:ring-teal-600 focus:border-teal-600 sm:text-sm rounded-md ${inputBg}`}
                                                         />
                                                     </div>
                                                     <div className="flex justify-end gap-2 pt-2">
@@ -2115,7 +2115,7 @@ export default function Dashboard() {
                                                         </button>
                                                         <button
                                                             onClick={saveModuleEdit}
-                                                            className="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm"
+                                                            className="px-3 py-1.5 bg-teal-600 text-white rounded-md hover:bg-teal-700 text-sm"
                                                             disabled={!newModule.name}
                                                         >
                                                             Save Changes
@@ -2135,7 +2135,7 @@ export default function Dashboard() {
                                                         className={`
                                                         flex items-start p-4 rounded-2xl border
                                                         ${isModuleCompleted(selectedSubject!.id!, index)
-                                                                ? 'bg-[var(--accent-primary)]/5 border-[var(--accent-primary)]/20 shadow-[0_0_10px_rgba(22,163,74,0.05)]'
+                                                                ? 'bg-[var(--accent-primary)]/5 border-[var(--accent-primary)]/20 shadow-[0_0_10px_rgba(13, 148, 136,0.05)]'
                                                                 : 'bg-skeu-base border-skeu'
                                                             }
                                                         ${selectedModuleIndex === index ? 'ring-2 ring-[var(--accent-primary)]' : ''}
@@ -2151,7 +2151,7 @@ export default function Dashboard() {
                                                             className={`
                                                             mt-1 flex-shrink-0 h-6 w-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300
                                                             ${isModuleCompleted(selectedSubject!.id!, index)
-                                                                    ? 'bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-success)] border-transparent shadow-[0_0_8px_rgba(22,163,74,0.4)]'
+                                                                    ? 'bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-success)] border-transparent shadow-[0_0_8px_rgba(13, 148, 136,0.4)]'
                                                                     : 'bg-skeu-inset border-skeu group-hover:border-[var(--accent-primary)]'
                                                                 }
                                                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent-primary)] focus:ring-offset-[var(--surface-base)]

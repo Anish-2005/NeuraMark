@@ -110,15 +110,15 @@ export default function SignupPage() {
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full animate-blob"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(62,207,114,0.04) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(22,163,74,0.03) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(45, 212, 191,0.04) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(13, 148, 136,0.03) 0%, transparent 70%)'
           }}
         />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full animate-blob animation-delay-2000"
           style={{
             background: isDark
-              ? 'radial-gradient(circle, rgba(80,208,184,0.03) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(13,148,136,0.02) 0%, transparent 70%)'
+              ? 'radial-gradient(circle, rgba(94, 234, 212,0.03) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(20, 184, 166,0.02) 0%, transparent 70%)'
           }}
         />
       </div>
