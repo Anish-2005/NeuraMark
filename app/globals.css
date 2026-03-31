@@ -1220,3 +1220,54 @@ textarea:focus-visible {
   pointer-events: none;
   filter: grayscale(0.3);
 }
+
+/* ==========================================
+   MOBILE EDGE-TO-EDGE LAYOUT
+   ========================================== */
+
+@media (max-width: 767px) {
+
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl,
+  .max-w-3xl,
+  .max-w-2xl,
+  .max-w-xl,
+  .max-w-lg,
+  .max-w-md,
+  .max-w-sm {
+    max-width: 100% !important;
+  }
+
+  .max-w-7xl.mx-auto,
+  .max-w-6xl.mx-auto,
+  .max-w-5xl.mx-auto,
+  .max-w-4xl.mx-auto,
+  .max-w-3xl.mx-auto,
+  .max-w-2xl.mx-auto,
+  .max-w-xl.mx-auto,
+  .max-w-lg.mx-auto,
+  .max-w-md.mx-auto,
+  .max-w-sm.mx-auto,
+  .max-w-md.mx-4,
+  .max-w-lg.mx-4 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .skeu-card,
+  .skeu-card-static,
+  .skeu-modal,
+  .glass-card {
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+  }
+
+  .skeu-card,
+  .skeu-card-static,
+  .skeu-modal {
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+}
